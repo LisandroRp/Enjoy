@@ -9,6 +9,8 @@ import ChangePassword from './components/ChangePassword'
 import CreateUser from './components/CreateUser'
 import DatosPersonales from './components/DatosPersonales';
 import Comentarios from './components/Comentarios';
+import MockedViews from './components/MockedViews'
+import MockedViews2 from './components/MockedViews2'
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -16,6 +18,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
+import Craigslist from './components/MockedViews2';
 
 
 
@@ -55,6 +58,21 @@ class LoginScreen extends React.Component {
   }
 }
 
+class MockedView extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Craigslist
+        onPress={this.checkPassword.bind(this)}
+      />
+    );
+  }
+  checkPassword() {
+    this.props.navigation.navigate('Login')
+  }
+}
 class ChangePasswordScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -250,8 +268,9 @@ const AppDrawerNavigator = createDrawerNavigator({
 );
 
 const AppSwitchNavigator = createSwitchNavigator({
-  Login: { screen: LoginScreen },
+  MockedView: { screen: MockedView },
   ChangePassword: { screen: ChangePasswordScreen },
+  Login: { screen: LoginScreen },
   CreateUser: { screen: CreateUserScreen },
   Drawer: { screen: AppDrawerNavigator }
 });
