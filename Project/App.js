@@ -21,6 +21,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
+import Festivales from './components/Festivales';
 
 
 
@@ -95,7 +96,7 @@ class CreateUserScreen extends React.Component {
 class MockedViewScreen extends React.Component {
 
   static navigationOptions = {
-    title: 'Eventos',
+    title: 'Conciertos',
     headerStyle: {
       backgroundColor: 'white',
     },
@@ -116,6 +117,29 @@ class MockedViewScreen extends React.Component {
   }
 }
 
+class FestivalesScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Festivales',
+    headerStyle: {
+      backgroundColor: 'white',
+    },
+    headerTintColor: 'pink',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Festivales
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto() {
+    this.props.navigation.navigate('CardView');
+  }
+}
 class PeliculasScreen extends React.Component {
 
   static navigationOptions = {
@@ -192,15 +216,15 @@ const MockedViewStackNavigator = createStackNavigator(
   }
 );
 
-const PeliculasStackNavigator = createStackNavigator(
+const FestivalesStackNavigator = createStackNavigator(
   {
-    PeliculasScreen: {
-      screen: PeliculasScreen,
+    FestivalesScreen: {
+      screen: FestivalesScreen,
       navigationOptions: ({ navigation }) => {
         return {
           headerLeft: (
             <Icon
-              style={{ paddingLeft: 10, color: 'white' }}
+              style={{ paddingLeft: 10, color: 'pink' }}
               onPress={() => navigation.openDrawer()}
               name="md-menu"
               size={30}
@@ -210,35 +234,10 @@ const PeliculasStackNavigator = createStackNavigator(
         }
       }
     },
-    Detalle: { screen: Detalle },
+    CardView: { screen: CardView },
   },
   {
-    initialRouteName: 'PeliculasScreen',
-  }
-);
-
-const SeriesStackNavigator = createStackNavigator(
-  {
-    Series: {
-      screen: SeriesScreen,
-      navigationOptions: ({ navigation }) => {
-        return {
-          headerLeft: (
-            <Icon
-              style={{ paddingLeft: 10, color: 'white' }}
-              onPress={() => navigation.openDrawer()}
-              name="md-menu"
-              size={30}
-            />
-          ),
-
-        }
-      }
-    },
-    Detalle: { screen: Detalle },
-  },
-  {
-    initialRouteName: 'Series',
+    initialRouteName: 'FestivalesScreen',
   }
 );
 
@@ -284,6 +283,7 @@ const PerfilStackNavigator = createStackNavigator({
 
 const AppDrawerNavigator = createDrawerNavigator({
   Eventos: MockedViewStackNavigator,
+  Festivales: FestivalesStackNavigator,
   //Peliculas: PeliculasStackNavigator,
   //Series: SeriesStackNavigator,
   Perfil: PerfilStackNavigator,

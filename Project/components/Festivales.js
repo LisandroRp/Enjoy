@@ -11,7 +11,7 @@ import {
   ScrollView
 } from 'react-native';
 
-class Craigslist extends Component {
+class Festivales extends Component {
 
   static navigationOptions = {
     title: 'Conciertos',
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Craigslist;
+export default Festivales;
