@@ -11,7 +11,15 @@ import {
   ScrollView
 } from 'react-native';
 
-export default class Craigslist extends Component {
+class Craigslist extends Component {
+
+  static navigationOptions = {
+    title: 'Eventos',
+    headerStyle: {
+        backgroundColor: 'white',
+    },
+    headerTintColor: 'pink',
+};
 
   constructor(props) {
     super(props);
@@ -19,11 +27,10 @@ export default class Craigslist extends Component {
       modalVisible:false,
       userSelected:[],
       data: [
-        {id:1,  name: "Comunity",   image:"https://img.icons8.com/clouds/100/000000/groups.png",           count:124.711},
-        {id:2,  name: "Housing",    image:"https://img.icons8.com/color/100/000000/real-estate.png",       count:234.722},
-        {id:3,  name: "Jobs",       image:"https://img.icons8.com/color/100/000000/find-matching-job.png", count:324.723} ,
-        {id:4,  name: "Personal",   image:"https://img.icons8.com/clouds/100/000000/employee-card.png",    count:154.573} ,
-        {id:5,  name: "For sale",   image:"https://img.icons8.com/color/100/000000/land-sales.png",        count:124.678} ,
+        {id:1,  name: "Conciertos",   image:"https://img.icons8.com/color/48/000000/performance.png",           count:124.711},
+        {id:2,  name: "Festivales",    image:"https://img.icons8.com/color/96/000000/dancing-party.png",       count:234.722},
+        {id:3,  name: "Fiestas",       image:"https://img.icons8.com/color/96/000000/dancing.png", count:324.723} ,
+        {id:4,  name: "Favoritos",   image:"https://img.icons8.com/flat_round/64/000000/star.png",    count:154.573} ,
       ]
     };
   }
@@ -44,7 +51,7 @@ export default class Craigslist extends Component {
           }}
           renderItem={({item}) => {
           return (
-            <TouchableOpacity style={styles.card} onPress={() => {this.clickEventListener(item)}}>
+            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo()}>
               <Image style={styles.image} source={{uri: item.image}}/>
               <View style={styles.cardContent}>
                 <Text style={styles.name}>{item.name}</Text>
@@ -130,4 +137,6 @@ const styles = StyleSheet.create({
     color: "#dcdcdc",
     fontSize:12,
   },
-});  
+})
+
+export default Craigslist;

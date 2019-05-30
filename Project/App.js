@@ -10,8 +10,9 @@ import CreateUser from './components/CreateUser'
 import DatosPersonales from './components/DatosPersonales';
 import Comentarios from './components/Comentarios';
 import MockedViews from './components/MockedViews'
-import MockedViews2 from './components/MockedViews2'
-import SignUp from './components/LogInCards'
+import Craigslist from './components/Craigslist'
+import LogInCards from './components/LogInCards'
+import CardView from './components/CardView'
 
 import {
   createSwitchNavigator,
@@ -20,7 +21,6 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
-import Craigslist from './components/MockedViews2';
 
 
 
@@ -31,24 +31,23 @@ class App extends Component {
 }
 export default App;
 
-
-
-
-class LoginScreen extends React.Component {
-  constructor(props) {
+class SignUpClass extends React.Component{
+  constructor(props){
     super(props)
   }
-  render() {
+  render(){
     return (
-      <Login
-        onPressLogin={this.checkLogin.bind(this)}
-        onPressPass={this.goPass.bind(this)}
-        onPressCreate={this.goCreate.bind(this)}
+      <LogInCards
+          onPressLogin={this.checkLogin.bind(this)}
+          onPressPass={this.goPass.bind(this)}
+          onPressCreate={this.goCreate.bind(this)}
       />
-    );
+    )
   }
   checkLogin(id) {
-    this.props.navigation.navigate('PeliculasScreen', { idUser: id });
+    //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
+    /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
+    this.props.navigation.navigate('Eventos');
   }
 
   goPass() {
@@ -59,35 +58,6 @@ class LoginScreen extends React.Component {
     this.props.navigation.navigate('CreateUser');
   }
 }
-
-class MockedView extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    return (
-      <Craigslist
-        onPress={this.checkPassword.bind(this)}
-      />
-    );
-  }
-  checkPassword() {
-    this.props.navigation.navigate('Login')
-  }
-}
-
-
-class SignUpClass extends React.Component{
-  constructor(props){
-    super(props)
-  }
-  render(){
-    return (
-      <SignUp></SignUp>
-    )
-  }
-}
-
 
 class ChangePasswordScreen extends React.Component {
   constructor(props) {
@@ -121,6 +91,31 @@ class CreateUserScreen extends React.Component {
   }
 }
 
+
+class MockedViewScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Eventos',
+    headerStyle: {
+      backgroundColor: 'white',
+    },
+    headerTintColor: 'pink',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Craigslist
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto() {
+    this.props.navigation.navigate('CardView');
+  }
+}
+
 class PeliculasScreen extends React.Component {
 
   static navigationOptions = {
@@ -130,12 +125,9 @@ class PeliculasScreen extends React.Component {
     },
     headerTintColor: 'white',
   };
-
   constructor(props) {
     super(props)
   }
-
-
   render() {
     return (
       <Peliculas
@@ -143,9 +135,6 @@ class PeliculasScreen extends React.Component {
       />
     );
   }
-
-
-
   pasarDetalle(idMovie, idUser) {
     this.props.navigation.navigate('Detalle', { id: idMovie, idUser: idUser })
   }
@@ -178,7 +167,30 @@ class SeriesScreen extends React.Component {
     this.props.navigation.navigate('Detalle', { id: idMovie, idUser: idUser })
   }
 }
+const MockedViewStackNavigator = createStackNavigator(
+  {
+    MockedViewScreen: {
+      screen: MockedViewScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10, color: 'pink' }}
+              onPress={() => navigation.openDrawer()}
+              name="md-menu"
+              size={30}
+            />
+          ),
 
+        }
+      }
+    },
+    CardView: { screen: CardView },
+  },
+  {
+    initialRouteName: 'MockedViewScreen',
+  }
+);
 
 const PeliculasStackNavigator = createStackNavigator(
   {
@@ -204,7 +216,6 @@ const PeliculasStackNavigator = createStackNavigator(
     initialRouteName: 'PeliculasScreen',
   }
 );
-
 
 const SeriesStackNavigator = createStackNavigator(
   {
@@ -272,8 +283,9 @@ const PerfilStackNavigator = createStackNavigator({
 });
 
 const AppDrawerNavigator = createDrawerNavigator({
-  Peliculas: PeliculasStackNavigator,
-  Series: SeriesStackNavigator,
+  Eventos: MockedViewStackNavigator,
+  //Peliculas: PeliculasStackNavigator,
+  //Series: SeriesStackNavigator,
   Perfil: PerfilStackNavigator,
 }, {
     drawerBackgroundColor: 'pink',
@@ -285,9 +297,9 @@ const AppDrawerNavigator = createDrawerNavigator({
 
 const AppSwitchNavigator = createSwitchNavigator({
   SignUpClass: { screen: SignUpClass},
-  MockedView: { screen: MockedView },
+  //Craigslists: { screen: MockedViewScreen },
   ChangePassword: { screen: ChangePasswordScreen },
-  Login: { screen: LoginScreen },
+  //Login: { screen: LoginScreen },
   CreateUser: { screen: CreateUserScreen },
   Drawer: { screen: AppDrawerNavigator }
 });

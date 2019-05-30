@@ -8,26 +8,37 @@ import {
   TouchableOpacity,
   Image,
   Alert
-} from 'react-native';
+} from 'react-native'; 
+import ApiController from '../controller/ApiController';
 
-export default class SignUp extends Component {
-
+class LogInCards extends Component {
   constructor(props) {
     super(props);
     state = {
-      email   : '',
-      password: '',
+      email   : null,
+      password: null,
     }
+  }
+
+  checkLogin() {
+    //ApiController.getUsuario(this.checkUsuario.bind(this), this.state.username)
+    this.checkUsuario(/*"hola"*/);
+  }
+
+  checkUsuario(/*data*/) {
+   // if (data.usuarioId == this.state.username && data.password == this.state.password && this.state.username != null) {
+        //this.props.onPressLogin(this.state.email);
+        this.props.onPressLogin(/*'Hola'*/);
+    //} else {
+    //    alert("Contraseña incorrecta");
+   // }
   }
 
   onClickListener = (viewId) => {
     Alert.alert("Alert", "Button pressed "+viewId);
   }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/>
+  /*
         <View style={styles.inputContainer}>
           <TextInput style={styles.inputs}
               placeholder="Full name"
@@ -35,7 +46,12 @@ export default class SignUp extends Component {
               onChangeText={(email) => this.setState({email})}/>
           <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/circled-user-male-skin-type-3.png'}}/>
         </View>
+         */
+  render() {
+    return (
 
+       <View style={styles.container}>
+       <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/>
         <View style={styles.inputContainer}>
           <TextInput style={styles.inputs}
               placeholder="Email"
@@ -58,13 +74,14 @@ export default class SignUp extends Component {
             <Text style={styles.textByRegister}>By registering on this App you confirm that you have read and accept our policy</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
+        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+         onPress={() => this.checkLogin()}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
 
         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('register')}>
-            <Text style={styles.btnText}>Have an account?</Text>
+            <Text style={styles.btnText}>Need an account?</Text>
         </TouchableOpacity>
       </View>
     );
@@ -182,4 +199,5 @@ const styles = StyleSheet.create({
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10
   }
-});  
+})
+export default LogInCards;  

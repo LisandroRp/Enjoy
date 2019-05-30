@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, TextInput, TouchableOpacity, Text } from 'reac
 import ApiController from '../controller/ApiController';
 import { LinearGradient } from 'expo'
 
-class Login extends Component {
+class Conciertos extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -61,7 +61,7 @@ class Login extends Component {
                             <TouchableOpacity
                                 style={styles.SubmitButtonStyle}
                                 activeOpacity={.5}
-                                onPress={() => this.props.onPressGo()}>
+                                onPress={() => this.props.onPressCreate()}>
                                 <Text style={styles.textButton}> Create Account </Text>
                             </TouchableOpacity>
                         </View>
@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Login;
+export default Conciertos;
