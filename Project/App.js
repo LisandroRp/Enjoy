@@ -11,6 +11,8 @@ import DatosPersonales from './components/DatosPersonales';
 import Comentarios from './components/Comentarios';
 import MockedViews from './components/MockedViews'
 import MockedViews2 from './components/MockedViews2'
+import SignUp from './components/LogInCards'
+
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -73,6 +75,20 @@ class MockedView extends React.Component {
     this.props.navigation.navigate('Login')
   }
 }
+
+
+class SignUpClass extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+      <SignUp></SignUp>
+    )
+  }
+}
+
+
 class ChangePasswordScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -268,6 +284,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 );
 
 const AppSwitchNavigator = createSwitchNavigator({
+  SignUpClass: { screen: SignUpClass},
   MockedView: { screen: MockedView },
   ChangePassword: { screen: ChangePasswordScreen },
   Login: { screen: LoginScreen },
