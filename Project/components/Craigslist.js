@@ -27,10 +27,10 @@ class Craigslist extends Component {
       modalVisible:false,
       userSelected:[],
       data: [
-        {id:1,  name: "Conciertos",   image:"https://img.icons8.com/color/48/000000/performance.png",           count:124.711},
-        {id:2,  name: "Festivales",    image:"https://img.icons8.com/color/96/000000/dancing-party.png",       count:234.722},
-        {id:3,  name: "Fiestas",       image:"https://img.icons8.com/color/96/000000/dancing.png", count:324.723} ,
-        {id:4,  name: "Favoritos",   image:"https://img.icons8.com/flat_round/64/000000/star.png",    count:154.573} ,
+        {id:'1',  name: "Conciertos",   image:"https://img.icons8.com/color/48/000000/performance.png",           count:'124.711'},
+        {id:'2',  name: "Festivales",    image:"https://img.icons8.com/color/96/000000/dancing-party.png",       count:'234.722'},
+        {id:'3',  name: "Fiestas",       image:"https://img.icons8.com/color/96/000000/dancing.png",    count:'324.723'} ,
+        {id:'4',  name: "Favoritos",   image:"https://img.icons8.com/flat_round/64/000000/star.png",    count:'154.573'} ,
       ]
     };
   }
