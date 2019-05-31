@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons';
 import Detalle from './components/Detalle';
-import Peliculas from './components/Peliculas';
-import Login from './components/Login';
-import Series from './components/Series';
+import Conciertos from './components/Conciertos'
 import ChangePassword from './components/ChangePassword'
 import CreateUser from './components/CreateUser'
 import DatosPersonales from './components/DatosPersonales';
@@ -13,7 +11,7 @@ import MockedViews from './components/MockedViews'
 import Craigslist from './components/Craigslist'
 import LogInCards from './components/LogInCards'
 import CardView from './components/CardView'
-
+import Festivales from './components/Festivales';
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -21,7 +19,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
-import Festivales from './components/Festivales';
+
 
 
 
@@ -48,7 +46,7 @@ class SignUpClass extends React.Component{
   checkLogin(id) {
     //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
     /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
-    this.props.navigation.navigate('Eventos');
+    this.props.navigation.navigate('Recomendados');
   }
 
   goPass() {
@@ -59,7 +57,6 @@ class SignUpClass extends React.Component{
     this.props.navigation.navigate('CreateUser');
   }
 }
-
 class ChangePasswordScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -75,7 +72,6 @@ class ChangePasswordScreen extends React.Component {
     this.props.navigation.navigate('Login')
   }
 }
-
 class CreateUserScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -91,12 +87,10 @@ class CreateUserScreen extends React.Component {
     this.props.navigation.navigate('Login')
   }
 }
-
-
 class MockedViewScreen extends React.Component {
 
   static navigationOptions = {
-    title: 'Conciertos',
+    title: 'Recomendados',
     headerStyle: {
       backgroundColor: 'white',
     },
@@ -116,7 +110,29 @@ class MockedViewScreen extends React.Component {
     this.props.navigation.navigate('CardView');
   }
 }
+class ConciertosScreen extends React.Component {
 
+  static navigationOptions = {
+    title: 'Conciertos',
+    headerStyle: {
+      backgroundColor: 'white',
+    },
+    headerTintColor: 'pink',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Conciertos
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto() {
+    this.props.navigation.navigate('Detalle');
+  }
+}
 class FestivalesScreen extends React.Component {
 
   static navigationOptions = {
@@ -138,57 +154,6 @@ class FestivalesScreen extends React.Component {
   }
   pasarConcierto() {
     this.props.navigation.navigate('CardView');
-  }
-}
-class PeliculasScreen extends React.Component {
-
-  static navigationOptions = {
-    title: 'Peliculas',
-    headerStyle: {
-      backgroundColor: 'black',
-    },
-    headerTintColor: 'white',
-  };
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    return (
-      <Peliculas
-        onPress={this.pasarDetalle.bind(this)}
-      />
-    );
-  }
-  pasarDetalle(idMovie, idUser) {
-    this.props.navigation.navigate('Detalle', { id: idMovie, idUser: idUser })
-  }
-}
-
-class SeriesScreen extends React.Component {
-
-  static navigationOptions = {
-    title: 'Series',
-    headerStyle: {
-      backgroundColor: 'black',
-    },
-    headerTintColor: 'white',
-  };
-
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <Series
-        onPress={this.pasarDetalle.bind(this)}
-
-      />
-    );
-  }
-
-  pasarDetalle(idMovie, idUser) {
-    this.props.navigation.navigate('Detalle', { id: idMovie, idUser: idUser })
   }
 }
 const MockedViewStackNavigator = createStackNavigator(
@@ -213,6 +178,31 @@ const MockedViewStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'MockedViewScreen',
+  }
+);
+
+const ConciertosStackNavigator = createStackNavigator(
+  {
+    ConciertosScreen: {
+      screen: ConciertosScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10, color: 'pink' }}
+              onPress={() => navigation.openDrawer()}
+              name="md-menu"
+              size={30}
+            />
+          ),
+
+        }
+      }
+    },
+    Detalle: { screen: Detalle},
+  },
+  {
+    initialRouteName: 'ConciertosScreen',
   }
 );
 
@@ -282,10 +272,9 @@ const PerfilStackNavigator = createStackNavigator({
 });
 
 const AppDrawerNavigator = createDrawerNavigator({
-  Eventos: MockedViewStackNavigator,
+  Recomendados: MockedViewStackNavigator,
+  Conciertos: ConciertosStackNavigator,
   Festivales: FestivalesStackNavigator,
-  //Peliculas: PeliculasStackNavigator,
-  //Series: SeriesStackNavigator,
   Perfil: PerfilStackNavigator,
 }, {
     drawerBackgroundColor: 'pink',

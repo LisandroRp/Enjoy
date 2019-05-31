@@ -1,148 +1,142 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
-import ApiController from '../controller/ApiController';
-import { LinearGradient } from 'expo'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+  Alert,
+  ScrollView
+} from 'react-native';
 
 class Conciertos extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: null,
-            password: null,
-        }
-    }
 
-    checkLogin() {
-        ApiController.getUsuario(this.checkUsuario.bind(this), this.state.username)
-    }
+  static navigationOptions = {
+    title: 'Conciertos',
+    headerStyle: {
+        backgroundColor: 'white',
+    },
+    headerTintColor: 'pink',
+};
 
-    checkUsuario(data) {
-        //if (data.usuarioId == this.state.username && data.password == this.state.password && this.state.username != null) {
-            this.props.onPressLogin(this.state.username);
-       /// } else {
-        //    alert("Contraseña incorrecta");
-      //  }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible:false,
+      userSelected:[],
+      data: [
+        {id:'1',  name: "Ac Dc",   image:"https://img.icons8.com/color/48/000000/performance.png",           count:'El Monumental'},
+        {id:'2',  name: "Los Auntenticos Decadentes",    image:"https://img.icons8.com/color/96/000000/dancing-party.png",       count:'Gran Rex'},
+        {id:'3',  name: "Twenty one Pilots",       image:"https://img.icons8.com/color/96/000000/dancing.png",    count:'Velez'} ,
+        {id:'4',  name: "Duki",   image:"https://img.icons8.com/flat_round/64/000000/star.png",    count:'Luna Park'} ,
+      ]
+    };
+  }
 
-    render() {
-        return (
-            <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-                <View style={[styles.loginContainer]}>
-                    <View style={[styles.imageContainer]}>
-                        <Image
-                            style={[styles.imageStyle]}
-                            source={require('./pochoclo.png')} />
-                    </View>
-                    <View style={[styles.inputContainer]}>
-                        <View style={[styles.outterInput]}>
-                            <TextInput
-                                style={[styles.textInput]}
-                                placeholder="Username"
-                                onChangeText={(text) => this.setState({ username: text })}
-                            />
-                        </View>
-                        <View style={[styles.outterInput]}>
-                            <TextInput
-                                style={[styles.textInput]}
-                                placeholder="Password"
-                                onChangeText={(text) => this.setState({ password: text })}
-                                secureTextEntry={true}
-                            />
-                        </View>
-                        <View style={[styles.outterButton]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.checkLogin()}>
-                                <Text style={styles.textButton}> Login </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[styles.outterButtonCreate]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.props.onPressCreate()}>
-                                <Text style={styles.textButton}> Create Account </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[styles.outterButtonCreate]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.props.onPressPass()}>
-                                <Text style={styles.textButton}> Change Password</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </LinearGradient>
-        );
-    }
+  clickEventListener = (item) => {
+    Alert.alert('Message', 'Item clicked. '+item.name);
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList 
+          style={styles.contentList}
+          columnWrapperStyle={styles.listContainer}
+          data={this.state.data}
+          keyExtractor= {(item) => {
+            return item.id;
+          }}
+          renderItem={({item}) => {
+          return (
+            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo()}>
+              <Image style={styles.image} source={{uri: item.image}}/>
+              <View style={styles.cardContent}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.count}>{item.count}</Text>
+                <TouchableOpacity style={styles.followButton} onPress={()=> this.clickEventListener(item)}>
+                  <Text style={styles.followButtonText}>Explore now</Text>  
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          )}}/>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    loginContainer: {
-        flex: 1,
-        //backgroundColor: '#616161',
-        justifyContent: 'center'
+  container:{
+    flex:1,
+    marginTop:20,
+    backgroundColor:"#ebf0f7"
+  },
+  contentList:{
+    flex:1,
+  },
+  cardContent: {
+    marginLeft:20,
+    marginTop:10
+  },
+  image:{
+    width:90,
+    height:90,
+    borderRadius:45,
+    borderWidth:2,
+    borderColor:"#ebf0f7"
+  },
+
+  card:{
+    shadowColor: '#00000021',
+    shadowOffset: {
+      width: 0,
+      height: 6,
     },
-    textInput: {
-        color: 'white',
-        fontSize: 20,
-        alignSelf: 'center',
-        textAlign: 'center',
-    },
-    textButton: {
-        color: 'white',
-        fontSize: 15,
-        alignSelf: 'center',
-        textAlign: 'center',
-        fontWeight: 'bold'
-    },
-    SubmitButtonStyle: {
-        width: 150,
-        marginTop: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
-        marginLeft: 20,
-        marginRight: 20,
-        backgroundColor: '#373737',
-        borderRadius: 10,
-        borderWidth: 0.5,
-        borderColor: '#fff'
-    },
-    outterInput: {
-        borderBottomWidth: 1,
-        borderBottomColor: 'white',
-        marginHorizontal: 120,
-        marginBottom: 20,
-        alignItems: 'center',
-    },
-    inputContainer: {
-        flex: 1,
-        justifyContent: 'flex-start'
-    },
-    imageStyle: {
-        width: '100%',
-        height: 300,
-        resizeMode: 'contain',
-        justifyContent: 'center'
-    },
-    imageContainer: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    outterButton: {
-        justifyContent: 'center',
-        alignSelf: 'center',
-        marginBottom: 20,
-        marginTop: 20
-    },
-    outterButtonCreate: {
-        justifyContent: 'center',
-        alignSelf: 'center',
-        marginBottom: 20,
-    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
+
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop:20,
+    backgroundColor:"white",
+    padding: 10,
+    flexDirection:'row',
+    borderRadius:30,
+  },
+
+  name:{
+    fontSize:18,
+    flex:1,
+    alignSelf:'center',
+    color:"#3399ff",
+    fontWeight:'bold'
+  },
+  count:{
+    fontSize:14,
+    flex:1,
+    alignSelf:'center',
+    color:"#6666ff"
+  },
+  followButton: {
+    marginTop:10,
+    height:35,
+    width:100,
+    padding:10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:30,
+    backgroundColor: "white",
+    borderWidth:1,
+    borderColor:"#dcdcdc",
+  },
+  followButtonText:{
+    color: "#dcdcdc",
+    fontSize:12,
+  },
 })
 
 export default Conciertos;

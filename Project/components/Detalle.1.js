@@ -20,21 +20,19 @@ class Detalle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 123,
+            id: props.navigation.getParam('id'),
             detalle: {
-                "Nombre": "Ac Dc",
-                "Dia": "15/04/19",
-                "Descripcion": "Re copada la banduli de rock",
-                "Foto": "nada",
-                "genre": "Tu vieja",
-                "rating": "10",
-                "runtime": "165",
-                "webSite": "www.queti.com"
+                "title": "",
+                "year": "",
+                "synapsi": "",
+                "poster": "",
+                "genre": "",
+                "rating": "",
+                "runtime": "",
+                "webSite": ""
             },
-            //isLoading: true,
-            //modalVisible: false,
-            isLoading: false,
-            modalVisible: true,
+            isLoading: true,
+            modalVisible: false,
             text: "",
             idUser: props.navigation.getParam('idUser'),
             comentarios: [],
@@ -44,9 +42,9 @@ class Detalle extends Component {
     static navigationOptions = {
         title: 'Detalle',
         headerStyle: {
-            backgroundColor: 'white',
+            backgroundColor: 'black',
         },
-        headerTintColor: 'pink',
+        headerTintColor: 'white',
     };
 
     componentDidMount() {
