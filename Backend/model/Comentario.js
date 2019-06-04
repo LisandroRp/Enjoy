@@ -7,8 +7,7 @@ var comentarioSchema = new Schema({
     descripcion:String,
     usuarioId:String,
     fechaComentario:String,
-    peliculaId:String,
-    peliculaNombre:String,
+    eventoId:String,
 });
 
 var Comentarios = mongoose.model('Comentario', comentarioSchema);
