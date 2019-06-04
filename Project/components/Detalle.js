@@ -22,177 +22,201 @@ class Detalle extends Component {
         this.state = {
             id: 123,
             detalle: {
-                "Nombre": "Ac Dc",
-                "Dia": "15/04/19",
-                "Descripcion": "Re copada la banduli de rock",
-                "Foto": "nada",
+                "title": 'AcDc',
+                "year": "2019-03-04",
+                "synapsi": "Re copada la banduli de rock",
+                "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
                 "genre": "Tu vieja",
                 "rating": "10",
                 "runtime": "165",
                 "webSite": "www.queti.com"
             },
-            //isLoading: true,
-            //modalVisible: false,
-            isLoading: false,
-            modalVisible: true,
-            text: "",
+            isLoading: true,
+            modalVisible: false,
+            //text: "",
             idUser: props.navigation.getParam('idUser'),
             comentarios: [],
         }
     }
 
     static navigationOptions = {
-        title: 'Detalle',
+        title: 'Detalles',
         headerStyle: {
             backgroundColor: 'white',
+            height: 50
         },
         headerTintColor: 'pink',
     };
-
+    /*
+        static navigationOptions = {
+            title: 'Detalle',
+            headerStyle: {
+                backgroundColor: 'white',
+            },
+            headerTintColor: 'pink',
+        };
+    */
     componentDidMount() {
         this.cargarDetalle();
-        this.cargarComentarios();
+        //this.cargarComentarios();
     }
 
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
-
-    insertarComentario() {
-        if (this.state.idUser != null && this.state.id != null && this.state.text != null) {
-            ApiController.createComment(this.state.idUser, this.state.id, this.state.text, this.state.detalle.title, this.okComentario.bind(this));
+    /*
+        insertarComentario() {
+            if (this.state.idUser != null && this.state.id != null && this.state.text != null) {
+                ApiController.createComment(this.state.idUser, this.state.id, this.state.text, this.state.detalle.title, this.okComentario.bind(this));
+            }
         }
-    }
-
-    okComentario() {
-        alert("Se guardo tu comentario");
-        this.setState({ modalVisible: false });
-        this.cargarComentarios();
-    }
-
+    
+        okComentario() {
+            alert("Se guardo tu comentario");
+            this.setState({ modalVisible: false });
+            this.cargarComentarios();
+        }
+    */
 
 
     cargarDetalle() {
-        ApiController.getDetalle(this.okDetalle.bind(this), this.state.id);
+        //ApiController.getDetalle(this.okDetalle.bind(this), this.state.id);
+        this.okDetalle(this.state);
     }
 
     okDetalle(data) {
         if (data != null) {
             this.setState({
-                detalle: data,
+                //detalle: data,
                 isLoading: false
             });
         } else {
             alert("Intentar de nuevo")
         }
     }
-
-    cargarComentarios() {
-        ApiController.getComentarioByPelicula(this.okComentarioCargar.bind(this), this.state.id);
-    }
-
-    okComentarioCargar(data) {
-        if (data != null) {
-
-            var i, comentarios = [];
-            for (i = 0; i < data.length; i++) {
-                comentarios.push(createData(data[i], i));
-            }
-            this.setState({ comentarios: comentarios });
-
-        } else {
-            //alert("Intentar de nuevo")
+    /*
+        cargarComentarios() {
+            //ApiController.getComentarioByPelicula(this.okComentarioCargar.bind(this), this.state.id);
+            this.okComentarioCargar.bind(this);
         }
-    }
-
+    
+        okComentarioCargar(data) {
+            if (data != null) {
+    
+                var i, comentarios = [];
+                for (i = 0; i < data.length; i++) {
+                    comentarios.push(createData(data[i], i));
+                }
+                this.setState({ comentarios: comentarios });
+    
+            } else {
+                //alert("Intentar de nuevo")
+            }
+        }
+    */
     render() {
+        <View></View>
         if (this.state.isLoading) {
             return (
-                <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-                    <View style={styles.detalleContainer}>
-                        <ActivityIndicator size="large" color="pink" backgroundColor=' #616161' style={{ flex: 1 }}></ActivityIndicator>
-                    </View>
-                </LinearGradient>
+                //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+                //<View style={styles.container}>
+                <View style={styles.detalleContainer}>
+                    <ActivityIndicator size="large" color="pink" backgroundColor=' #616161' style={{ flex: 1 }}></ActivityIndicator>
+                </View>
+                //</View>
+                // </LinearGradient>
             );
         } else {
             return (
-                <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-
-                    <View style={[styles.detalleContainer]}>
-                        <ScrollView>
+                //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+                <View style={[styles.detalleContainer]}>
+                    <ScrollView>
+                        <View style={[styles.detalleContainer]}>
                             <View style={[styles.detalleContainer]}>
-                                <View style={[styles.detalleContainer]}>
-                                    <View style={{ flex: 0.5, flexDirection: 'row' }}>
-                                        <Image
-                                            style={{ width: 150, height: 250, marginLeft: 10, marginTop: 10, flex: 0.45, borderRadius: 10 }}
-                                            source={{ uri: this.state.detalle.poster }} />
-                                        <View style={{ flex: 0.55, flexDirection: 'column', alignContent: 'center', marginHorizontal: 10, marginTop: 20 }}>
+                                <View style={{ flex: 0.5, flexDirection: 'row' }}>
+                                    <Image
+                                        style={{ width: 150, height: 250, marginLeft: 10, marginTop: 10, flex: 0.45, borderRadius: 10 }}
+                                        source={{ uri: this.state.detalle.poster }} />
+                                    <View style={{ flex: 0.55, flexDirection: 'column', alignContent: 'center', marginHorizontal: 10, marginTop: 20 }}>
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10 }}>
                                             <Text style={styles.detalleTitle}>
                                                 {this.state.detalle.title}
                                             </Text>
-                                            <View
-                                                style={{
-                                                    borderBottomColor: 'grey',
-                                                    borderBottomWidth: 1,
-                                                }}
-                                            />
+                                        </View>
+                                        <View
+                                            style={{
+                                                borderBottomColor: 'grey',
+                                                borderBottomWidth: 1,
+                                            }}
+                                        />
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                                <Text style={styles.detalleMovie}>
+                                                <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.year}
                                                 </Text>
-                                                <Entypo name="calendar" size={15} color="white" />
+                                                <Entypo name="calendar" size={15} color="#3399ff" />
                                             </View>
-                                            <View
-                                                style={{
-                                                    borderBottomColor: 'grey',
-                                                    borderBottomWidth: 1,
-                                                }}
-                                            />
+                                        </View>
+                                        <View
+                                            style={{
+                                                borderBottomColor: 'grey',
+                                                borderBottomWidth: 1,
+                                            }}
+                                        />
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                                <Text style={styles.detalleMovie}>
+                                                <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.runtime}
                                                 </Text>
-                                                <Entypo name="clock" size={15} color="white" />
+                                                <Entypo name="clock" size={15} color="#3399ff" />
                                             </View>
-                                            <View
-                                                style={{
-                                                    borderBottomColor: 'grey',
-                                                    borderBottomWidth: 1,
-                                                }}
-                                            />
+                                        </View>
+                                        <View
+                                            style={{
+                                                borderBottomColor: 'grey',
+                                                borderBottomWidth: 1,
+                                            }}
+                                        />
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                                <Text style={styles.detalleMovie}>
+                                                <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.rating}
                                                 </Text>
-                                                <FontAwesome name="star" size={15} color="white" />
+                                                <FontAwesome name="star" size={15} color="#3399ff" />
                                             </View>
                                         </View>
                                     </View>
+                                </View>
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
                                     <Text style={styles.detalleGenresTitles}>
                                         Géneros
-                                 </Text>
+                                    </Text>
                                     <Text style={styles.detalleGenres}>
                                         {this.state.detalle.genre}
                                     </Text>
-                                    <View
-                                        style={{
-                                            borderBottomColor: 'grey',
-                                            borderBottomWidth: 1,
-                                        }}
-                                    />
+                                </View>
+                                <View
+                                    style={{
+                                        borderBottomColor: 'grey',
+                                        borderBottomWidth: 1,
+                                    }}
+                                />
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
                                     <Text style={styles.detalleGenresTitles}>
                                         Resumen
-                                 </Text>
+                                    </Text>
                                     <Text style={styles.detalleGenres}>
                                         {this.state.detalle.synapsi}
                                     </Text>
-                                    <View
-                                        style={{
-                                            borderBottomColor: 'grey',
-                                            borderBottomWidth: 1,
-                                        }}
-                                    />
-                                    <Text style={styles.detalleGenresTitles}>
+                                </View>
+                                <View
+                                    style={{
+                                        borderBottomColor: 'grey',
+                                        borderBottomWidth: 1,
+                                    }}
+                                />
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10}}>
+                                    <Text style={styles.detalleComentariosTitles}>
                                         Comentarios
                                 </Text>
                                     <FlatList
@@ -210,61 +234,63 @@ class Detalle extends Component {
                                     </FlatList>
                                 </View>
                             </View>
-                        </ScrollView>
-                        <TouchableOpacity onPress={() => {
-                            this.setModalVisible(true);
-                        }} style={styles.fab}>
-                            <AntDesign name="form" size={25} color="white" />
-                        </TouchableOpacity>
+                        </View>
+                    </ScrollView>
 
-                        <Modal
-                            visible={this.state.isModalVisible}
-                            animationType="fade"
-                            visible={this.state.modalVisible}
-                            transparent={true}
-                            onRequestClose={() => this.setState({ modalVisible: false })}  >
+                    <TouchableOpacity onPress={() => {
+                        this.setModalVisible(true);
+                    }} style={styles.fab}>
+                        <AntDesign name="form" size={25} color="#3399ff" />
+                    </TouchableOpacity>
 
-                            <View style={styles.modal}>
-                                <View>
-                                    <Text
-                                        style={styles.modalText}>Comentario</Text>
-                                </View>
-                                <View style={{ margin: 10, color: 'white', borderColor: 'black', borderWidth: 1, width: width * 0.70, height: 50, backgroundColor: 'white' }}>
-                                    <TextInput multiline={true} autoFocus={true} maxLength={100} onChangeText={(text) => this.setState({ text })} value={this.state.text}>
+                    <Modal
+                        visible={this.state.isModalVisible}
+                        animationType="fade"
+                        visible={this.state.modalVisible}
+                        transparent={true}
+                        onRequestClose={() => this.setState({ modalVisible: false })}  >
 
-                                    </TextInput>
-                                </View>
-                                <View style={{ flex: 0.5, flexDirection: 'row', marginTop: 10 }}>
-                                    <View style={{ marginRight: 10, width: width * 0.30 }}>
-                                        <View style={[styles.outterButtonCreate]}>
+                        <View style={styles.modal}>
+                            <View>
+                                <Text
+                                    style={styles.modalText}>Comentario</Text>
+                            </View>
+                            <View style={{ margin: 10, color: '#3399ff', borderColor: 'black', borderWidth: 1, width: width * 0.70, height: 50, backgroundColor: 'white' }}>
+                                <TextInput multiline={true} autoFocus={true} maxLength={100} onChangeText={(text) => this.setState({ text })} value={this.state.text}>
 
-                                            <TouchableOpacity
-                                                style={styles.SubmitButtonStyle}
-                                                activeOpacity={.5}
-                                                onPress={() => { this.setModalVisible(!this.state.modalVisible); }}
-                                            >
-                                                <Text style={styles.textButton}> Cancelar</Text>
-                                            </TouchableOpacity>
-                                        </View>
+                                </TextInput>
+                            </View>
+                            <View style={{ flex: 0.5, flexDirection: 'row', marginTop: 10 }}>
+                                <View style={{ marginRight: 10, width: width * 0.30 }}>
+                                    <View style={[styles.outterButtonCreate]}>
+
+                                        <TouchableOpacity
+                                            style={styles.SubmitButtonStyle}
+                                            activeOpacity={.5}
+                                            onPress={() => { this.setModalVisible(!this.state.modalVisible); }}
+                                        >
+                                            <Text style={styles.textButton}> Cancelar</Text>
+                                        </TouchableOpacity>
                                     </View>
-                                    <View style={{ marginLeft: 10, width: width * 0.30 }}>
-                                        <View style={[styles.outterButtonCreate]}>
+                                </View>
+                                <View style={{ marginLeft: 10, width: width * 0.30 }}>
+                                    <View style={[styles.outterButtonCreate]}>
 
-                                            <TouchableOpacity
-                                                style={styles.SubmitButtonStyle}
-                                                activeOpacity={.5}
-                                                onPress={() => { this.insertarComentario(); }}
-                                            >
-                                                <Text style={styles.textButton}> Aceptar</Text>
-                                            </TouchableOpacity>
-                                        </View>
-
+                                        <TouchableOpacity
+                                            style={styles.SubmitButtonStyle}
+                                            activeOpacity={.5}
+                                            onPress={() => { this.insertarComentario(); }}
+                                        >
+                                            <Text style={styles.textButton}> Aceptar</Text>
+                                        </TouchableOpacity>
                                     </View>
+
                                 </View>
                             </View>
-                        </Modal>
-                    </View>
-                </LinearGradient>
+                        </View>
+                    </Modal>
+                </View>
+                //LinearGradient>
             );
         }
 
@@ -283,7 +309,7 @@ class FlatListItems extends Component {
             }}>
                 <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
                     <View style={styles.CircleShapeView}>
-                        <Text style={{ fontSize: 15, color: 'white', marginTop: 5 }}>
+                        <Text style={{ fontSize: 15, color: '#3399ff', marginTop: 5 }}>
                             {this.props.item.nombre.slice(0, 1).toUpperCase()}
                         </Text>
                     </View>
@@ -338,34 +364,42 @@ class FlatListItems extends Component {
 const styles = StyleSheet.create({
     detalleContainer: {
         flex: 1,
-
+        backgroundColor: '#ebf0f7'
     },
     detalleComentario: {
         flex: 1,
         backgroundColor: 'white',
     },
     detalleTitle: {
-        fontSize: 20,
+        fontSize: 25,
         textAlign: 'center',
         margin: 10,
-        color: '#ffffff',
+        color: '#3399ff',
         fontWeight: 'bold',
     },
-    detalleMovie: {
+    detalleEvento: {
         fontSize: 15,
         textAlign: 'center',
         margin: 10,
-        color: '#ffffff'
+        color: "#6666ff"
     },
     detalleGenres: {
         fontSize: 15,
         margin: 10,
-        color: '#ffffff'
+        marginTop: 2.5,
+        color: "#6666ff"
     },
     detalleGenresTitles: {
         fontSize: 17,
         margin: 10,
-        color: '#ffffff',
+        marginBottom: 2.5,
+        color: '#3399ff',
+        fontWeight: 'bold'
+    },
+    detalleComentariosTitles: {
+        fontSize: 17,
+        margin: 10,
+        color: '#3399ff',
         fontWeight: 'bold'
     },
     fab: {
@@ -382,7 +416,7 @@ const styles = StyleSheet.create({
     },
     fabIcon: {
         fontSize: 40,
-        color: 'white'
+        color: '#3399ff'
     },
     FlatListItems: {
         color: 'black',
@@ -391,7 +425,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: 'center',
+        marginTop: 20,
+        backgroundColor: "#ebf0f7"
     },
     modal: {
         height: height * 0.25,
@@ -410,11 +445,11 @@ const styles = StyleSheet.create({
     modalText: {
         fontSize: 20,
         margin: 10,
-        color: 'white',
+        color: '#3399ff',
         fontWeight: 'bold'
     },
     textInput: {
-        color: 'white',
+        color: '#3399ff',
         fontSize: 20,
         alignSelf: 'center',
     },

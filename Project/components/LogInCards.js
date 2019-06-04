@@ -33,11 +33,6 @@ class LogInCards extends Component {
     //    alert("Contraseña incorrecta");
    // }
   }
-
-  onClickListener = (viewId) => {
-    Alert.alert("Alert", "Button pressed "+viewId);
-  }
-
   /*
         <View style={styles.inputContainer}>
           <TextInput style={styles.inputs}
@@ -52,6 +47,7 @@ class LogInCards extends Component {
 
        <View style={styles.container}>
        <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/>
+       <View style={{paddingTop:100}}>
         <View style={styles.inputContainer}>
           <TextInput style={styles.inputs}
               placeholder="Email"
@@ -71,7 +67,7 @@ class LogInCards extends Component {
         </View>
 
         <TouchableOpacity style={styles.btnByRegister} onPress={() => this.onClickListener('restore_password')}>
-            <Text style={styles.textByRegister}>By registering on this App you confirm that you have read and accept our policy</Text>
+            <Text style={styles.textByRegister}>By registering on this App you confirm{'\n'}that you have read and accept our policy</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
@@ -80,9 +76,14 @@ class LogInCards extends Component {
         </TouchableOpacity>
 
 
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('register')}>
-            <Text style={styles.btnText}>Need an account?</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.onPressCreate()}>
+            <Text style={styles.btnText}>Create an account</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonContainerPass} onPress={() => this.props.onPressPass()}>
+            <Text style={styles.btnText}>Change password</Text>
+        </TouchableOpacity>
+      </View>
       </View>
     );
   }
@@ -92,13 +93,13 @@ const resizeMode = 'center';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#DCDCDC',
     width: '100%',
     height: '100%',
-    backgroundColor: '#9FA8DA'
+    backgroundColor: '#9FA8DA',
   },
   inputContainer: {
     borderBottomColor: '#F5FCFF',
@@ -138,13 +139,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    margintop:50,
+    marginBottom:5,
+    width:300,
+    borderRadius:30,
+    backgroundColor:'transparent'
+  },
+  buttonContainerPass: {
+    height:20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom:20,
     width:300,
     borderRadius:30,
     backgroundColor:'transparent'
   },
   btnByRegister: {
-    height:15,
+    height:50,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

@@ -32,21 +32,20 @@ class Login extends Component {
 
     render() {
         return (
-            <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+           // <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
 
                 <View style={[styles.loginContainer]}>
                     <View style={[styles.imageContainer]}>
                         <Image
                             style={[styles.imageStyle]}
-                            source={require('./pochoclo.png')}></Image>
+                            source={require('./FACHA.png')}></Image>
                     </View>
                     <View style={[styles.inputContainer]}>
-                        <View style={[styles.outterInput]}>
-                            <TextInput
-                                style={[styles.textInput]}
+                        <View style={styles.outterInput}>
+                            <TextInput style={styles.textInput}
                                 placeholder="Name"
-                                onChangeText={(text) => this.setState({ name: text })}
-                            />
+                                underlineColorAndroid='transparent'
+                                onChangeText={(text) => this.setState({ name: text })} />
                         </View>
                         <View style={[styles.outterInput]}>
                             <TextInput
@@ -77,28 +76,17 @@ class Login extends Component {
                                 secureTextEntry={true}
                             />
                         </View>
-                        <View style={[styles.outterButton]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.checkCreate()}>
-                                <Text style={styles.textButton}> Create Account </Text>
-                            </TouchableOpacity>
-
-
-                        </View>
-                        <View style={[styles.outterButtonCreate]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.props.onPress()}>
-                                <Text style={styles.textButton}> Go Back </Text>
-                            </TouchableOpacity>
-
-                        </View>
+                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                            onPress={() => this.checkCreate()}>
+                            <Text style={{color: 'white'}}>Create Account </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                            onPress={() => this.props.onPress()}>
+                            <Text style={{color: 'white'}}>Go back </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </LinearGradient>
+            //</LinearGradient>
         );
     }
 }
@@ -106,40 +94,48 @@ class Login extends Component {
 const styles = StyleSheet.create({
     loginContainer: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#9FA8DA'
     },
     textInput: {
-        color: 'white',
-        fontSize: 20,
-        alignSelf: 'center',
-        textAlign: 'center',
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: '#FFFFFF',
+        flex: 1,
     },
     outterInput: {
+       borderBottomColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 30,
         borderBottomWidth: 1,
-        borderBottomColor: 'white',
-        marginHorizontal: 120,
+        width: 300,
+        height: 40,
         marginBottom: 20,
+        flexDirection: 'row',
         alignItems: 'center',
     },
     inputContainer: {
-        flex: 2,
-        justifyContent: 'flex-start'
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
     },
     imageStyle: {
         width: '100%',
-        height: 300,
+        height: 200,
         resizeMode: 'contain',
         justifyContent: 'center'
     },
     imageContainer: {
-        flex: 2,
+        marginTop: 50,
+        paddingBottom:30,
         justifyContent: 'center'
     },
     outterButton: {
         justifyContent: 'center',
         alignSelf: 'center',
         marginBottom: 20,
-        marginTop: 20,
     },
     outterButtonCreate: {
         justifyContent: 'center',
@@ -158,13 +154,49 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#fff'
     },
+    loginButton: {
+        backgroundColor: "#00b5ec",
+    
+        shadowColor: "#808080",
+        shadowOffset: {
+          width: 0,
+          height: 9,
+        },
+        shadowOpacity: 0.50,
+        shadowRadius: 12.35,
+    
+        elevation: 19,
+      },
+      buttonContainer: {
+        height:45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
+        width:150,
+        borderRadius:30,
+        backgroundColor:'transparent'
+      },
+    /*
     textButton: {
         color: 'white',
         fontSize: 15,
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold'
-    },
+    },*/
 })
 
 export default Login;
+
+  /*
+                        <View style={[styles.outterButtonCreate]}>
+                            <TouchableOpacity
+                                style={styles.SubmitButtonStyle}
+                                activeOpacity={.5}
+                                onPress={() => this.props.onPress()}>
+                                <Text style={styles.textButton}> Go Back </Text>
+                            </TouchableOpacity>
+
+                        </View>
+                        */

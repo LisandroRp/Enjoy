@@ -70,7 +70,6 @@ class Festivales extends Component {
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    marginTop:20,
     backgroundColor:"#ebf0f7"
   },
   contentList:{

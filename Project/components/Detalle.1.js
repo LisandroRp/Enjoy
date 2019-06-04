@@ -43,6 +43,7 @@ class Detalle extends Component {
         title: 'Detalle',
         headerStyle: {
             backgroundColor: 'black',
+            height:50
         },
         headerTintColor: 'white',
     };

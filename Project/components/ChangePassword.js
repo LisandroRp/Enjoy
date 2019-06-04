@@ -33,13 +33,13 @@ class Login extends Component {
 
     render() {
         return (
-            <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+            //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
 
                 <View style={[styles.loginContainer]}>
                     <View style={[styles.imageContainer]}>
                         <Image
                             style={[styles.imageStyle]}
-                            source={require('./pochoclo.png')}></Image>
+                            source={require('./FACHA.png')}></Image>
                     </View>
                     <View style={[styles.inputContainer]}>
                         <View style={[styles.outterInput]}>
@@ -65,27 +65,17 @@ class Login extends Component {
                                 secureTextEntry={true}
                             />
                         </View>
-                        <View style={[styles.outterButton]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.checkChange()}>
-                                <Text style={styles.textButton}> Change Password </Text>
-                            </TouchableOpacity>
-
-
-                        </View>
-                        <View style={[styles.outterButtonCreate]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.props.onPress()}>
-                                <Text style={styles.textButton}> Go Back </Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                            onPress={() => this.checkChange()}>
+                            <Text style={{color: 'white'}}>Change Password</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                            onPress={() => this.props.onPress()}>
+                            <Text style={{color: 'white'}}>Go back </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </LinearGradient>
+            //</LinearGradient>
         );
     }
 }
@@ -93,24 +83,32 @@ class Login extends Component {
 const styles = StyleSheet.create({
     loginContainer: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#9FA8DA'
     },
     textInput: {
-        color: 'white',
-        fontSize: 20,
-        alignSelf: 'center',
-        textAlign: 'center',
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: '#FFFFFF',
+        flex: 1,
     },
     outterInput: {
+        borderBottomColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 30,
         borderBottomWidth: 1,
-        borderBottomColor: 'white',
-        marginHorizontal: 120,
+        width: 300,
+        height: 40,
         marginBottom: 20,
+        flexDirection: 'row',
         alignItems: 'center',
     },
     inputContainer: {
         flex: 1,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
     },
     imageStyle: {
         width: '100%',
@@ -145,13 +143,29 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#fff'
     },
-    textButton: {
-        color: 'white',
-        fontSize: 15,
-        alignSelf: 'center',
-        textAlign: 'center',
-        fontWeight: 'bold'
-    },
+    loginButton: {
+        backgroundColor: "#00b5ec",
+    
+        shadowColor: "#808080",
+        shadowOffset: {
+          width: 0,
+          height: 9,
+        },
+        shadowOpacity: 0.50,
+        shadowRadius: 12.35,
+    
+        elevation: 19,
+      },
+      buttonContainer: {
+        height:45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
+        width:150,
+        borderRadius:30,
+        backgroundColor:'transparent'
+      },
 })
 
 export default Login;

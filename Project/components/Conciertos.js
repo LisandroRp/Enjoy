@@ -12,15 +12,7 @@ import {
 } from 'react-native';
 
 class Conciertos extends Component {
-
-  static navigationOptions = {
-    title: 'Conciertos',
-    headerStyle: {
-        backgroundColor: 'white',
-    },
-    headerTintColor: 'pink',
-};
-
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +62,6 @@ class Conciertos extends Component {
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    marginTop:20,
     backgroundColor:"#ebf0f7"
   },
   contentList:{

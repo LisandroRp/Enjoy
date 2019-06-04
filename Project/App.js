@@ -69,7 +69,7 @@ class ChangePasswordScreen extends React.Component {
     );
   }
   checkPassword() {
-    this.props.navigation.navigate('Login')
+    this.props.navigation.navigate('SignUpClass')
   }
 }
 class CreateUserScreen extends React.Component {
@@ -84,7 +84,7 @@ class CreateUserScreen extends React.Component {
     );
   }
   checkPassword() {
-    this.props.navigation.navigate('Login')
+    this.props.navigation.navigate('SignUpClass')
   }
 }
 class MockedViewScreen extends React.Component {
@@ -93,6 +93,7 @@ class MockedViewScreen extends React.Component {
     title: 'Recomendados',
     headerStyle: {
       backgroundColor: 'white',
+      height:50
     },
     headerTintColor: 'pink',
   };
@@ -116,6 +117,7 @@ class ConciertosScreen extends React.Component {
     title: 'Conciertos',
     headerStyle: {
       backgroundColor: 'white',
+      height:50
     },
     headerTintColor: 'pink',
   };
@@ -139,6 +141,7 @@ class FestivalesScreen extends React.Component {
     title: 'Festivales',
     headerStyle: {
       backgroundColor: 'white',
+      height:50
     },
     headerTintColor: 'pink',
   };
@@ -249,7 +252,8 @@ const PerfilTabNavigator = createBottomTabNavigator({
         ),
         headerTintColor: 'white',
         headerStyle: {
-          backgroundColor: 'black'
+          backgroundColor: 'black',
+          height:50
         }
       }
     },
