@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    margintop:50,
+    marginTop:50,
     marginBottom:5,
     width:300,
     borderRadius:30,

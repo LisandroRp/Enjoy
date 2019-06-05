@@ -12,6 +12,8 @@ import Craigslist from './components/Craigslist'
 import LogInCards from './components/LogInCards'
 import CardView from './components/CardView'
 import Festivales from './components/Festivales';
+import Mapa from './components/Mapa'
+import {FontAwesome } from '@expo/vector-icons';
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -95,7 +97,7 @@ class MockedViewScreen extends React.Component {
       backgroundColor: 'white',
       height:50
     },
-    headerTintColor: 'pink',
+    headerTintColor: '#3399ff',
   };
   constructor(props) {
     super(props)
@@ -108,7 +110,7 @@ class MockedViewScreen extends React.Component {
     );
   }
   pasarConcierto() {
-    this.props.navigation.navigate('CardView');
+    this.props.navigation.navigate('Detalle');
   }
 }
 class ConciertosScreen extends React.Component {
@@ -119,7 +121,7 @@ class ConciertosScreen extends React.Component {
       backgroundColor: 'white',
       height:50
     },
-    headerTintColor: 'pink',
+    headerTintColor: '#3399ff',
   };
   constructor(props) {
     super(props)
@@ -143,7 +145,7 @@ class FestivalesScreen extends React.Component {
       backgroundColor: 'white',
       height:50
     },
-    headerTintColor: 'pink',
+    headerTintColor: '#3399ff',
   };
   constructor(props) {
     super(props)
@@ -156,7 +158,7 @@ class FestivalesScreen extends React.Component {
     );
   }
   pasarConcierto() {
-    this.props.navigation.navigate('CardView');
+    this.props.navigation.navigate('Detalle');
   }
 }
 const MockedViewStackNavigator = createStackNavigator(
@@ -167,17 +169,23 @@ const MockedViewStackNavigator = createStackNavigator(
         return {
           headerLeft: (
             <Icon
-              style={{ paddingLeft: 10, color: 'pink' }}
+              style={{ paddingLeft: 10, color: '#3399ff' }}
               onPress={() => navigation.openDrawer()}
               name="md-menu"
               size={30}
             />
           ),
-
+          headerRight: (
+            <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
+              onPress={() => navigation.navigate("Mapa")}
+              size={22}
+            />
+          )
         }
       }
     },
-    CardView: { screen: CardView },
+    Detalle: { screen: Detalle},
+    Mapa: {screen: Mapa}
   },
   {
     initialRouteName: 'MockedViewScreen',
@@ -188,21 +196,27 @@ const ConciertosStackNavigator = createStackNavigator(
   {
     ConciertosScreen: {
       screen: ConciertosScreen,
-      navigationOptions: ({ navigation }) => {
+      navigationOptions: ({ navigation}) => {
         return {
           headerLeft: (
             <Icon
-              style={{ paddingLeft: 10, color: 'pink' }}
+              style={{ paddingLeft: 10, color: '#3399ff' }}
               onPress={() => navigation.openDrawer()}
               name="md-menu"
               size={30}
             />
           ),
-
+          headerRight: (
+            <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
+              onPress={() => navigation.navigate("Mapa")}
+              size={22}
+            />
+          ),
         }
       }
     },
     Detalle: { screen: Detalle},
+    Mapa: {screen: Mapa}
   },
   {
     initialRouteName: 'ConciertosScreen',
@@ -217,17 +231,23 @@ const FestivalesStackNavigator = createStackNavigator(
         return {
           headerLeft: (
             <Icon
-              style={{ paddingLeft: 10, color: 'pink' }}
+              style={{ paddingLeft: 10, color: '#3399ff' }}
               onPress={() => navigation.openDrawer()}
               name="md-menu"
               size={30}
             />
           ),
-
+          headerRight: (
+            <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
+              onPress={() => navigation.navigate("Mapa")}
+              size={22}
+            />
+          )
         }
       }
     },
-    CardView: { screen: CardView },
+    Detalle: { screen: Detalle},
+    Mapa: {screen: Mapa}
   },
   {
     initialRouteName: 'FestivalesScreen',
@@ -250,7 +270,7 @@ const PerfilTabNavigator = createBottomTabNavigator({
             size={30}
           />
         ),
-        headerTintColor: 'white',
+        headerTintColor: 'pink',
         headerStyle: {
           backgroundColor: 'black',
           height:50
@@ -284,6 +304,7 @@ const AppDrawerNavigator = createDrawerNavigator({
     drawerBackgroundColor: 'pink',
     contentOptions: {
       //Esto sirve para cambiar algunos colores
+      /*activeTintColor: '#3399ff'*/
     }
   }
 );
@@ -294,7 +315,7 @@ const AppSwitchNavigator = createSwitchNavigator({
   ChangePassword: { screen: ChangePasswordScreen },
   //Login: { screen: LoginScreen },
   CreateUser: { screen: CreateUserScreen },
-  Drawer: { screen: AppDrawerNavigator }
+  Drawer: { screen: AppDrawerNavigator },
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);

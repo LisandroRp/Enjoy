@@ -45,7 +45,7 @@ class Detalle extends Component {
             backgroundColor: 'white',
             height: 50
         },
-        headerTintColor: 'pink',
+        headerTintColor: '#3399ff',
     };
     /*
         static navigationOptions = {
@@ -151,10 +151,10 @@ class Detalle extends Component {
                                         />
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                            <Entypo name="calendar" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.year}
                                                 </Text>
-                                                <Entypo name="calendar" size={15} color="#3399ff" />
                                             </View>
                                         </View>
                                         <View
@@ -165,10 +165,10 @@ class Detalle extends Component {
                                         />
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                            <Entypo name="clock" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.runtime}
                                                 </Text>
-                                                <Entypo name="clock" size={15} color="#3399ff" />
                                             </View>
                                         </View>
                                         <View
@@ -179,10 +179,10 @@ class Detalle extends Component {
                                         />
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                            <FontAwesome name="star" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.rating}
                                                 </Text>
-                                                <FontAwesome name="star" size={15} color="#3399ff" />
                                             </View>
                                         </View>
                                     </View>
@@ -230,7 +230,6 @@ class Detalle extends Component {
                                             );
                                         }}
                                     >
-
                                     </FlatList>
                                 </View>
                             </View>
@@ -240,7 +239,7 @@ class Detalle extends Component {
                     <TouchableOpacity onPress={() => {
                         this.setModalVisible(true);
                     }} style={styles.fab}>
-                        <AntDesign name="form" size={25} color="#3399ff" />
+                        <AntDesign name="form" size={25} color="white" />
                     </TouchableOpacity>
 
                     <Modal
@@ -410,7 +409,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         right: 20,
         bottom: 20,
-        backgroundColor: '#B3B6B7',
+        backgroundColor: '#3399ff',
         borderRadius: 30,
         elevation: 8
     },
