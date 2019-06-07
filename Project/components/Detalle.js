@@ -26,7 +26,7 @@ class Detalle extends Component {
                 "year": "2019-03-04",
                 "synapsi": "Re copada la banduli de rock",
                 "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
-                "genre": "Tu vieja",
+                "genre": "Rock",
                 "rating": "10",
                 "runtime": "165",
                 "webSite": "www.queti.com"
@@ -208,6 +208,33 @@ class Detalle extends Component {
                                     <Text style={styles.detalleGenres}>
                                         {this.state.detalle.synapsi}
                                     </Text>
+                                </View>
+                                <View
+                                    style={{
+                                        borderBottomColor: 'grey',
+                                        borderBottomWidth: 1,
+                                    }}
+                                />
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
+                                    <Text style={styles.detalleGenresTitles}>
+                                        Precio
+                                    </Text>
+                                    <Text style={styles.detalleGenres}>
+                                        {'\n'}
+                                        Precio Entrada: $1000
+                                        {'\n'}
+                                        {'\n'}
+                                        Carta de precios:
+                                        {'\n'}
+                                        Trago clasico: $230
+                                        {'\n'}
+                                        Shot: $110
+                                        {'\n'}
+                                        Cerveza: $110
+                                        {'\n'}
+
+                                    </Text>
+
                                 </View>
                                 <View
                                     style={{

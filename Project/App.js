@@ -23,7 +23,9 @@ import {
 } from 'react-navigation';
 
 
-
+function handleSearch() {
+  
+}
 
 class App extends Component {
   render() {
@@ -101,11 +103,15 @@ class MockedViewScreen extends React.Component {
   };
   constructor(props) {
     super(props)
+    this.state = {
+      searchStatus: false
+    };
   }
   render() {
     return (
       <Craigslist
         onPressGo={this.pasarConcierto.bind(this)}
+        searchStatus={this.state.searchStatus}
       />
     );
   }
@@ -176,10 +182,16 @@ const MockedViewStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
+            <View style={{flexDirection: 'row'}}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
+              onPress={() => {console.log('hola'); return navigation.navigate("Mapa")}}
+              size={22}
+            />
             <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
               onPress={() => navigation.navigate("Mapa")}
               size={22}
             />
+            </View>
           )
         }
       }

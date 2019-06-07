@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { SearchBar } from 'react-native-elements';
 import {
   StyleSheet,
   Text,
@@ -16,6 +17,7 @@ class Craigslist extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchVisible: false,
       modalVisible:false,
       userSelected:[],
       data: [
@@ -30,10 +32,22 @@ class Craigslist extends Component {
   clickEventListener = (item) => {
     Alert.alert('Message', 'Item clicked. '+item.name);
   }
+  state = {
+    search: '',
+  };
 
+  updateSearch = search => {
+    this.setState({ search });
+  };
   render() {
+    const { search } = this.state;
     return (
       <View style={styles.container}>
+      {this.props.searchStatus && <SearchBar
+        placeholder="Type Here..."
+        onChangeText={this.updateSearch}
+        value={search} style={{}}
+      />}
         <FlatList 
           style={styles.contentList}
           columnWrapperStyle={styles.listContainer}
