@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, Image, FlatList, ActivityIndicator, Modal, TextInput, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
+import Mapa from './Mapa';
 import ApiController from '../controller/ApiController';
 import { LinearGradient } from 'expo'
+
 
 var { height, width } = Dimensions.get('window');
 
@@ -15,8 +17,6 @@ function createData(item) {
     };
 }
 class Detalle extends Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -45,6 +45,15 @@ class Detalle extends Component {
             backgroundColor: 'white',
             height: 50
         },
+        headerRight: (
+            a= '',
+            <View style={{flexDirection: 'row'}}>
+            <FontAwesome name="map-marker" style={{ paddingRight: 10, color: '#3399ff'}} 
+              onPress={() => this.props.onPress()}
+              size={22}
+            />
+            </View>
+          ),
         headerTintColor: '#3399ff',
     };
     /*
@@ -118,6 +127,7 @@ class Detalle extends Component {
         <View></View>
         if (this.state.isLoading) {
             return (
+                
                 //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
                 //<View style={styles.container}>
                 <View style={styles.detalleContainer}>
@@ -181,7 +191,7 @@ class Detalle extends Component {
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                             <FontAwesome name="star" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
-                                                    {this.state.detalle.rating}
+                                                    {this.state.detalle.rating}/10
                                                 </Text>
                                             </View>
                                         </View>

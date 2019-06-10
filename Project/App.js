@@ -12,7 +12,8 @@ import Craigslist from './components/Craigslist'
 import LogInCards from './components/LogInCards'
 import CardView from './components/CardView'
 import Festivales from './components/Festivales';
-import Mapa from './components/Mapa'
+import Mapa from './components/Mapa';
+import Search from './components/Search';
 import {FontAwesome } from '@expo/vector-icons';
 import {
   createSwitchNavigator,
@@ -101,17 +102,10 @@ class MockedViewScreen extends React.Component {
     },
     headerTintColor: '#3399ff',
   };
-  constructor(props) {
-    super(props)
-    this.state = {
-      searchStatus: false
-    };
-  }
   render() {
     return (
       <Craigslist
         onPressGo={this.pasarConcierto.bind(this)}
-        searchStatus={this.state.searchStatus}
       />
     );
   }
@@ -167,10 +161,32 @@ class FestivalesScreen extends React.Component {
     this.props.navigation.navigate('Detalle');
   }
 }
+class DetalleScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Recomendados',
+    headerStyle: {
+      backgroundColor: 'white',
+      height:50
+    },
+    headerTintColor: '#3399ff',
+  };
+  render() {
+    return (
+      <Detalle
+        onPress={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto() {
+    this.props.navigation.navigate('Mapa');
+  }
+}
 const MockedViewStackNavigator = createStackNavigator(
   {
     MockedViewScreen: {
       screen: MockedViewScreen,
+
       navigationOptions: ({ navigation }) => {
         return {
           headerLeft: (
@@ -182,9 +198,10 @@ const MockedViewStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
+            a= '',
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => {console.log('hola'); return navigation.navigate("Mapa")}}
+              onPress={() => navigation.navigate('Helado',{searchStatus: a})}
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
@@ -196,8 +213,10 @@ const MockedViewStackNavigator = createStackNavigator(
         }
       }
     },
-    Detalle: { screen: Detalle},
-    Mapa: {screen: Mapa}
+   // Helado: {screen: Search},
+    Helado: {screen: MockedViewScreen},
+    Detalle: { screen: DetalleScreen},
+    Mapa: {screen: Mapa},
   },
   {
     initialRouteName: 'MockedViewScreen',
@@ -266,6 +285,29 @@ const FestivalesStackNavigator = createStackNavigator(
   }
 );
 
+const DetalleStackNavigator = createStackNavigator(
+  {
+    DetalleScreen: {
+      screen: DetalleScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerRight: (
+            <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
+              onPress={() => navigation.navigate("Mapa")}
+              size={22}
+            />
+          )
+        }
+      }
+    },
+    Detalle: { screen: Detalle},
+    Mapa: {screen: Mapa}
+  },
+  {
+    initialRouteName: 'DetalleScreen',
+  }
+);
+
 const PerfilTabNavigator = createBottomTabNavigator({
   DatosPersonales,
   Comentarios
@@ -302,6 +344,7 @@ const PerfilTabNavigator = createBottomTabNavigator({
 
     }
   });
+
 
 const PerfilStackNavigator = createStackNavigator({
   PerfilTabNavigator: PerfilTabNavigator

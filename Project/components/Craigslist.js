@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { SearchBar } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
+import { AsyncStorage } from 'react-native';
 import {
   StyleSheet,
   Text,
@@ -13,87 +15,110 @@ import {
 } from 'react-native';
 
 class Craigslist extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
-      searchVisible: false,
-      modalVisible:false,
-      userSelected:[],
+      searchStatus: 'none',
+      Status: 'none',
+      modalVisible: false,
+      userSelected: [],
       data: [
-        {id:'1',  name: "Ac Dc",   image:"https://img.icons8.com/color/48/000000/performance.png",           count:'El Monumental'},
-        {id:'2',  name: "Los Auntenticos Decadentes",    image:"https://img.icons8.com/color/96/000000/dancing-party.png",       count:'Gran Rex'},
-        {id:'3',  name: "Twenty one Pilots",       image:"https://img.icons8.com/color/96/000000/dancing.png",    count:'Velez'} ,
-        {id:'4',  name: "Duki",   image:"https://img.icons8.com/flat_round/64/000000/star.png",    count:'Luna Park'} ,
+        { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental' },
+        { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
+        { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
+        { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
       ]
     };
+    this._storeData(this.state.searchStatus);
   }
+
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: 'white',
+      height: 50
+    },
+  };
+
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem('searchStatus', this.state.searchStatus);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   clickEventListener = (item) => {
-    Alert.alert('Message', 'Item clicked. '+item.name);
+    Alert.alert('Message', 'Item clicked. ' + item.name);
   }
-  state = {
-    search: '',
-  };
 
-  updateSearch = search => {
-    this.setState({ search });
-  };
+  AdivinarStatus(searchStatus) {
+    Status = 'none'
+    if (searchStatus === 'none') {
+      Status = 'none'
+    } else {
+      Status = ''
+    }
+    return Status
+  }
+  /*<View style={{display: this.state.searchStatus}}>*/
   render() {
-    const { search } = this.state;
     return (
       <View style={styles.container}>
-      {this.props.searchStatus && <SearchBar
-        placeholder="Type Here..."
-        onChangeText={this.updateSearch}
-        value={search} style={{}}
-      />}
-        <FlatList 
+        <View style={{ display: this.AdivinarStatus(this.state.searchStatus) }}>
+          <SearchBar
+            placeholder="Type Here..."
+            onChangeText={this.updateSearch}
+            //value={search}
+          />
+        </View>
+        <FlatList
           style={styles.contentList}
           columnWrapperStyle={styles.listContainer}
           data={this.state.data}
-          keyExtractor= {(item) => {
+          keyExtractor={(item) => {
             return item.id;
           }}
-          renderItem={({item}) => {
-          return (
-            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo()}>
-              <Image style={styles.image} source={{uri: item.image}}/>
-              <View style={styles.cardContent}>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.count}>{item.count}</Text>
-                <TouchableOpacity style={styles.followButton} onPress={()=> this.clickEventListener(item)}>
-                  <Text style={styles.followButtonText}>Explore now</Text>  
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          )}}/>
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo()}>
+                <Image style={styles.image} source={{ uri: item.image }} />
+                <View style={styles.cardContent}>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.count}>{item.count}</Text>
+                  <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(item)}>
+                    <Text style={styles.followButtonText}>Explore now</Text>
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+            )
+          }} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:"#ebf0f7"
+  container: {
+    flex: 1,
+    backgroundColor: "#ebf0f7"
   },
-  contentList:{
-    flex:1,
+  contentList: {
+    flex: 1,
   },
   cardContent: {
-    marginLeft:20,
-    marginTop:10
+    marginLeft: 20,
+    marginTop: 10
   },
-  image:{
-    width:90,
-    height:90,
-    borderRadius:45,
-    borderWidth:2,
-    borderColor:"#ebf0f7"
+  image: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    borderWidth: 2,
+    borderColor: "#ebf0f7"
   },
 
-  card:{
+  card: {
     shadowColor: '#00000021',
     shadowOffset: {
       width: 0,
@@ -105,43 +130,43 @@ const styles = StyleSheet.create({
 
     marginLeft: 20,
     marginRight: 20,
-    marginTop:20,
-    backgroundColor:"white",
+    marginTop: 20,
+    backgroundColor: "white",
     padding: 10,
-    flexDirection:'row',
-    borderRadius:30,
+    flexDirection: 'row',
+    borderRadius: 30,
   },
 
-  name:{
-    fontSize:18,
-    flex:1,
-    alignSelf:'center',
-    color:"#3399ff",
-    fontWeight:'bold'
+  name: {
+    fontSize: 18,
+    flex: 1,
+    alignSelf: 'center',
+    color: "#3399ff",
+    fontWeight: 'bold'
   },
-  count:{
-    fontSize:14,
-    flex:1,
-    alignSelf:'center',
-    color:"#6666ff"
+  count: {
+    fontSize: 14,
+    flex: 1,
+    alignSelf: 'center',
+    color: "#6666ff"
   },
   followButton: {
-    marginTop:10,
-    height:35,
-    width:100,
-    padding:10,
+    marginTop: 10,
+    height: 35,
+    width: 100,
+    padding: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius:30,
+    borderRadius: 30,
     backgroundColor: "white",
-    borderWidth:1,
-    borderColor:"#dcdcdc",
+    borderWidth: 1,
+    borderColor: "#dcdcdc",
   },
-  followButtonText:{
+  followButtonText: {
     color: "#dcdcdc",
-    fontSize:12,
+    fontSize: 12,
   },
 })
 
-export default Craigslist;
+export default withNavigation(Craigslist);
