@@ -21,12 +21,6 @@ class Craigslist extends Component {
         this.state = {
             modalVisible: false,
             userSelected: [],
-            data: [
-                { id: '1', name: "Ac Dc", image: "https://img.icons8.com/color/48/000000/performance.png", count: 'El Monumental' },
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
-            ]
         };
     }
 

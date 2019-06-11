@@ -30,15 +30,28 @@ class Craigslist extends Component {
         { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
       ]
     };
-    this._storeData(this.state.searchStatus);
+    this._storeData(this.state.id);
+    
   }
-
   static navigationOptions = {
     headerStyle: {
       backgroundColor: 'white',
       height: 50
     },
   };
+
+  _retrieveData = async () => {
+    try {
+        const value = await AsyncStorage.getItem('id');
+        if (value !== null) {
+            this.setState({
+                id: value
+            })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
   _storeData = async () => {
     try {
@@ -49,23 +62,25 @@ class Craigslist extends Component {
   };
 
   clickEventListener = (item) => {
-    Alert.alert('Message', 'Item clicked. ' + item.name);
+    Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
 
   AdivinarStatus(searchStatus) {
-    Status = 'none'
+    Status = ''
     if (searchStatus === 'none') {
-      Status = 'none'
-    } else {
       Status = ''
+    } else {
+      Status = 'none'
     }
     return Status
   }
   /*<View style={{display: this.state.searchStatus}}>*/
   render() {
+    const { navigation } = this.props;
+    const id= this.props.navigation.getParam('id');
     return (
       <View style={styles.container}>
-        <View style={{ display: this.AdivinarStatus(this.state.searchStatus) }}>
+        <View style={{ display: this.AdivinarStatus(id)}}>
           <SearchBar
             placeholder="Type Here..."
             onChangeText={this.updateSearch}
@@ -86,7 +101,7 @@ class Craigslist extends Component {
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.count}>{item.count}</Text>
-                  <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(item)}>
+                  <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(JSON.stringify(id))}>
                     <Text style={styles.followButtonText}>Explore now</Text>
                   </TouchableOpacity>
                 </View>

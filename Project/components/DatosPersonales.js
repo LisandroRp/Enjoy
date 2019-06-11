@@ -9,9 +9,9 @@ class DatosPersonales extends Component {
     static navigationOptions = {
         title: 'Datos Personales',
         headerStyle: {
-            backgroundColor: 'black',
+            backgroundColor: 'white',
         },
-        headerTintColor: 'white',
+        color: '#3399ff'
     };
     constructor(props) {
         super(props);

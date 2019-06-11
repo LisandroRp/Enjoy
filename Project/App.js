@@ -48,10 +48,10 @@ class SignUpClass extends React.Component{
       />
     )
   }
-  checkLogin(id) {
+  checkLogin() {
     //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
     /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
-    this.props.navigation.navigate('Recomendados');
+    this.props.navigation.navigate('Recomendados',{id: 123});
   }
 
   goPass() {
@@ -93,7 +93,9 @@ class CreateUserScreen extends React.Component {
   }
 }
 class MockedViewScreen extends React.Component {
-
+  constructor(props) {
+    super(props)
+  }
   static navigationOptions = {
     title: 'Recomendados',
     headerStyle: {
@@ -110,7 +112,7 @@ class MockedViewScreen extends React.Component {
     );
   }
   pasarConcierto() {
-    this.props.navigation.navigate('Detalle');
+    this.props.navigation.navigate('Detalle',{id: 'hola'});
   }
 }
 class ConciertosScreen extends React.Component {
@@ -163,14 +165,28 @@ class FestivalesScreen extends React.Component {
 }
 class DetalleScreen extends React.Component {
 
-  static navigationOptions = {
-    title: 'Recomendados',
+  static  navigationOptions= ({ navigation }) => {
+    return {
+      headerRight: (
+        a= '',
+        <View style={{flexDirection: 'row'}}>
+        <FontAwesome name="map-marker" style={{ paddingRight: 20, color: '#3399ff'}} 
+          onPress={() => navigation.navigate("Mapa")}
+          size={22}
+        />
+        </View>
+      ),
+      title: 'Detalles',
     headerStyle: {
       backgroundColor: 'white',
       height:50
     },
     headerTintColor: '#3399ff',
-  };
+    }
+  }
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
       <Detalle
@@ -198,13 +214,12 @@ const MockedViewStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
-            a= '',
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{searchStatus: a})}
+              onPress={() => navigation.navigate('Helado',{id: 'none'})}
               size={22}
             />
-            <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
+            <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
               onPress={() => navigation.navigate("Mapa")}
               size={22}
             />
@@ -213,8 +228,9 @@ const MockedViewStackNavigator = createStackNavigator(
         }
       }
     },
-   // Helado: {screen: Search},
-    Helado: {screen: MockedViewScreen},
+    Helado: {screen: Search},
+    //Helado: {screen: MockedViewScreen},
+    //Helado: {screen: MockedViewScreen},
     Detalle: { screen: DetalleScreen},
     Mapa: {screen: Mapa},
   },
@@ -238,15 +254,22 @@ const ConciertosStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
-            <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
+            <View style={{flexDirection: 'row'}}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
+              onPress={() => navigation.navigate('Helado',{id: 'none'})}
+              size={22}
+            />
+            <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
               onPress={() => navigation.navigate("Mapa")}
               size={22}
             />
-          ),
+            </View>
+          )
         }
       }
     },
-    Detalle: { screen: Detalle},
+    Helado: {screen: Search},
+    Detalle: { screen: DetalleScreen},
     Mapa: {screen: Mapa}
   },
   {
@@ -269,15 +292,22 @@ const FestivalesStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
-            <FontAwesome name="map" style={{ paddingRight: 10, color: '#3399ff'}} 
+            <View style={{flexDirection: 'row'}}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
+              onPress={() => navigation.navigate('Helado',{id: 'none'})}
+              size={22}
+            />
+            <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
               onPress={() => navigation.navigate("Mapa")}
               size={22}
             />
+            </View>
           )
         }
       }
     },
-    Detalle: { screen: Detalle},
+    Helado: {screen: Search},
+    Detalle: { screen: DetalleScreen},
     Mapa: {screen: Mapa}
   },
   {
@@ -300,7 +330,7 @@ const DetalleStackNavigator = createStackNavigator(
         }
       }
     },
-    Detalle: { screen: Detalle},
+    Detalle: { screen: DetalleScreen},
     Mapa: {screen: Mapa}
   },
   {
@@ -316,17 +346,18 @@ const PerfilTabNavigator = createBottomTabNavigator({
       const { routeName } = navigation.state.routes[navigation.state.index]
       return {
         headerTitle: 'Perfil',
+        headerTintColor: '#3399ff',
         headerLeft: (
           <Icon
-            style={{ paddingLeft: 10, color: 'white' }}
+            style={{ paddingLeft: 10, color: '#3399ff' }}
             onPress={() => navigation.openDrawer()}
             name="md-menu"
             size={30}
           />
         ),
-        headerTintColor: 'pink',
+        color: '#3399ff',
         headerStyle: {
-          backgroundColor: 'black',
+          backgroundColor: 'white',
           height:50
         }
       }
@@ -366,7 +397,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 
 const AppSwitchNavigator = createSwitchNavigator({
   SignUpClass: { screen: SignUpClass},
-  //Craigslists: { screen: MockedViewScreen },
+  Craigslists: { screen: MockedViewScreen },
   ChangePassword: { screen: ChangePasswordScreen },
   //Login: { screen: LoginScreen },
   CreateUser: { screen: CreateUserScreen },

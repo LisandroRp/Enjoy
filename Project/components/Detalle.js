@@ -34,7 +34,7 @@ class Detalle extends Component {
             isLoading: true,
             modalVisible: false,
             //text: "",
-            idUser: props.navigation.getParam('idUser'),
+            //idUser: props.navigation.getParam('idUser'),
             comentarios: [],
         }
     }
