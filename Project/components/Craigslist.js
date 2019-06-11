@@ -40,27 +40,6 @@ class Craigslist extends Component {
     },
   };
 
-  _retrieveData = async () => {
-    try {
-        const value = await AsyncStorage.getItem('id');
-        if (value !== null) {
-            this.setState({
-                id: value
-            })
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-  _storeData = async () => {
-    try {
-      await AsyncStorage.setItem('searchStatus', this.state.searchStatus);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   clickEventListener = (item) => {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }

@@ -6,13 +6,7 @@ import { AsyncStorage } from 'react-native';
 
 
 class DatosPersonales extends Component {
-    static navigationOptions = {
-        title: 'Datos Personales',
-        headerStyle: {
-            backgroundColor: 'white',
-        },
-        color: '#3399ff'
-    };
+    
     constructor(props) {
         super(props);
         this.state = {
