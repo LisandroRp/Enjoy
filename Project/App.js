@@ -375,6 +375,7 @@ const PerfilTabNavigator = createBottomTabNavigator({
 
     }
   });
+  
 
 
 const PerfilStackNavigator = createStackNavigator({

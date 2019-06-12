@@ -1,4 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { SearchBar } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
+import { AsyncStorage } from 'react-native';
 import {
     StyleSheet,
     Text,
@@ -10,83 +13,42 @@ import {
     Alert,
     ScrollView
 } from 'react-native';
-import { List, ListItem, SearchBar } from "react-native-elements";
 
-export default class Search extends React.Component {
+class SearchPlace extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
             modalVisible: false,
             userSelected: [],
-            data: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental' },
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
-            ],
-            memory: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental' },
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
-            ]
         };
-
     }
+
     static navigationOptions = {
         headerStyle: {
             backgroundColor: 'white',
             height: 50
         },
     };
-    
-    // loadEvents(){
-    //     this.setState({memory: this.state.data})
-    // }
-    clickEventListener = (item) => {
-        Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
-    }
+      
 
-    AdivinarStatus(searchStatus) {
-        Status = ''
-        if (searchStatus === 'none') {
-            Status = ''
-        } else {
-            Status = 'none'
-        }
-        return Status
+    clickEventListener = (item) => {
+        Alert.alert('Message', 'Item clicked. ' + item.name);
     }
-    searchEvent = value => {
-        const filteredevents = this.state.memory.filter(event => {
-          let eventLowercase = (
-            event.image +
-            ' ' +
-            event.name
-          ).toLowerCase();
-    
-          let searchTermLowercase = value.toLowerCase();
-    
-          return eventLowercase.indexOf(searchTermLowercase) > -1;
-        });
-        this.setState({ data: filteredevents });
-        this.setState({value})
-      };
     render() {
-        const { navigation } = this.props;
-        const id = this.props.navigation.getParam('id');
+        const { search } = this.state;
         return (
             <View style={styles.container}>
-                <View style={{ display: this.AdivinarStatus(id) }}>
+                <View>
                     <SearchBar
                         placeholder="Type Here..."
-                        onChangeText={value => this.searchEvent(value)}
-                        value={this.state.value}
-                        containerStyle={{backgroundColor: 'white'}}
+                        onChangeText={this.updateSearch}
+                        value={search}
                     />
                 </View>
+
                 <FlatList
-                    style={{flex:1}}
+                    style={styles.contentList}
                     columnWrapperStyle={styles.listContainer}
                     data={this.state.data}
                     keyExtractor={(item) => {
@@ -99,14 +61,14 @@ export default class Search extends React.Component {
                                 <View style={styles.cardContent}>
                                     <Text style={styles.name}>{item.name}</Text>
                                     <Text style={styles.count}>{item.count}</Text>
-                                    <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(JSON.stringify(id))}>
+                                    <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(item)}>
                                         <Text style={styles.followButtonText}>Explore now</Text>
                                     </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
                         )
                     }} />
-                    </View>
+            </View>
         );
     }
 }
@@ -181,3 +143,5 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
 })
+
+export default withNavigation(SearchPlace);

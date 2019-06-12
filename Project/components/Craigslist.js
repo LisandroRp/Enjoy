@@ -30,7 +30,6 @@ class Craigslist extends Component {
         { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
       ]
     };
-    this._storeData(this.state.id);
     
   }
   static navigationOptions = {
@@ -44,28 +43,11 @@ class Craigslist extends Component {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
 
-  AdivinarStatus(searchStatus) {
-    Status = ''
-    if (searchStatus === 'none') {
-      Status = ''
-    } else {
-      Status = 'none'
-    }
-    return Status
-  }
-  /*<View style={{display: this.state.searchStatus}}>*/
   render() {
     const { navigation } = this.props;
     const id= this.props.navigation.getParam('id');
     return (
       <View style={styles.container}>
-        <View style={{ display: this.AdivinarStatus(id)}}>
-          <SearchBar
-            placeholder="Type Here..."
-            onChangeText={this.updateSearch}
-            //value={search}
-          />
-        </View>
         <FlatList
           style={styles.contentList}
           columnWrapperStyle={styles.listContainer}
