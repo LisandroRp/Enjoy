@@ -6,30 +6,34 @@ import {
     Image,
     TouchableOpacity,
     FlatList,
-    Dimensions,
+    Keyboard,
     Alert,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 import { List, ListItem, SearchBar } from "react-native-elements";
+import * as Animatable from 'react-native-animatable';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { TextInput } from "react-native-gesture-handler";
 
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchBarFocused: false,
             value: '',
             modalVisible: false,
             userSelected: [],
             data: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental' },
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
+                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10 },
+                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2 },
+                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8 },
+                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3 },
             ],
             memory: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental' },
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
+                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10 },
+                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2 },
+                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8 },
+                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3 },
             ]
         };
 
@@ -40,10 +44,26 @@ export default class Search extends React.Component {
             height: 50
         },
     };
+    componentDidMount() {
+        this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
+        this.keyboardWillShow = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow)
+        this.keyboardWillHide = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide)
     
-    // loadEvents(){
-    //     this.setState({memory: this.state.data})
-    // }
+    
+      }
+    
+      keyboardDidShow = () => {
+        this.setState({ searchBarFocused: true })
+      }
+    
+      keyboardWillShow = () => {
+        this.setState({ searchBarFocused: true })
+      }
+    
+      keyboardWillHide = () => {
+        this.setState({ searchBarFocused: false })
+      }
+    
     clickEventListener = (item) => {
         Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
     }
@@ -60,7 +80,7 @@ export default class Search extends React.Component {
     searchEvent = value => {
         const filteredevents = this.state.memory.filter(event => {
           let eventLowercase = (
-            event.image +
+            event.count +
             ' ' +
             event.name
           ).toLowerCase();
@@ -73,17 +93,34 @@ export default class Search extends React.Component {
         this.setState({value})
       };
     render() {
-        const { navigation } = this.props;
-        const id = this.props.navigation.getParam('id');
         return (
             <View style={styles.container}>
-                <View style={{ display: this.AdivinarStatus(id) }}>
+                <View>
                     <SearchBar
                         placeholder="Type Here..."
                         onChangeText={value => this.searchEvent(value)}
                         value={this.state.value}
-                        containerStyle={{backgroundColor: 'white'}}
                     />
+                </View>
+                <View style={{ height: 80, backgroundColor: '#c45653', justifyContent: 'center', paddingHorizontal: 5 }}>
+
+                    <Animatable.View animation="slideInRight" duration={500} style={{ height: 50, backgroundColor: 'white', flexDirection: 'row', padding: 5, alignItems: 'center' }}>
+                        <Animatable.View animation={this.state.searchBarFocused ? "fadeInLeft" : "fadeInRight"} duration={400}>
+                            <Icon name={this.state.searchBarFocused ? "md-arrow-back" : "ios-search"} style={{ fontSize: 24 }} />
+                        </Animatable.View>
+                        <TextInput placeholder="Search" style={{ fontSize: 24, marginLeft: 15, flex: 1 }} />
+                    </Animatable.View>
+
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center',}}>
+                    <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                        onPress={() => this.props.onPressGo()}>
+                        <Text style={styles.loginText}>Price: High to Low</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                        onPress={() => this.props.onPressGo()}>
+                        <Text style={styles.loginText}>Price: Low to High</Text>
+                    </TouchableOpacity>
                 </View>
                 <FlatList
                     style={{flex:1}}
@@ -99,7 +136,7 @@ export default class Search extends React.Component {
                                 <View style={styles.cardContent}>
                                     <Text style={styles.name}>{item.name}</Text>
                                     <Text style={styles.count}>{item.count}</Text>
-                                    <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(JSON.stringify(id))}>
+                                    <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener()}>
                                         <Text style={styles.followButtonText}>Explore now</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -180,4 +217,34 @@ const styles = StyleSheet.create({
         color: "#dcdcdc",
         fontSize: 12,
     },
+    buttonContainer: {
+        height:45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop:5,
+        marginBottom:5,
+        marginHorizontal: 5,
+        width:150,
+        borderRadius:30,
+        backgroundColor:'transparent'
+      },
+
+      loginButton: {
+        backgroundColor: "#00b5ec",
+    
+        shadowColor: "#808080",
+        shadowOffset: {
+          width: 0,
+          height: 9,
+        },
+        shadowOpacity: 0.50,
+        shadowRadius: 12.35,
+    
+        elevation: 19,
+      },
+      loginText: {
+        color: 'white',
+      },
+    
 })

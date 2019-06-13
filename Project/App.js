@@ -198,6 +198,30 @@ class DetalleScreen extends React.Component {
     this.props.navigation.navigate('Mapa');
   }
 }
+class SearchScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Search',
+    headerStyle: {
+      backgroundColor: 'white',
+      height:50
+    },
+    headerTintColor: '#3399ff',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Search
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto() {
+    this.props.navigation.navigate('Detalle');
+  }
+}
 const MockedViewStackNavigator = createStackNavigator(
   {
     MockedViewScreen: {
@@ -216,7 +240,7 @@ const MockedViewStackNavigator = createStackNavigator(
           headerRight: (
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{id: 'none'})}
+              onPress={() => navigation.navigate('Helado')}
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
@@ -228,7 +252,7 @@ const MockedViewStackNavigator = createStackNavigator(
         }
       }
     },
-    Helado: {screen: Search},
+    Helado: {screen: SearchScreen},
     //Helado: {screen: MockedViewScreen},
     //Helado: {screen: MockedViewScreen},
     Detalle: { screen: DetalleScreen},
@@ -268,7 +292,7 @@ const ConciertosStackNavigator = createStackNavigator(
         }
       }
     },
-    Helado: {screen: Search},
+    Helado: {screen: SearchScreen},
     Detalle: { screen: DetalleScreen},
     Mapa: {screen: Mapa}
   },
@@ -306,7 +330,7 @@ const FestivalesStackNavigator = createStackNavigator(
         }
       }
     },
-    Helado: {screen: Search},
+    Helado: {screen: SearchScreen},
     Detalle: { screen: DetalleScreen},
     Mapa: {screen: Mapa}
   },

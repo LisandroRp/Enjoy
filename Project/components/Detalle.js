@@ -39,32 +39,6 @@ class Detalle extends Component {
         }
     }
 
-    static navigationOptions = {
-        title: 'Detalles',
-        headerStyle: {
-            backgroundColor: 'white',
-            height: 50
-        },
-        headerRight: (
-            a= '',
-            <View style={{flexDirection: 'row'}}>
-            <FontAwesome name="map-marker" style={{ paddingRight: 10, color: '#3399ff'}} 
-              onPress={() => this.props.onPress()}
-              size={22}
-            />
-            </View>
-          ),
-        headerTintColor: '#3399ff',
-    };
-    /*
-        static navigationOptions = {
-            title: 'Detalle',
-            headerStyle: {
-                backgroundColor: 'white',
-            },
-            headerTintColor: 'pink',
-        };
-    */
     componentDidMount() {
         this.cargarDetalle();
         //this.cargarComentarios();
