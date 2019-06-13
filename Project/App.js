@@ -14,6 +14,7 @@ import CardView from './components/CardView'
 import Festivales from './components/Festivales';
 import Mapa from './components/Mapa';
 import Search from './components/Search';
+import MenuDrawer from './components/MenuDrawer';
 import {FontAwesome } from '@expo/vector-icons';
 import {
   createSwitchNavigator,
@@ -100,7 +101,7 @@ class MockedViewScreen extends React.Component {
     title: 'Recomendados',
     headerStyle: {
       backgroundColor: 'white',
-      height:50
+      height:45
     },
     headerTintColor: '#3399ff',
   };
@@ -121,7 +122,7 @@ class ConciertosScreen extends React.Component {
     title: 'Conciertos',
     headerStyle: {
       backgroundColor: 'white',
-      height:50
+      height:45
     },
     headerTintColor: '#3399ff',
   };
@@ -145,7 +146,7 @@ class FestivalesScreen extends React.Component {
     title: 'Festivales',
     headerStyle: {
       backgroundColor: 'white',
-      height:50
+      height:45
     },
     headerTintColor: '#3399ff',
   };
@@ -165,6 +166,7 @@ class FestivalesScreen extends React.Component {
 }
 class DetalleScreen extends React.Component {
 
+
   static  navigationOptions= ({ navigation }) => {
     return {
       headerRight: (
@@ -179,7 +181,7 @@ class DetalleScreen extends React.Component {
       title: 'Detalles',
     headerStyle: {
       backgroundColor: 'white',
-      height:50
+      height:45
     },
     headerTintColor: '#3399ff',
     }
@@ -204,10 +206,12 @@ class SearchScreen extends React.Component {
     title: 'Search',
     headerStyle: {
       backgroundColor: 'white',
-      height:50
+      height:45,
+      borderBottomWidth: 0
     },
     headerTintColor: '#3399ff',
   };
+
   constructor(props) {
     super(props)
   }
@@ -406,12 +410,22 @@ const PerfilStackNavigator = createStackNavigator({
   PerfilTabNavigator: PerfilTabNavigator
 });
 
+const DrawerConfig={
+  contentComponent: ({ navigation }) => {
+    return (<MenuDrawer navigation= {navigation}/>)
+  },
+  contentOptions: {
+    activeTintColor: '#3399ff'
+  }
+}
 const AppDrawerNavigator = createDrawerNavigator({
   Recomendados: MockedViewStackNavigator,
   Conciertos: ConciertosStackNavigator,
   Festivales: FestivalesStackNavigator,
   Perfil: PerfilStackNavigator,
-}, {
+},
+//DrawerConfig,
+ {
     drawerBackgroundColor: 'pink',
     contentOptions: {
       //Esto sirve para cambiar algunos colores
@@ -419,6 +433,7 @@ const AppDrawerNavigator = createDrawerNavigator({
     }
   }
 );
+
 
 const AppSwitchNavigator = createSwitchNavigator({
   SignUpClass: { screen: SignUpClass},

@@ -24,32 +24,24 @@ export default class Search extends React.Component {
             modalVisible: false,
             userSelected: [],
             data: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10 },
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2 },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8 },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3 },
+                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10, genre: 'Rock/Metal', Type: 'Concierto'},
+                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2, genre: 'Rock Nacional', Type: 'Concierto' },
+                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8, genre: 'Rock/Pop', Type: 'Concierto' },
+                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3, genre: 'Trap', Type: 'Concierto'},
             ],
             memory: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10 },
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2 },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8 },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3 },
+                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10, genre: 'Rock/Metal', Type: 'Concierto'},
+                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2, genre: 'Rock Nacional', Type: 'Concierto' },
+                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8, genre: 'Rock/Pop', Type: 'Concierto' },
+                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3, genre: 'Trap', Type: 'Concierto'},
             ]
         };
 
     }
-    static navigationOptions = {
-        headerStyle: {
-            backgroundColor: 'white',
-            height: 50
-        },
-    };
     componentDidMount() {
         this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
         this.keyboardWillShow = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow)
         this.keyboardWillHide = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide)
-    
-    
       }
     
       keyboardDidShow = () => {
@@ -64,25 +56,33 @@ export default class Search extends React.Component {
         this.setState({ searchBarFocused: false })
       }
     
+
     clickEventListener = (item) => {
         Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
     }
 
-    AdivinarStatus(searchStatus) {
-        Status = ''
-        if (searchStatus === 'none') {
-            Status = ''
+    OrdenarPorPrecio(flag)
+    {
+        let resultt = this.state.data
+        if (flag==0){
+            resultt = this.state.data.sort((a, b) => {
+                return b.price - a.price});
         } else {
-            Status = 'none'
+            resultt = this.state.data.sort((a, b) => {
+                return a.price - b.price});
         }
-        return Status
+        this.setState({data: resultt});
     }
     searchEvent = value => {
         const filteredevents = this.state.memory.filter(event => {
           let eventLowercase = (
             event.count +
             ' ' +
-            event.name
+            event.name +
+            ' ' +
+            event.genre +
+            ' ' +
+            event.Type
           ).toLowerCase();
     
           let searchTermLowercase = value.toLowerCase();
@@ -97,11 +97,15 @@ export default class Search extends React.Component {
             <View style={styles.container}>
                 <View>
                     <SearchBar
-                        placeholder="Type Here..."
+                        placeholder="Name/Place/Type/Genre"
+                        platform='ios'
                         onChangeText={value => this.searchEvent(value)}
                         value={this.state.value}
+                        containerStyle={{backgroundColor: 'white', height:50, paddingBottom:22}}
+                        buttonStyle={{paddingBottom:22}}
                     />
                 </View>
+{/*                 
                 <View style={{ height: 80, backgroundColor: '#c45653', justifyContent: 'center', paddingHorizontal: 5 }}>
 
                     <Animatable.View animation="slideInRight" duration={500} style={{ height: 50, backgroundColor: 'white', flexDirection: 'row', padding: 5, alignItems: 'center' }}>
@@ -111,14 +115,15 @@ export default class Search extends React.Component {
                         <TextInput placeholder="Search" style={{ fontSize: 24, marginLeft: 15, flex: 1 }} />
                     </Animatable.View>
 
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center',}}>
+                </View> */}
+                <ScrollView>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                     <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                        onPress={() => this.props.onPressGo()}>
+                        onPress={() => this.OrdenarPorPrecio(0)}>
                         <Text style={styles.loginText}>Price: High to Low</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                        onPress={() => this.props.onPressGo()}>
+                        onPress={() => this.OrdenarPorPrecio(1)}>
                         <Text style={styles.loginText}>Price: Low to High</Text>
                     </TouchableOpacity>
                 </View>
@@ -143,6 +148,7 @@ export default class Search extends React.Component {
                             </TouchableOpacity>
                         )
                     }} />
+                    </ScrollView>
                     </View>
         );
     }
@@ -222,7 +228,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop:5,
+        marginTop:10,
         marginBottom:5,
         marginHorizontal: 5,
         width:150,
@@ -231,7 +237,7 @@ const styles = StyleSheet.create({
       },
 
       loginButton: {
-        backgroundColor: "#00b5ec",
+        backgroundColor: "#3399ff",
     
         shadowColor: "#808080",
         shadowOffset: {

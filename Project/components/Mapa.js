@@ -18,7 +18,7 @@ class Mapa extends Component {
     static navigationOptions = {
         headerStyle: {
           backgroundColor: 'white',
-          height:50
+          height:45
         },
         headerTintColor: '#3399ff',
       };
