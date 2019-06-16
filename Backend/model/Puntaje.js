@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 
 var puntajeSchema = new Schema({
     nombre:String,
-    puntaje:float,
+    puntaje:Number,
     usuarioId:String,
-    fechaPuntaje:String,
+    fecha:{type:Date, default:Date.now()},
     eventoId:String,
 });
 
 var Puntaje = mongoose.model('Puntaje', puntajeSchema);
 console.log("se creo modelo Puntaje");
-module.exports = Puntajes;
+module.exports = Puntaje;

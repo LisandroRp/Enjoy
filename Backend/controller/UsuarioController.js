@@ -8,8 +8,8 @@ let insertUsuario = (req,res) =>
     var newUsuario = usuarios({
         nombre:req.body.nombre,
         apellido:req.body.apellido,
+        alias:req.body.alias,
         email:req.body.email,
-        usuarioId:req.body.usuarioId,
         password:req.body.password
     });
     newUsuario.save().
@@ -32,8 +32,7 @@ let getUsuarios = (req, res) =>
     (
         (listaUsuarios)=>
         {
-            res.send(listaUsuarios); //devuelvo resultado query   
-            //console.log(listaContactos);    
+            res.send(listaUsuarios); //devuelvo resultado query    
         },
         (err)=>{console.log(err);}
     )       
@@ -43,8 +42,8 @@ let getUsuarioById = (req, res) =>
 {      
     console.log("llegue a leer con filtro");
     //Obtener id busqueda req.param.tagid
-    console.log(req.query.usuarioId);
-    let idBusqueda = {usuarioId: req.query.usuarioId};
+    console.log(req.query.id);
+    let idBusqueda = {_id: req.query.id};
     console.log(idBusqueda);
     //Listar resultados
     usuarios.find(idBusqueda)
@@ -60,12 +59,12 @@ let getUsuarioById = (req, res) =>
     )       
 };
 
-let getUsuarioByIdOne = (req, res) =>
+let getUsuarioByAlias = (req, res) =>
 {      
     console.log("llegue a leer con filtro");
     //Obtener id busqueda req.param.tagid
-    console.log(req.query.usuarioId);
-    let idBusqueda = {usuarioId: req.query.usuarioId};
+    console.log(req.query.alias);
+    let idBusqueda = {alias: req.query.alias};
     console.log(idBusqueda);
     //Listar resultados
     usuarios.findOne(idBusqueda)
@@ -85,9 +84,9 @@ let getUsuarioByIdOne = (req, res) =>
 
 let updateUsuarioByPassword = (req, res) =>
 {      
-    console.log("Actualizar usuario: ",req.body.usuarioId);
+    console.log("Actualizar usuario: ",req.body.id);
     //Obtener id busqueda req.param.tagid
-    var myquery = { usuarioId: req.body.usuarioId};
+    var myquery = { _id: req.body.id};
     console.log("Actualizar key: ",myquery);
     var newvalues = { $set: {password: req.body.password } };
     console.log("Actualizar password: ",newvalues);
@@ -99,4 +98,4 @@ let updateUsuarioByPassword = (req, res) =>
       res.status(206).send({ msg: "Se actualizaron los usuarios." });  
 };
 
-module.exports = {getUsuarios,getUsuarioById,insertUsuario,updateUsuarioByPassword,getUsuarioByIdOne};
+module.exports = {getUsuarios,getUsuarioById,getUsuarioByAlias,insertUsuario,updateUsuarioByPassword};
