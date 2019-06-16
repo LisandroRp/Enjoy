@@ -93,9 +93,11 @@ export default class Search extends React.Component {
         this.setState({value})
       };
     render() {
+        const id= this.props.agarrarId()
         return (
             <View style={styles.container}>
                 <View>
+                <Text>{id}</Text>
                     <SearchBar
                         placeholder="Name/Place/Type/Genre"
                         platform='ios'
@@ -136,7 +138,7 @@ export default class Search extends React.Component {
                     }}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo()}>
+                            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(this.props.id)}>
                                 <Image style={styles.image} source={{ uri: item.image }} />
                                 <View style={styles.cardContent}>
                                     <Text style={styles.name}>{item.name}</Text>

@@ -96,6 +96,9 @@ class CreateUserScreen extends React.Component {
 class MockedViewScreen extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      id: this.props.navigation.getParam('id')
+    }
   }
   static navigationOptions = {
     title: 'Recomendados',
@@ -109,11 +112,15 @@ class MockedViewScreen extends React.Component {
     return (
       <Craigslist
         onPressGo={this.pasarConcierto.bind(this)}
+        agarrarId= {this.pasarId.bind(this)}
       />
     );
   }
-  pasarConcierto() {
-    this.props.navigation.navigate('Detalle',{id: 'hola'});
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle',{id: id});
+  }
+  pasarId(){
+    return this.state.id
   }
 }
 class ConciertosScreen extends React.Component {
@@ -137,7 +144,7 @@ class ConciertosScreen extends React.Component {
     );
   }
   pasarConcierto() {
-    this.props.navigation.navigate('Detalle');
+    this.props.navigation.navigate('Detalle',{id: '123'});
   }
 }
 class FestivalesScreen extends React.Component {
@@ -166,7 +173,6 @@ class FestivalesScreen extends React.Component {
 }
 class DetalleScreen extends React.Component {
 
-
   static  navigationOptions= ({ navigation }) => {
     return {
       headerRight: (
@@ -188,16 +194,24 @@ class DetalleScreen extends React.Component {
   }
   constructor(props) {
     super(props)
+    this.state = {
+      id: this.props.navigation.getParam('id')
+    }
   }
   render() {
     return (
       <Detalle
+        agarrarId= {this.pasarId.bind(this)}
         onPress={this.pasarConcierto.bind(this)}
+
       />
     );
   }
   pasarConcierto() {
-    this.props.navigation.navigate('Mapa');
+    this.props.navigation.navigate('Mapa',{id: this.state.id});
+  }
+  pasarId(){
+    return this.state.id
   }
 }
 class SearchScreen extends React.Component {
@@ -213,17 +227,24 @@ class SearchScreen extends React.Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      id: 'hola'
+    }
   }
   render() {
     return (
       <Search
         onPressGo={this.pasarConcierto.bind(this)}
+        agarrarId= {this.pasarId.bind(this)}
       />
     );
   }
   pasarConcierto() {
     this.props.navigation.navigate('Detalle');
+  }
+  pasarId(){
+    return this.state.id
   }
 }
 const MockedViewStackNavigator = createStackNavigator(
@@ -244,11 +265,11 @@ const MockedViewStackNavigator = createStackNavigator(
           headerRight: (
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado')}
+              onPress={() => navigation.navigate('Helado',{id: 'hola'})}
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate("Mapa")}
+              onPress={() => navigation.navigate('Mapa',{type: 'Recomendados'})}
               size={22}
             />
             </View>
@@ -284,7 +305,7 @@ const ConciertosStackNavigator = createStackNavigator(
           headerRight: (
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{id: 'none'})}
+              onPress={() => navigation.navigate('Helado',{id: id})}
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
@@ -424,7 +445,7 @@ const AppDrawerNavigator = createDrawerNavigator({
   Festivales: FestivalesStackNavigator,
   Perfil: PerfilStackNavigator,
 },
-//DrawerConfig,
+DrawerConfig,
  {
     drawerBackgroundColor: 'pink',
     contentOptions: {

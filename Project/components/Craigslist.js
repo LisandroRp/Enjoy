@@ -24,7 +24,8 @@ class Craigslist extends Component {
       modalVisible: false,
       userSelected: [],
       data: [
-        { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental' },
+        { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental', cords:{latitude: -34.61152409323304,
+        longitude: -58.38945865631104} },
         { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
         { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
         { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
@@ -44,8 +45,7 @@ class Craigslist extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const id= this.props.navigation.getParam('id');
+    const perro=3
     return (
       <View style={styles.container}>
         <FlatList
@@ -57,7 +57,7 @@ class Craigslist extends Component {
           }}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo()}>
+              <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(perro)}>
                 <Image style={styles.image} source={{ uri: item.image }} />
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.name}</Text>

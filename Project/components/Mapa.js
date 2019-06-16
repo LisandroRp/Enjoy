@@ -10,8 +10,12 @@ import {
   Alert,
   ScrollView
 } from 'react-native';
+import {SearchBar } from "react-native-elements";
 import MapView from 'react-native-maps';
+import { withNavigation } from 'react-navigation';
+import {AsyncStorage} from 'react-native';
 import { Marker } from 'react-native-maps';
+
 
 
 
@@ -22,6 +26,7 @@ class Mapa extends Component {
     this.state = {
       modalVisible:false,
       userSelected:[],
+      idEvento: null,
       markers: [
         {id:'1',  title: "Ac Dc",                         latlng:"",    coords: {
           "accuracy": 5,
@@ -65,22 +70,40 @@ class Mapa extends Component {
         }} ,
       ]
     };
+    
     this.handlePress = this.handlePress.bind(this);
+    this._retrieveData();
   }
-    static navigationOptions = {
-        headerStyle: {
-          backgroundColor: 'white',
-          height:45
-        },
-        headerTintColor: '#3399ff',
-      };
+  static navigationOptions = {
+    title: '',
+    headerStyle: {
+      backgroundColor: 'white',
+      height:45,
+      borderBottomWidth: 0
+    },
+    headerTintColor: '#3399ff',
+  };
       handlePress(e) {
           console.log(e.nativeEvent.coordinate)
       }
+
+      _retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('idEvento');
+            if (value !== null) {
+                this.setState({idEvento: value})
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
   render() {
     return (
       <View style={styles.container}>
-        <MapView style={styles.Mapa} 
+      <Text>{this.state.idEvento}hola</Text>
+        
+      <MapView style={styles.Mapa} 
                 showsUserLocation={true} initialRegion={{
                     latitude: -34.618269992307674,
                     longitude: -58.38224887847901,
@@ -89,13 +112,22 @@ class Mapa extends Component {
                 }}
                 onPress={this.handlePress}
           >
+          <SearchBar
+                        placeholder={this.state.idEvento}
+                        platform='ios'
+                        onChangeText={value => this.searchEvent(value)}
+                        value={this.state.value}
+                        containerStyle={{backgroundColor: 'white', height:50, paddingBottom:22}}
+                        buttonStyle={{paddingBottom:22}}
+                    />
     {this.state.markers.map(marker => (
     <Marker
         coordinate={marker.coords}
         title={marker.title}
-        description={marker.description}>
+        description={this.state.idEvento}>
         <View style={styles.marker}>
           <Text style={styles.text}>{marker.title}</Text>
+          <Text>Hola Perreques</Text>
         </View>
      </Marker>
     
@@ -131,4 +163,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default Mapa;
+export default withNavigation(Mapa);
