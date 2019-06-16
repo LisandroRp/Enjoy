@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, Image, FlatList, ActivityIndicator, Modal, TextInput, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
+import { withNavigation } from 'react-navigation';
+import DropDownItem from 'react-native-drop-down-item';
 import Mapa from './Mapa';
 import ApiController from '../controller/ApiController';
 import { LinearGradient } from 'expo'
@@ -20,16 +22,17 @@ class Detalle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 123,
+            idEvento: '66666',
             detalle: {
                 "title": 'AcDc',
                 "year": "2019-03-04",
-                "synapsi": "Re copada la banduli de rock",
+                "Summary": "Re copada la banduli de rock",
                 "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
                 "genre": "Rock",
                 "rating": "10",
                 "runtime": "165",
-                "webSite": "www.queti.com"
+                "webSite": "www.queti.com",
+                "Price": ""
             },
             isLoading: true,
             modalVisible: false,
@@ -37,7 +40,17 @@ class Detalle extends Component {
             //idUser: props.navigation.getParam('idUser'),
             comentarios: [],
         }
+        this._storeData(this.state.idEvento);
     }
+
+    _storeData = async () => {
+        try {
+            await AsyncStorage.setItem('idEvento', this.state.idEvento);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     componentDidMount() {
         this.cargarDetalle();
@@ -98,10 +111,10 @@ class Detalle extends Component {
         }
     */
     render() {
-        <View></View>
+        const { navigation } = this.props;
+        const id = this.props.agarrarId()
         if (this.state.isLoading) {
             return (
-                
                 //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
                 //<View style={styles.container}>
                 <View style={styles.detalleContainer}>
@@ -115,6 +128,7 @@ class Detalle extends Component {
                 //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
                 <View style={[styles.detalleContainer]}>
                     <ScrollView>
+                        <Text>{id}</Text>
                         <View style={[styles.detalleContainer]}>
                             <View style={[styles.detalleContainer]}>
                                 <View style={{ flex: 0.5, flexDirection: 'row' }}>
@@ -127,43 +141,34 @@ class Detalle extends Component {
                                                 {this.state.detalle.title}
                                             </Text>
                                         </View>
-                                        <View
-                                            style={{
-                                                borderBottomColor: 'grey',
-                                                borderBottomWidth: 1,
-                                            }}
-                                        />
+
+                                        <View style={styles.cositoGris}/>
+                                        
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                            <Entypo name="calendar" size={15} color="#3399ff" />
+                                                <Entypo name="calendar" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.year}
                                                 </Text>
                                             </View>
                                         </View>
-                                        <View
-                                            style={{
-                                                borderBottomColor: 'grey',
-                                                borderBottomWidth: 1,
-                                            }}
-                                        />
+
+                                        <View style={styles.cositoGris}/>
+                                        
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                            <Entypo name="clock" size={15} color="#3399ff" />
+                                                <Entypo name="clock" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.runtime}
                                                 </Text>
                                             </View>
                                         </View>
-                                        <View
-                                            style={{
-                                                borderBottomColor: 'grey',
-                                                borderBottomWidth: 1,
-                                            }}
-                                        />
+
+                                        <View style={styles.cositoGris}/>
+
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                            <FontAwesome name="star" size={15} color="#3399ff" />
+                                                <FontAwesome name="star" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
                                                     {this.state.detalle.rating}/10
                                                 </Text>
@@ -171,78 +176,75 @@ class Detalle extends Component {
                                         </View>
                                     </View>
                                 </View>
-                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
-                                    <Text style={styles.detalleGenresTitles}>
-                                        Géneros
-                                    </Text>
-                                    <Text style={styles.detalleGenres}>
-                                        {this.state.detalle.genre}
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        borderBottomColor: 'grey',
-                                        borderBottomWidth: 1,
-                                    }}
-                                />
-                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
-                                    <Text style={styles.detalleGenresTitles}>
-                                        Resumen
-                                    </Text>
-                                    <Text style={styles.detalleGenres}>
-                                        {this.state.detalle.synapsi}
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        borderBottomColor: 'grey',
-                                        borderBottomWidth: 1,
-                                    }}
-                                />
-                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
-                                    <Text style={styles.detalleGenresTitles}>
-                                        Precio
-                                    </Text>
-                                    <Text style={styles.detalleGenres}>
-                                        {'\n'}
-                                        Precio Entrada: $1000
-                                        {'\n'}
-                                        {'\n'}
-                                        Carta de precios:
-                                        {'\n'}
-                                        Trago clasico: $230
-                                        {'\n'}
-                                        Shot: $110
-                                        {'\n'}
-                                        Cerveza: $110
-                                        {'\n'}
+                                <ScrollView>
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                            <DropDownItem key={1} style={styles.dropDownItem} contentVisible={false}
+                                                header={
+                                                        <Text style={styles.detalleGenresTitles}>
+                                                            Genre
+                                                                </Text>
+                                                }
+                                            >
+                                                <Text style={styles.detalleGenres}>
+                                                    {this.state.detalle.genre}
+                                                </Text>
 
+                                            </DropDownItem>
+                                        </View> 
+                                        <View style={styles.cositoGris2}/>
+
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                            <DropDownItem key={2} style={styles.dropDownItem} contentVisible={false}
+                                                header={
+                                                        <Text style={styles.detalleGenresTitles}>
+                                                            Summary
+                                                                </Text>
+                                                }
+                                            >
+                                                <Text style={styles.detalleGenres}>
+                                                    {this.state.detalle.Summary}
+                                                </Text>
+
+                                            </DropDownItem>
+                                        </View> 
+                                        <View style={styles.cositoGris2}/>
+
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                            <DropDownItem key={3} style={styles.dropDownItem} contentVisible={false}
+                                                header={
+                                                        <Text style={styles.detalleGenresTitles}>
+                                                            Price
+                                                                </Text>
+                                                }
+                                            >
+                                                <Text style={styles.detalleGenres}>
+                                                    {this.state.detalle.Price}
+                                                </Text>
+
+                                            </DropDownItem>
+                                        </View> 
+                                        <View style={styles.cositoGris2}/>
+                                    
+
+                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
+                                        <Text style={styles.detalleComentariosTitles}>
+                                            Comentarios
                                     </Text>
+                                        <FlatList
+                                            data={this.state.comentarios}
+                                            keyExtractor={(item, index) => 'key' + index}
+                                            renderItem={({ item, index }) => {
+                                                return (
+                                                    <FlatListItems item={item} index={index}>
 
-                                </View>
-                                <View
-                                    style={{
-                                        borderBottomColor: 'grey',
-                                        borderBottomWidth: 1,
-                                    }}
-                                />
-                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10}}>
-                                    <Text style={styles.detalleComentariosTitles}>
-                                        Comentarios
-                                </Text>
-                                    <FlatList
-                                        data={this.state.comentarios}
-                                        keyExtractor={(item, index) => 'key' + index}
-                                        renderItem={({ item, index }) => {
-                                            return (
-                                                <FlatListItems item={item} index={index}>
+                                                    </FlatListItems>
+                                                );
+                                            }}
+                                        >
+                                        </FlatList>
+                                    </View>
+                                </ScrollView>
 
-                                                </FlatListItems>
-                                            );
-                                        }}
-                                    >
-                                    </FlatList>
-                                </View>
                             </View>
                         </View>
                     </ScrollView>
@@ -350,11 +352,7 @@ class FlatListItems extends Component {
 
 
                 <View
-                    style={{
-                        borderBottomColor: 'grey',
-                        borderBottomWidth: 1,
-                        marginVertical: 5
-                    }}
+                    style={styles.cositoGris2}
                 />
                 <Text style={styles.FlatListItems}>
                     {this.props.item.descripcion}
@@ -496,7 +494,16 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginBottom: 20,
     },
+    cositoGris:{
+        borderBottomColor: 'grey',
+         borderBottomWidth: 1,
+    },
+    cositoGris2:{
+        borderBottomColor: 'grey',
+         borderBottomWidth: 1,
+         marginHorizontal: 10,
+    }
 
 })
 
-export default Detalle
+export default withNavigation(Detalle)
