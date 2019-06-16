@@ -26,11 +26,13 @@ export default class MenuDrawer extends React.Component {
         <View style={styles.TopLinks}>
           <View style={styles.profile}>
             <View style={styles.imgView}>
-              <Image style={styles.img} source={require('./FACHA.png')}></Image>
+            <TouchableOpacity style={styles.name} onPress={() => this.props.navigation.navigate('Perfil')}>
+              <Image style={styles.img} source={require('./FACHA.png')} ></Image>
+              </TouchableOpacity>
             </View>
             <View style={styles.profileText}>
               <TouchableOpacity style={styles.name} onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Text>Lisandro Rodriguez Prados</Text>
+              <Text style={styles.name}>Lisandro Rodriguez Prados</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -38,8 +40,11 @@ export default class MenuDrawer extends React.Component {
         <ScrollView>
         <View style={styles.bottomLinks}>
           {this.navLink('Recomendados', 'Recomendados')}
+          <View style={styles.cositoGris} />
           {this.navLink('Conciertos', 'Conciertos')}
+          <View style={styles.cositoGris} />
           {this.navLink('Festivales', 'Festivales')}
+          <View style={styles.cositoGris} />
         </View>
         </ScrollView>
       </View>
@@ -61,13 +66,15 @@ const styles = StyleSheet.create({
   },
   profileText: {
     flex: 3,
+    paddingLeft:10,
     flexDirection: 'column',
     justifyContent: 'center'
   },
   name: {
-    fontSize: 50,
-    paddingBottom: 5,
-    color: 'white',
+    fontSize:20,
+    paddingLeft:10,
+    paddingTop:5,
+    color: 'black',
     textAlign: 'left',
   },
   profile: {
@@ -95,7 +102,11 @@ const styles = StyleSheet.create({
   },
   bottomLinks: {
     flex: 1,
-    paddingTop:20,
+    paddingTop:5,
     backgroundColor: 'white',
   },
+  cositoGris: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
+},
 })

@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 import DropDownItem from 'react-native-drop-down-item';
+import { Rating, AirbnbRating } from 'react-native-elements';
 import Mapa from './Mapa';
 import ApiController from '../controller/ApiController';
 import { LinearGradient } from 'expo'
@@ -29,18 +30,22 @@ class Detalle extends Component {
                 "Summary": "Re copada la banduli de rock",
                 "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
                 "genre": "Rock",
-                "rating": "10",
+                rating: 3,
+                personas:0,
                 "runtime": "165",
                 "webSite": "www.queti.com",
                 "Price": ""
             },
             isLoading: true,
             modalVisible: false,
+            Max_Rating: 5,
             //text: "",
             //idUser: props.navigation.getParam('idUser'),
             comentarios: [],
         }
         this._storeData(this.state.idEvento);
+        this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
+        this.Star_With_Border = 'http://aboutreact.com/wp-content/uploads/2018/08/star_corner.png';
     }
 
     _storeData = async () => {
@@ -79,6 +84,9 @@ class Detalle extends Component {
         //ApiController.getDetalle(this.okDetalle.bind(this), this.state.id);
         this.okDetalle(this.state);
     }
+    ratingCompleted(rating){
+        console.log("Rating is: " + rating)
+    }
 
     okDetalle(data) {
         if (data != null) {
@@ -89,6 +97,21 @@ class Detalle extends Component {
         } else {
             alert("Intentar de nuevo")
         }
+    }
+    UpdateRating(key) {
+        this.setState({ detalle:{
+        "title": this.state.detalle.title,
+        "year": this.state.detalle.year,
+        "Summary": this.state.detalle.Summary,
+        "poster": this.state.detalle.poster,
+        "genre": this.state.detalle.genre,
+        rating: key,// HACER EL NUEVO PROMEDIO DE VOTOSSSS
+        personas: this.state.detalle.personas+1,
+        "runtime": this.state.detalle.runtime,
+        "webSite": this.state.detalle.webSite,
+        "Price": this.state.detalle.Price}});
+        console.log('caca'+ this.state.detalle.rating)
+        console.log('caca'+ this.state.detalle.personas)
     }
     /*
         cargarComentarios() {
@@ -113,6 +136,26 @@ class Detalle extends Component {
     render() {
         const { navigation } = this.props;
         const id = this.props.agarrarId()
+        let React_Native_Rating_Bar = [];
+        //Array to hold the filled or empty Stars
+        for (var i = 1; i <= this.state.Max_Rating; i++) {
+          React_Native_Rating_Bar.push(
+            <TouchableOpacity
+              activeOpacity={0.7}
+              key={i}
+              onPress={this.UpdateRating.bind(this, i)}>
+              <Image
+                style={styles.StarImage}
+                source={
+                  i <= this.state.detalle.rating
+                    ? { uri: this.Star }
+                    : { uri: this.Star_With_Border }
+                }
+              />
+            </TouchableOpacity>
+          );
+        }
+
         if (this.state.isLoading) {
             return (
                 //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
@@ -142,8 +185,8 @@ class Detalle extends Component {
                                             </Text>
                                         </View>
 
-                                        <View style={styles.cositoGris}/>
-                                        
+                                        <View style={styles.cositoGris} />
+
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Entypo name="calendar" size={15} color="#3399ff" />
@@ -153,8 +196,8 @@ class Detalle extends Component {
                                             </View>
                                         </View>
 
-                                        <View style={styles.cositoGris}/>
-                                        
+                                        <View style={styles.cositoGris} />
+
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Entypo name="clock" size={15} color="#3399ff" />
@@ -164,67 +207,71 @@ class Detalle extends Component {
                                             </View>
                                         </View>
 
-                                        <View style={styles.cositoGris}/>
+                                        <View style={styles.cositoGris} />
 
-                                        <View style={{ borderRadius: 10, backgroundColor: 'white', height: 40, marginBottom: 10, marginTop: 10 }}>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                                <FontAwesome name="star" size={15} color="#3399ff" />
-                                                <Text style={styles.detalleEvento}>
-                                                    {this.state.detalle.rating}/10
-                                                </Text>
+                                        <View style={{ borderRadius: 10, backgroundColor: 'white', height: 50, marginBottom: 10, marginTop: 10 }}>
+                                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                            
+                                            
+                                            
+                                            <View style={styles.childView}>{React_Native_Rating_Bar}</View>
+                                            <Text>votes: {this.state.detalle.personas}</Text>
+
+
+
                                             </View>
                                         </View>
                                     </View>
                                 </View>
                                 <ScrollView>
-                                        <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                            <DropDownItem key={1} style={styles.dropDownItem} contentVisible={false}
-                                                header={
-                                                        <Text style={styles.detalleGenresTitles}>
-                                                            Genre
+                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                        <DropDownItem key={1} style={styles.dropDownItem} contentVisible={false}
+                                            header={
+                                                <Text style={styles.detalleGenresTitles}>
+                                                    Genre
                                                                 </Text>
-                                                }
-                                            >
-                                                <Text style={styles.detalleGenres}>
-                                                    {this.state.detalle.genre}
-                                                </Text>
+                                            }
+                                        >
+                                            <Text style={styles.detalleGenres}>
+                                                {this.state.detalle.genre}
+                                            </Text>
 
-                                            </DropDownItem>
-                                        </View> 
-                                        <View style={styles.cositoGris2}/>
+                                        </DropDownItem>
+                                    </View>
+                                    <View style={styles.cositoGris2} />
 
-                                        <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                            <DropDownItem key={2} style={styles.dropDownItem} contentVisible={false}
-                                                header={
-                                                        <Text style={styles.detalleGenresTitles}>
-                                                            Summary
+                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                        <DropDownItem key={2} style={styles.dropDownItem} contentVisible={false}
+                                            header={
+                                                <Text style={styles.detalleGenresTitles}>
+                                                    Summary
                                                                 </Text>
-                                                }
-                                            >
-                                                <Text style={styles.detalleGenres}>
-                                                    {this.state.detalle.Summary}
-                                                </Text>
+                                            }
+                                        >
+                                            <Text style={styles.detalleGenres}>
+                                                {this.state.detalle.Summary}
+                                            </Text>
 
-                                            </DropDownItem>
-                                        </View> 
-                                        <View style={styles.cositoGris2}/>
+                                        </DropDownItem>
+                                    </View>
+                                    <View style={styles.cositoGris2} />
 
-                                        <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                            <DropDownItem key={3} style={styles.dropDownItem} contentVisible={false}
-                                                header={
-                                                        <Text style={styles.detalleGenresTitles}>
-                                                            Price
+                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                        <DropDownItem key={3} style={styles.dropDownItem} contentVisible={false}
+                                            header={
+                                                <Text style={styles.detalleGenresTitles}>
+                                                    Price
                                                                 </Text>
-                                                }
-                                            >
-                                                <Text style={styles.detalleGenres}>
-                                                    {this.state.detalle.Price}
-                                                </Text>
+                                            }
+                                        >
+                                            <Text style={styles.detalleGenres}>
+                                                {this.state.detalle.Price}
+                                            </Text>
 
-                                            </DropDownItem>
-                                        </View> 
-                                        <View style={styles.cositoGris2}/>
-                                    
+                                        </DropDownItem>
+                                    </View>
+                                    <View style={styles.cositoGris2} />
+
 
                                     <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
                                         <Text style={styles.detalleComentariosTitles}>
@@ -494,15 +541,25 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginBottom: 20,
     },
-    cositoGris:{
+    cositoGris: {
         borderBottomColor: 'grey',
-         borderBottomWidth: 1,
+        borderBottomWidth: 1,
     },
-    cositoGris2:{
+    cositoGris2: {
         borderBottomColor: 'grey',
-         borderBottomWidth: 1,
-         marginHorizontal: 10,
-    }
+        borderBottomWidth: 1,
+        marginHorizontal: 10,
+    },
+    childView: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginTop: 7,
+      },
+      StarImage: {
+        width: 25,
+        height: 25,
+        resizeMode: 'cover',
+      },
 
 })
 
