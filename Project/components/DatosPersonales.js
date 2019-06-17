@@ -49,7 +49,7 @@ class DatosPersonales extends Component {
             <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
                 <View style={[styles.detalleContainer]} >
                     <View style={{ alignSelf: 'center', marginBottom: 50 }}>
-                        <Image source={require('./vaca.png')} style={{
+                        <Image source={require('./FACHA.png')} style={{
                             height: 250,
                             width: 250,
                             resizeMode: 'contain',

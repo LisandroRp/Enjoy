@@ -39,6 +39,7 @@ class Detalle extends Component {
             isLoading: true,
             modalVisible: false,
             Max_Rating: 5,
+            Voted: false,
             //text: "",
             //idUser: props.navigation.getParam('idUser'),
             comentarios: [],
@@ -84,9 +85,6 @@ class Detalle extends Component {
         //ApiController.getDetalle(this.okDetalle.bind(this), this.state.id);
         this.okDetalle(this.state);
     }
-    ratingCompleted(rating){
-        console.log("Rating is: " + rating)
-    }
 
     okDetalle(data) {
         if (data != null) {
@@ -99,6 +97,7 @@ class Detalle extends Component {
         }
     }
     UpdateRating(key) {
+        if(this.state.Voted ==false){
         this.setState({ detalle:{
         "title": this.state.detalle.title,
         "year": this.state.detalle.year,
@@ -110,8 +109,10 @@ class Detalle extends Component {
         "runtime": this.state.detalle.runtime,
         "webSite": this.state.detalle.webSite,
         "Price": this.state.detalle.Price}});
+        this.setState({Voted: true})
         console.log('caca'+ this.state.detalle.rating)
         console.log('caca'+ this.state.detalle.personas)
+        }
     }
     /*
         cargarComentarios() {
@@ -140,6 +141,7 @@ class Detalle extends Component {
         //Array to hold the filled or empty Stars
         for (var i = 1; i <= this.state.Max_Rating; i++) {
           React_Native_Rating_Bar.push(
+              
             <TouchableOpacity
               activeOpacity={0.7}
               key={i}
