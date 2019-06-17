@@ -5,11 +5,11 @@ var Schema = mongoose.Schema;
 var comentarioSchema = new Schema({
     nombre:String,
     descripcion:String,
-    usuarioId:String,
-    fechaComentario:String,
-    eventoId:String,
+    usuarioId:{type:String, required:true},
+    fecha:{type:Date, default:Date.now()},
+    eventoId:{type:String, required:true}
 });
 
-var Comentarios = mongoose.model('Comentario', comentarioSchema);
-console.log("se creo modelo Comentarios");
-module.exports = Comentarios;
+var Comentario = mongoose.model('Comentario', comentarioSchema);
+console.log("se creo modelo Comentario");
+module.exports = Comentario;

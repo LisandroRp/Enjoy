@@ -1,31 +1,35 @@
-// Import express
+// Importo express
 var express = require('express');
-//Import Body Parser
+// Importo Body Parser
 var bodyParser = require('body-parser');
 var cors = require('cors');
-// Initialize the server express
+// Inicializo el server express
 var app = express();
 
-//conectar BD
-var urlBD = 'mongodb://localhost/pelicula';
-//opciones conexion
-var opts = {useNewUrlParser : true, connectTimeoutMS:20000};
-//importo driver
+// Importo driver
 var mongoose = require('mongoose');
+// Conectar BD
+var urlBD = 'mongodb://localhost/dbEventos';
+// Opciones conexion
+var opts = {useNewUrlParser:true, connectTimeoutMS:20000};
+
 //Pruebo conexion
 mongoose.connect(urlBD,opts).then
 (
     () => {
-            console.log("Conectado a pelicula!!");
+            mongoose.Promise = global.Promise;
+            console.log("Conectado a dbEventos!!");
           }, //se conecto
     err => { 
             console.log("ERROR:" + err); 
            } //manejo error
 );
 
-// Import router
+// Importo router
 var apiRoutes = require("./api-routes")
 
+// Uso Api routes en App
+app.use('/apiAppEventos', apiRoutes);
 
 // Todo lo que recibe la app se tratara como json
 app.use(bodyParser.urlencoded(
@@ -38,14 +42,45 @@ app.use(cors());
 // Setup server port
 var port = process.env.PORT || 8080;
 
-// Send message for default URL
-app.get('/', (req, res) => res.send('Soy Pelicula Activa'));
-
-// Use Api routes in the App
-app.use('/apiAppPeliculas', apiRoutes);
-
 // Launch app to listen to specified port
 app.listen(port, function () {
-     console.log("Ejecuntando en el puerto " + port);
+    console.log("Ejecuntando en el puerto " + port);
 });
 
+// Send message for default URL
+app.get('/', (req, res) => res.send('Backend Activo'));
+
+/************ Test ***********/
+/*var Evento = require('./model/Evento');
+
+var acdcEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'AC/DC',
+    descripcion:'Recital de Hard Rock',
+    tipo:'Musica',
+    idUsuarioPropietario:'Time4Fun',
+    puntajePromedio:8
+});
+
+acdcEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento guardado con exito.');
+});
+
+var Usuario = require('./model/Usuario');
+
+var usuario = new Usuario({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Gonzalo',
+    apellido:'Fernandez',
+    alias:'gonza_fer',
+    email:'gonza89@gmail.com',
+    password:'12345678'
+});
+
+usuario.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Usuario guardado con exito.');
+});*/

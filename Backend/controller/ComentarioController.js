@@ -1,18 +1,15 @@
 var comentarios = require('../model/Comentario');
 var bodyParser = require('body-parser');
-var usuarios = require('./UsuarioController');
 
 let insertComentario = (req,res) =>
 {
     console.log(req.body);
-    var date = new Date().toISOString().slice(0,10);
+    //var date = new Date().toISOString().slice(0,10);
     var newComentario = comentarios({
         nombre:req.body.usuarioId,
         descripcion:req.body.descripcion,
         usuarioId:req.body.usuarioId,
-        fechaComentario:date,
-        peliculaId:req.body.peliculaId,
-        peliculaNombre:req.body.peliculaNombre
+        eventoId:req.body.eventoId
     });
     newComentario.save().
     then
@@ -46,12 +43,12 @@ let getComentariosByUsuarioId = (req, res) =>
     )       
 };
 
-let getComentariosByPeliculaId = (req, res) =>
+let getComentariosByEventoId = (req, res) =>
 {      
     console.log("llegue a leer comentarios con filtro");
     //Obtener id busqueda req.param.tagid
-    console.log(req.query.peliculaId);
-    let idBusqueda = {peliculaId: req.query.peliculaId};
+    console.log(req.query.eventoId);
+    let idBusqueda = {eventoId: req.query.eventoId};
     console.log(idBusqueda);
     //Listar resultados
     comentarios.find(idBusqueda)
@@ -66,4 +63,4 @@ let getComentariosByPeliculaId = (req, res) =>
     )       
 };
 
-module.exports = {insertComentario,getComentariosByUsuarioId,getComentariosByPeliculaId};
+module.exports = {insertComentario,getComentariosByUsuarioId,getComentariosByEventoId};
