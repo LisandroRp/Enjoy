@@ -277,7 +277,7 @@ class Detalle extends Component {
 
                                     <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
                                         <Text style={styles.detalleComentariosTitles}>
-                                            Comentarios
+                                            Comments
                                     </Text>
                                         <FlatList
                                             data={this.state.comentarios}
@@ -314,7 +314,7 @@ class Detalle extends Component {
                         <View style={styles.modal}>
                             <View>
                                 <Text
-                                    style={styles.modalText}>Comentario</Text>
+                                    style={styles.modalText}>Comment</Text>
                             </View>
                             <View style={{ margin: 10, color: '#3399ff', borderColor: 'black', borderWidth: 1, width: width * 0.70, height: 50, backgroundColor: 'white' }}>
                                 <TextInput multiline={true} autoFocus={true} maxLength={100} onChangeText={(text) => this.setState({ text })} value={this.state.text}>

@@ -120,7 +120,7 @@ class Mapa extends Component {
                         containerStyle={{backgroundColor: 'white', height:50, paddingBottom:22}}
                         buttonStyle={{paddingBottom:22}}
                     />
-    {this.state.markers.map(marker => (
+    {/* {this.state.markers.map(marker => (
     <Marker
         coordinate={marker.coords}
         title={marker.title}
@@ -131,7 +131,7 @@ class Mapa extends Component {
         </View>
      </Marker>
     
-  ))}
+  ))} */}
 
         </MapView>
       </View>

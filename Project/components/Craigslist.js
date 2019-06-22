@@ -19,6 +19,7 @@ class Craigslist extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      IdUser: props.navigation.getParam('IdUser'),
       searchStatus: 'none',
       Status: 'none',
       modalVisible: false,
@@ -31,6 +32,7 @@ class Craigslist extends Component {
         { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
       ]
     };
+    this._storeData(this.state.IdUser);
     
   }
   static navigationOptions = {
@@ -40,6 +42,14 @@ class Craigslist extends Component {
     },
   };
 
+  _storeData = async () => {
+    try {
+        await AsyncStorage.setItem('IdUser', this.state.IdUser);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
   clickEventListener = (item) => {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
@@ -48,6 +58,7 @@ class Craigslist extends Component {
     const perro=3
     return (
       <View style={styles.container}>
+      <Text>{this.state.IdUser}</Text>
         <FlatList
           style={styles.contentList}
           columnWrapperStyle={styles.listContainer}
