@@ -8,7 +8,7 @@ let insertUsuario = (req,res) =>
     var newUsuario = usuarios({
         nombre:req.body.nombre,
         apellido:req.body.apellido,
-        alias:req.body.alias,
+        username:req.body.username,
         email:req.body.email,
         password:req.body.password
     });
@@ -59,12 +59,12 @@ let getUsuarioById = (req, res) =>
     )       
 };
 
-let getUsuarioByAlias = (req, res) =>
+let getUsuarioByUsername = (req, res) =>
 {      
     console.log("llegue a leer con filtro");
     //Obtener id busqueda req.param.tagid
-    console.log(req.query.alias);
-    let idBusqueda = {alias: req.query.alias};
+    console.log(req.query.username);
+    let idBusqueda = {username: req.query.username};
     console.log(idBusqueda);
     //Listar resultados
     usuarios.findOne(idBusqueda)
@@ -98,4 +98,4 @@ let updateUsuarioByPassword = (req, res) =>
       res.status(206).send({ msg: "Se actualizaron los usuarios." });  
 };
 
-module.exports = {getUsuarios,getUsuarioById,getUsuarioByAlias,insertUsuario,updateUsuarioByPassword};
+module.exports = {getUsuarios,getUsuarioById,getUsuarioByUsername,insertUsuario,updateUsuarioByPassword};

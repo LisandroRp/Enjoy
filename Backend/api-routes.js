@@ -30,10 +30,10 @@ router.get('/getUsuarioById',(req, res) =>{
         usuarioController.getUsuarioById(req,res);
 });
 
-//EndPoint para leer usuario por alias
-router.get('/getUsuarioByAlias',(req, res) =>{
-    if(!req.query.alias || req.query.alias =='undefined' || req.query.alias == '') 
-        res.status(409).send({ msg: "El campo alias es requerido." });
+//EndPoint para leer usuario por username
+router.get('/getUsuarioByUsername',(req, res) =>{
+    if(!req.query.username || req.query.username =='undefined' || req.query.username == '') 
+        res.status(409).send({ msg: "El campo username es requerido." });
     else
         usuarioController.getUsuarioByAlias(req,res);
 });

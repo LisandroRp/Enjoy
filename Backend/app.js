@@ -51,7 +51,7 @@ app.listen(port, function () {
 app.get('/', (req, res) => res.send('Backend Activo'));
 
 /************ Test ***********/
-/*var Evento = require('./model/Evento');
+var Evento = require('./model/Evento');
 
 var acdcEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
@@ -68,19 +68,49 @@ acdcEvento.save(function(err) {
     console.log('Evento guardado con exito.');
 });
 
+var cafresEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Los Cafres',
+    descripcion:'Recital',
+    tipo:'Musica',
+    idUsuarioPropietario:'Time4Fun',
+    puntajePromedio:6
+});
+
+cafresEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento guardado con exito.');
+});
+
 var Usuario = require('./model/Usuario');
 
-var usuario = new Usuario({
+var usuario1 = new Usuario({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Gonzalo',
     apellido:'Fernandez',
-    alias:'gonza_fer',
+    username:'gonza_fer',
     email:'gonza89@gmail.com',
     password:'12345678'
 });
 
-usuario.save(function(err) {
+usuario1.save(function(err) {
     if (err) throw err;
         
     console.log('Usuario guardado con exito.');
-});*/
+});
+
+var usuario2 = new Usuario({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Matias',
+    apellido:'Pepe',
+    username:'matu_pe',
+    email:'matu_pe@gmail.com',
+    password:'12345678'
+});
+
+usuario2.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Usuario guardado con exito.');
+});
