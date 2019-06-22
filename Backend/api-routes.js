@@ -35,7 +35,7 @@ router.get('/getUsuarioByUsername',(req, res) =>{
     if(!req.query.username || req.query.username =='undefined' || req.query.username == '') 
         res.status(409).send({ msg: "El campo username es requerido." });
     else
-        usuarioController.getUsuarioByAlias(req,res);
+        usuarioController.getUsuarioByUsername(req,res);
 });
 
 //Endpoint para insertar un usuario

@@ -51,7 +51,7 @@ app.listen(port, function () {
 app.get('/', (req, res) => res.send('Backend Activo'));
 
 /************ Test ***********/
-var Evento = require('./model/Evento');
+/*var Evento = require('./model/Evento');
 
 var acdcEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
@@ -59,7 +59,9 @@ var acdcEvento = new Evento({
     descripcion:'Recital de Hard Rock',
     tipo:'Musica',
     idUsuarioPropietario:'Time4Fun',
-    puntajePromedio:8
+    duracion:120,
+    puntajePromedio:8,
+    precio:[{nombre:'entrada', descripcion:'valor entrada', valor:1500}]
 });
 
 acdcEvento.save(function(err) {
@@ -74,7 +76,9 @@ var cafresEvento = new Evento({
     descripcion:'Recital',
     tipo:'Musica',
     idUsuarioPropietario:'Time4Fun',
-    puntajePromedio:6
+    duracion:160,
+    puntajePromedio:6,
+    precio:[{nombre:'entrada', descripcion:'valor entrada', valor:500}]
 });
 
 cafresEvento.save(function(err) {
@@ -113,4 +117,4 @@ usuario2.save(function(err) {
     if (err) throw err;
         
     console.log('Usuario guardado con exito.');
-});
+});*/
