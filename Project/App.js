@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons';
 import Detalle from './components/Detalle';
 import Conciertos from './components/Conciertos'
 import ChangePassword from './components/ChangePassword'
 import CreateUser from './components/CreateUser'
-import DatosPersonales from './components/DatosPersonales';
-import Comentarios from './components/Comentarios';
-import MockedViews from './components/MockedViews'
+import PersonalInformation from './components/DatosPersonales';
+import Comments from './components/Comentarios';
 import Craigslist from './components/Craigslist'
 import LogInCards from './components/LogInCards'
 import CardView from './components/CardView'
@@ -22,7 +21,9 @@ import {
   createDrawerNavigator,
   createBottomTabNavigator,
   createStackNavigator,
+  DrawerItems,
 } from 'react-navigation';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 function handleSearch() {
@@ -52,7 +53,7 @@ class SignUpClass extends React.Component{
   checkLogin() {
     //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
     /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
-    this.props.navigation.navigate('Recomendados',{id: 123});
+    this.props.navigation.navigate('MockedViewScreen',{IdUser: 'PerroLoco'});
   }
 
   goPass() {
@@ -96,12 +97,13 @@ class CreateUserScreen extends React.Component {
 class MockedViewScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      id: this.props.navigation.getParam('id')
-    }
+    // this.state = {
+    //   idUser: this.props.navigation.getParam('idUser'),
+    //   idEvento: null
+    // }
   }
   static navigationOptions = {
-    title: 'Recomendados',
+    title: 'Recommended',
     headerStyle: {
       backgroundColor: 'white',
       height:45
@@ -112,21 +114,26 @@ class MockedViewScreen extends React.Component {
     return (
       <Craigslist
         onPressGo={this.pasarConcierto.bind(this)}
-        agarrarId= {this.pasarId.bind(this)}
+        agarrarId= {this.pasarIdEvento.bind(this)}
+        agarrarIdUsuario={this.pasarUsuario.bind(this)}
       />
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Detalle',{id: id});
+    this.props.navigation.navigate('Detalle',{IdUser: id});
   }
-  pasarId(){
-    return this.state.id
+  pasarIdEvento(){
+    return this.state.idEvento
   }
+  pasarUsuario(){
+    //return this.state.idUser
+  }
+
 }
 class ConciertosScreen extends React.Component {
 
   static navigationOptions = {
-    title: 'Conciertos',
+    title: 'Concerts',
     headerStyle: {
       backgroundColor: 'white',
       height:45
@@ -144,13 +151,13 @@ class ConciertosScreen extends React.Component {
     );
   }
   pasarConcierto() {
-    this.props.navigation.navigate('Detalle',{id: '123'});
+    this.props.navigation.navigate('Detalle');
   }
 }
 class FestivalesScreen extends React.Component {
 
   static navigationOptions = {
-    title: 'Festivales',
+    title: 'Festivals',
     headerStyle: {
       backgroundColor: 'white',
       height:45
@@ -184,7 +191,7 @@ class DetalleScreen extends React.Component {
         />
         </View>
       ),
-      title: 'Detalles',
+      title: 'Details',
     headerStyle: {
       backgroundColor: 'white',
       height:45
@@ -251,6 +258,7 @@ const MockedViewStackNavigator = createStackNavigator(
   {
     MockedViewScreen: {
       screen: MockedViewScreen,
+      
 
       navigationOptions: ({ navigation }) => {
         return {
@@ -278,8 +286,6 @@ const MockedViewStackNavigator = createStackNavigator(
       }
     },
     Helado: {screen: SearchScreen},
-    //Helado: {screen: MockedViewScreen},
-    //Helado: {screen: MockedViewScreen},
     Detalle: { screen: DetalleScreen},
     Mapa: {screen: Mapa},
   },
@@ -363,7 +369,7 @@ const FestivalesStackNavigator = createStackNavigator(
     initialRouteName: 'FestivalesScreen',
   }
 );
-
+/*
 const DetalleStackNavigator = createStackNavigator(
   {
     DetalleScreen: {
@@ -386,15 +392,15 @@ const DetalleStackNavigator = createStackNavigator(
     initialRouteName: 'DetalleScreen',
   }
 );
-
+*/
 const PerfilTabNavigator = createBottomTabNavigator({
-  DatosPersonales,
-  Comentarios
+  PersonalInformation,
+  Comments
 }, {
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index]
       return {
-        headerTitle: 'Perfil',
+        headerTitle: 'Profile',
         headerTintColor: '#3399ff',
         headerLeft: (
           <Icon
@@ -439,26 +445,51 @@ const DrawerConfig={
     activeTintColor: '#3399ff'
   }
 }
+const customDrawerComponent= (props) =>(
+  <View style={{ flex: 1 }}>
+    <View style={styles.profile}>
+            <View style={styles.imgView}>
+              <Image style={styles.img} source={require('./components/FACHA.png')} ></Image>
+            </View>
+            <View style={styles.profileText}>
+              <Text style={styles.name}>Lisandro Rodriguez Prados</Text>
+            </View>
+        </View>
+    <ScrollView style={{borderTopWidth: 0, marginTop:0, paddingTop:0}}>
+      <DrawerItems {...props} style={{borderTopWidth: 0, marginTop:0, paddingTop:0}} />
+    </ScrollView>
+  </View>
+)
 const AppDrawerNavigator = createDrawerNavigator({
-  Recomendados: MockedViewStackNavigator,
-  Conciertos: ConciertosStackNavigator,
-  Festivales: FestivalesStackNavigator,
-  Perfil: PerfilStackNavigator,
+  Recommended: MockedViewStackNavigator,
+  Concerts: ConciertosStackNavigator,
+  Festivals: FestivalesStackNavigator,
+  Profile: PerfilStackNavigator,
 },
-DrawerConfig,
- {
-    drawerBackgroundColor: 'pink',
+// DrawerConfig,
+{
+  contentComponent: customDrawerComponent,
+  drawerBackgroundColor: '#ebf0f7',
     contentOptions: {
       //Esto sirve para cambiar algunos colores
-      /*activeTintColor: '#3399ff'*/
+      activeTintColor: '#6666ff',
+      inactiveTintColor:'#3399ff'
     }
-  }
+},
+//  {
+//     drawerBackgroundColor: '#ebf0f7',
+//     contentOptions: {
+//       //Esto sirve para cambiar algunos colores
+//       activeTintColor: '#6666ff',
+//       inactiveTintColor:'#3399ff'
+//     }
+//   }
 );
 
 
 const AppSwitchNavigator = createSwitchNavigator({
   SignUpClass: { screen: SignUpClass},
-  Craigslists: { screen: MockedViewScreen },
+  Craigslist: { screen: MockedViewScreen },
   ChangePassword: { screen: ChangePasswordScreen },
   //Login: { screen: LoginScreen },
   CreateUser: { screen: CreateUserScreen },
@@ -472,5 +503,36 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },name: {
+    fontSize:20,
+    paddingLeft:10,
+    paddingTop:5,
+    color: 'white',
+    textAlign: 'left',
+  },
+  profile: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 40,
+    paddingBottom: 40,
+    borderBottomWidth: 0,
+    borderBottomColor: '#3399ff',
+    backgroundColor: '#3399ff',
+  },
+  imgView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  img: {
+    height: 80,
+    width: 80,
+    borderRadius: 50,
+  },
+  profileText: {
+    flex: 3,
+    paddingLeft:10,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
 });

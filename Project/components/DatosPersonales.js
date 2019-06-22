@@ -10,7 +10,7 @@ class DatosPersonales extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idUser: null,
+            IdUser: null,
             nombre: null,
             apellido: null,
             email: null,
@@ -20,12 +20,12 @@ class DatosPersonales extends Component {
 
     _retrieveData = async () => {
         try {
-            const value = await AsyncStorage.getItem('idUser');
+            const value = await AsyncStorage.getItem('IdUser');
             if (value !== null) {
                 this.setState({
-                    idUser: value
+                    IdUser: value
                 })
-                this.getUserData(this.state.idUser);
+                this.getUserData(this.state.IdUser);
             }
         } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ class DatosPersonales extends Component {
     };
 
     getUserData() {
-        ApiController.getUsuario(this.okUserData.bind(this), this.state.idUser);
+        ApiController.getUsuario(this.okUserData.bind(this), this.state.IdUser);
     }
 
     okUserData(data) {
@@ -71,7 +71,7 @@ class DatosPersonales extends Component {
                         </View>
                         <View style={[styles.underline]}>
                             <Text style={[styles.TextUnderline]}>Usuario:</Text>
-                            <Text style={[styles.textInput]}>{this.state.idUser}</Text>
+                            <Text style={[styles.textInput]}>{this.state.IdUser}</Text>
                         </View>
                     </View>
                 </View>
