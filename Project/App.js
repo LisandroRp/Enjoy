@@ -120,7 +120,7 @@ class MockedViewScreen extends React.Component {
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Detalle',{id: id});
+    this.props.navigation.navigate('Detalle',{IdUser: id});
   }
   pasarIdEvento(){
     return this.state.idEvento

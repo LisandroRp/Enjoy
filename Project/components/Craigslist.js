@@ -53,7 +53,6 @@ class Craigslist extends Component {
   clickEventListener = (item) => {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
-
   render() {
     const perro=3
     return (
