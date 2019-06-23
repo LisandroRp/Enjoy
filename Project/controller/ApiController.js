@@ -51,7 +51,11 @@ class ApiController extends Component {
     }
 
     insertUsuario(name, lastName, email, user, password, okCreate) {
+<<<<<<< HEAD
         let uri = url+'/insertUsuario/Usuario'
+=======
+        let uri = 'http://192.168.1.103:8080/apiAppEventos/insertUsuario/Usuario'
+>>>>>>> bc8491899e76b519b295f8130ea7e44e8329c116
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -60,7 +64,7 @@ class ApiController extends Component {
                 nombre: name,
                 apellido: lastName,
                 email: email,
-                usuarioId: user,
+                username: user,
                 password: password,
             })
         }).then((res) => {
@@ -72,22 +76,33 @@ class ApiController extends Component {
     }
 
     changePassword(user, pass, okChange) {
+<<<<<<< HEAD
         let uri = url+'/updateUsuarioByPassword/Usuario'
+=======
+        let uri = 'http://192.168.1.103:8080/apiAppEventos/updateUsuarioByPassword/Usuario'
+        console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+user+pass),
+>>>>>>> bc8491899e76b519b295f8130ea7e44e8329c116
         fetch(uri, {
             method: 'POST',
             mode: "cors",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ usuarioId: user, password: pass }),
+            body: JSON.stringify({ username: user, password: pass }),
         }).then((res) => {
             return res.json();
-        }).catch((err) => console.log(err)).then((res) => {
+        }).catch((err) => console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+err)).then((res) => {
             okChange();
         }).catch((err) => console.log(err));
     }
 
     getUsuario(okUsuario, username) {
+<<<<<<< HEAD
         let uri = url+'/getUsuarioByUsername?username=' + username
+=======
+        let uri = 'http://192.168.1.103:8080/apiAppEventos/getUsuarioByUsername?username=' + username
+        
+>>>>>>> bc8491899e76b519b295f8130ea7e44e8329c116
         fetch(uri).then(res => {
+            console.log(res.body)
             return res.json()
         }).catch((err) => {
             console.log(err)
