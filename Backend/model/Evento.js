@@ -8,16 +8,15 @@ var eventoSchema = new Schema({
     idUsuarioPropietario:{type:String, required:true},
     fecha:{type:Date, default:Date.now()},
     tipo:{type:String, required:true},
+    genero:String,
+    imagen:Buffer,
     duracion:Number,
-    puntajePromedio:Number,
-    comentarios:[],
-    puntaje:[],
-    cartas:[{type:Schema.Types.ObjectId, ref: 'Carta'}],
-    precios:[{
-        nombre:String,
-        descripcion:String,
-        valor:Number,
-    }]
+    rating:Number,
+    personas:Number,
+    votos:[{type:Schema.Types.ObjectId, ref: 'Usuario'}],
+    comentarios:[{type:Schema.Types.ObjectId, ref: 'Comentario'}],
+    precios:[{type:Schema.Types.ObjectId, ref: 'Carta'}],
+    precioE:Number
 });
 
 var Evento = mongoose.model('Evento', eventoSchema);
