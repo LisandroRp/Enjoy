@@ -14,34 +14,25 @@ import ApiController from '../controller/ApiController';
 class LogInCards extends Component {
   constructor(props) {
     super(props);
-    state = {
-      email   : null,
+    this.state = {
+      username: null,
       password: null,
     }
   }
 
   checkLogin() {
-    //ApiController.getUsuario(this.checkUsuario.bind(this), this.state.username)
-    this.checkUsuario(/*"hola"*/);
+    ApiController.getUsuario(this.checkUsuario.bind(this), this.state.username)
   }
 
-  checkUsuario(/*data*/) {
-   // if (data.usuarioId == this.state.username && data.password == this.state.password && this.state.username != null) {
-        //this.props.onPressLogin(this.state.email);
-        this.props.onPressLogin(/*'Hola'*/);
-    //} else {
-    //    alert("Contraseña incorrecta");
-   // }
+  checkUsuario(data) {
+    console.log(data)
+    if (data.username == this.state.username && data.password == this.state.password && this.state.username != null) {
+        this.props.onPressLogin(this.state.username);
+    } else {
+        alert("Contraseña incorrecta");
+    }
   }
-  /*
-        <View style={styles.inputContainer}>
-          <TextInput style={styles.inputs}
-              placeholder="Full name"
-              underlineColorAndroid='transparent'
-              onChangeText={(email) => this.setState({email})}/>
-          <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/circled-user-male-skin-type-3.png'}}/>
-        </View>
-         */
+ 
   render() {
     return (
 
@@ -50,10 +41,10 @@ class LogInCards extends Component {
        <View style={{paddingTop:100}}>
         <View style={styles.inputContainer}>
           <TextInput style={styles.inputs}
-              placeholder="Email"
-              keyboardType="email-address"
+              placeholder="Username"
               underlineColorAndroid='transparent'
-              onChangeText={(email) => this.setState({email})}/>
+              onChangeText={(text) => this.setState({ username: text })}
+              />
           <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/flat_round/40/000000/secured-letter.png'}}/>
         </View>
         
@@ -62,7 +53,8 @@ class LogInCards extends Component {
               placeholder="Password"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
-              onChangeText={(password) => this.setState({password})}/>
+              onChangeText={(text) => this.setState({ password: text })}
+              />
           <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/password.png'}}/>
         </View>
 

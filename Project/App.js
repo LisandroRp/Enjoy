@@ -5,7 +5,7 @@ import Detalle from './components/Detalle';
 import Conciertos from './components/Conciertos'
 import ChangePassword from './components/ChangePassword'
 import CreateUser from './components/CreateUser'
-import PersonalInformation from './components/DatosPersonales';
+import Information from './components/DatosPersonales';
 import Comments from './components/Comentarios';
 import Craigslist from './components/Craigslist'
 import LogInCards from './components/LogInCards'
@@ -50,10 +50,10 @@ class SignUpClass extends React.Component{
       />
     )
   }
-  checkLogin() {
+  checkLogin(IdUser) {
     //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
     /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
-    this.props.navigation.navigate('MockedViewScreen',{IdUser: 'PerroLoco'});
+    this.props.navigation.navigate('MockedViewScreen',{IdUser: IdUser});
   }
 
   goPass() {
@@ -394,7 +394,7 @@ const DetalleStackNavigator = createStackNavigator(
 );
 */
 const PerfilTabNavigator = createBottomTabNavigator({
-  PersonalInformation,
+  Information,
   Comments
 }, {
     navigationOptions: ({ navigation }) => {

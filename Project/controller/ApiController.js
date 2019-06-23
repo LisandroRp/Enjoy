@@ -48,7 +48,7 @@ class ApiController extends Component {
     }
 
     insertUsuario(name, lastName, email, user, password, okCreate) {
-        let uri = 'http://localhost:8080/appAppEventos/insertUsuario/Usuario'
+        let uri = 'http://192.168.1.103:8080/apiAppEventos/insertUsuario/Usuario'
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -57,7 +57,7 @@ class ApiController extends Component {
                 nombre: name,
                 apellido: lastName,
                 email: email,
-                usuarioId: user,
+                username: user,
                 password: password,
             })
         }).then((res) => {
@@ -69,22 +69,25 @@ class ApiController extends Component {
     }
 
     changePassword(user, pass, okChange) {
-        let uri = 'http://localhost:8080/appAppEventos/updateUsuarioByPassword/Usuario'
+        let uri = 'http://192.168.1.103:8080/apiAppEventos/updateUsuarioByPassword/Usuario'
+        console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+user+pass),
         fetch(uri, {
             method: 'POST',
             mode: "cors",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ usuarioId: user, password: pass }),
+            body: JSON.stringify({ username: user, password: pass }),
         }).then((res) => {
             return res.json();
-        }).catch((err) => console.log(err)).then((res) => {
+        }).catch((err) => console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+err)).then((res) => {
             okChange();
         }).catch((err) => console.log(err));
     }
 
     getUsuario(okUsuario, username) {
-        let uri = 'http://localhost:8080/appAppEventos/getUsuarioByUsername?username=' + username
+        let uri = 'http://192.168.1.103:8080/apiAppEventos/getUsuarioByUsername?username=' + username
+        
         fetch(uri).then(res => {
+            console.log(res.body)
             return res.json()
         }).catch((err) => {
             console.log(err)
