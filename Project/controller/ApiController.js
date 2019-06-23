@@ -1,9 +1,12 @@
 import { Component } from 'react';
 
+var ip = '192.168.1.5';
+var url = 'http://'+ip+':8080/apiAppEventos';
+
 class ApiController extends Component {
 
     getPeliculas(okPeliculas, nombre) {
-        let uri = 'http://localhost:8080/appAppEventos/getPeliculasByKey?key=' + nombre
+        let uri = url+'/getPeliculasByKey?key=' + nombre
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => alert("Intentar de nuevo")).
@@ -13,7 +16,7 @@ class ApiController extends Component {
     }
 
     getDetalle(okDetalle, id) {
-        let uri = 'http://localhost:8080/appAppEventos/getPeliculasAndSeriesById?movieId=' + id
+        let uri = url+'/getPeliculasAndSeriesById?movieId=' + id
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => console.log(err)).
@@ -23,7 +26,7 @@ class ApiController extends Component {
     }
 
     getSeries(okSeries, nombre) {
-        let uri = 'http://localhost:8080/appAppEventos/getSeriesByKey?key=' + nombre
+        let uri = url+'/getSeriesByKey?key=' + nombre
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => console.log(err)).
@@ -33,7 +36,7 @@ class ApiController extends Component {
     }
 
     getComentarioByPelicula(okComentario, id) {
-        let uri = 'http://localhost:8080/appAppEventos/getComentariosByPeliculaId?peliculaId=' + id
+        let uri = url+'/getComentariosByPeliculaId?peliculaId=' + id
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => {
@@ -48,7 +51,7 @@ class ApiController extends Component {
     }
 
     insertUsuario(name, lastName, email, user, password, okCreate) {
-        let uri = 'http://localhost:8080/appAppEventos/insertUsuario/Usuario'
+        let uri = url+'/insertUsuario/Usuario'
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -69,7 +72,7 @@ class ApiController extends Component {
     }
 
     changePassword(user, pass, okChange) {
-        let uri = 'http://localhost:8080/appAppEventos/updateUsuarioByPassword/Usuario'
+        let uri = url+'/updateUsuarioByPassword/Usuario'
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -83,7 +86,7 @@ class ApiController extends Component {
     }
 
     getUsuario(okUsuario, username) {
-        let uri = 'http://localhost:8080/appAppEventos/getUsuarioByUsername?username=' + username
+        let uri = url+'/getUsuarioByUsername?username=' + username
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => {
@@ -99,7 +102,7 @@ class ApiController extends Component {
     }
 
     createComment(idUsuario, idPelicula, descripcion, title, okComentario) {
-        let uri = 'http://localhost:8080/appAppEventos/insertComentario/Comentario'
+        let uri = url+'/insertComentario/Comentario'
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -118,7 +121,7 @@ class ApiController extends Component {
     }
 
     getCommentByIdUser(userId, okComentario) {
-        let uri = 'http://localhost:8080/appAppEventos/getComentariosByUsuario?usuarioId=' + userId
+        let uri = url+'/getComentariosByUsuario?usuarioId=' + userId
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => {
