@@ -10,6 +10,7 @@ let insertEvento = (req,res) =>
         idUsuarioPropietario:req.body.usuarioId,
         fecha:req.body.fecha,
         tipo:req.body.tipo,
+        genero:req.body.genero,
         duracion:req.body.duracion
     });
     newEvento.save().
