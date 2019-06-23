@@ -15,19 +15,8 @@ import {
   ScrollView
 } from 'react-native';
 
-function createData(item) {
-  return {
-      key: item._id,
-      idEvento: item._id,
-      //imagen: item.imagen,
-      nombre: item.nombre,
-      descripcion: item.descripcion,
-  };
-}
-
 class Craigslist extends Component {
 
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +25,13 @@ class Craigslist extends Component {
       Status: 'none',
       modalVisible: false,
       userSelected: [],
-      eventos: []
+      eventos: [
+        // { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental', cords:{latitude: -34.61152409323304,
+        // longitude: -58.38945865631104} },
+        // { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex' },
+        // { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez' },
+        // { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park' },
+      ]
     };
     this._storeData(this.state.IdUser);
     this.obtenerEventos()
@@ -64,7 +59,6 @@ okEventos(data) {
   }
   this._storeData(this.state.idUser);
 }
-
   _storeData = async () => {
     try {
         await AsyncStorage.setItem('IdUser', this.state.IdUser);
@@ -91,10 +85,10 @@ okEventos(data) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(perro)}>
-                {/* <Image style={styles.image} source={{ uri: item.image }} /> */}
+                <Image style={styles.image} source={{ uri: item.image }} />
                 <View style={styles.cardContent}>
-                  <Text style={styles.name}>{item.nombre}</Text>
-                  <Text style={styles.count}>{item.descripcion}</Text>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.count}>{item.count}</Text>
                   <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(JSON.stringify(id))}>
                     <Text style={styles.followButtonText}>Explore now</Text>
                   </TouchableOpacity>

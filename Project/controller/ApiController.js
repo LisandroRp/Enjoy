@@ -12,6 +12,16 @@ class ApiController extends Component {
             }).catch((err) => alert("Intentar de nuevo"));
     }
 
+    getEventos(okEventos) {
+        let uri = 'http://192.168.1.104:8080/apiAppEventos/getEventos'
+        fetch(uri).then(res => {
+            return res.json()
+        }).catch((err) => alert("Intentar de nuevo")).
+            then(data => {
+                okEventos(data);
+            }).catch((err) => alert("Intentar de nuevo"));
+    }
+
     getDetalle(okDetalle, id) {
         let uri = 'http://localhost:8080/appAppEventos/getPeliculasAndSeriesById?movieId=' + id
         fetch(uri).then(res => {
@@ -84,7 +94,7 @@ class ApiController extends Component {
     }
 
     getUsuario(okUsuario, username) {
-        let uri = 'http://192.168.1.103:8080/apiAppEventos/getUsuarioByUsername?username=' + username
+        let uri = 'http://192.168.1.104:8080/apiAppEventos/getUsuarioByUsername?username=' + username
         
         fetch(uri).then(res => {
             console.log(res.body)

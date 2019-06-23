@@ -25,16 +25,18 @@ class Detalle extends Component {
         this.state = {
             idEvento: '66666',
             detalle: {
-                "title": 'AcDc',
-                "year": "2019-03-04",
-                "Summary": "Re copada la banduli de rock",
-                "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
-                "genre": "Rock",
+                "nombre": 'AcDc',
+                "fecha": "2019-03-04",
+                "descripcion": "Re copada la banduli de rock",
+                "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
+                "genero": "Rock",
                 rating: 3,
+                votos:[],
                 personas:0,
-                "runtime": "165",
-                "webSite": "www.queti.com",
-                "Price": ""
+                "duracion": "165",
+                precioE: 10,
+                'precios':[],
+                'tipo': 'Concierto'
             },
             isLoading: true,
             modalVisible: false,
@@ -99,16 +101,19 @@ class Detalle extends Component {
     UpdateRating(key) {
         if(this.state.Voted ==false){
         this.setState({ detalle:{
-        "title": this.state.detalle.title,
-        "year": this.state.detalle.year,
-        "Summary": this.state.detalle.Summary,
-        "poster": this.state.detalle.poster,
-        "genre": this.state.detalle.genre,
+        "nombre": this.state.detalle.nombre,
+        "fecha": this.state.detalle.fecha,
+        "descripcion": this.state.detalle.descripcion,
+        "imagen": this.state.detalle.imagen,
+        "genero": this.state.detalle.genero,
         rating: key,// HACER EL NUEVO PROMEDIO DE VOTOSSSS
+        votos: this.state.detalle.votos,
         personas: this.state.detalle.personas+1,
-        "runtime": this.state.detalle.runtime,
-        "webSite": this.state.detalle.webSite,
-        "Price": this.state.detalle.Price}});
+        "duracion": this.state.detalle.duracion,
+        "precioE": this.state.detalle.precioE,
+        precios: this.state.detalle.precios,
+        'tipo': this.state.detalle.tipo
+        }});
         this.setState({Voted: true})
         console.log('caca'+ this.state.detalle.rating)
         console.log('caca'+ this.state.detalle.personas)
@@ -179,11 +184,11 @@ class Detalle extends Component {
                                 <View style={{ flex: 0.5, flexDirection: 'row' }}>
                                     <Image
                                         style={{ width: 150, height: 250, marginLeft: 10, marginTop: 10, flex: 0.45, borderRadius: 10 }}
-                                        source={{ uri: this.state.detalle.poster }} />
+                                        source={{ uri: this.state.detalle.imagen}} />
                                     <View style={{ flex: 0.55, flexDirection: 'column', alignContent: 'center', marginHorizontal: 10, marginTop: 20 }}>
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10 }}>
                                             <Text style={styles.detalleTitle}>
-                                                {this.state.detalle.title}
+                                                {this.state.detalle.nombre}
                                             </Text>
                                         </View>
 
@@ -193,7 +198,7 @@ class Detalle extends Component {
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Entypo name="calendar" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
-                                                    {this.state.detalle.year}
+                                                    {this.state.detalle.fecha}
                                                 </Text>
                                             </View>
                                         </View>
@@ -204,7 +209,7 @@ class Detalle extends Component {
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Entypo name="clock" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
-                                                    {this.state.detalle.runtime}
+                                                    {this.state.detalle.duracion}
                                                 </Text>
                                             </View>
                                         </View>
@@ -217,7 +222,7 @@ class Detalle extends Component {
                                             
                                             
                                             <View style={styles.childView}>{React_Native_Rating_Bar}</View>
-                                            <Text>votes: {this.state.detalle.personas}</Text>
+                                            <Text>Votes: {this.state.detalle.personas}</Text>
 
 
 
@@ -235,7 +240,7 @@ class Detalle extends Component {
                                             }
                                         >
                                             <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.genre}
+                                                {this.state.detalle.genero}
                                             </Text>
 
                                         </DropDownItem>
@@ -251,7 +256,7 @@ class Detalle extends Component {
                                             }
                                         >
                                             <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.Summary}
+                                                {this.state.detalle.descripcion}
                                             </Text>
 
                                         </DropDownItem>
@@ -267,7 +272,7 @@ class Detalle extends Component {
                                             }
                                         >
                                             <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.Price}
+                                                {this.state.detalle.precioE}
                                             </Text>
 
                                         </DropDownItem>
