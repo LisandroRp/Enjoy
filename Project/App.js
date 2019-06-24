@@ -120,7 +120,7 @@ class MockedViewScreen extends React.Component {
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Detalle',{IdUser: id});
+    this.props.navigation.navigate('Detalle',{IdEvento: id});
   }
   pasarIdEvento(){
     return this.state.idEvento
@@ -150,8 +150,8 @@ class ConciertosScreen extends React.Component {
       />
     );
   }
-  pasarConcierto() {
-    this.props.navigation.navigate('Detalle');
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle',{IdEvento: id});
   }
 }
 class FestivalesScreen extends React.Component {
@@ -174,8 +174,8 @@ class FestivalesScreen extends React.Component {
       />
     );
   }
-  pasarConcierto() {
-    this.props.navigation.navigate('Detalle');
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle',{IdEvento: id});
   }
 }
 class DetalleScreen extends React.Component {

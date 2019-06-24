@@ -6,7 +6,7 @@ var eventoSchema = new Schema({
     nombre:{type:String, required:true},
     descripcion:{type:String, required:true},
     idUsuarioPropietario:{type:String, required:true},
-    fecha:{type:Date, default:Date.now()},
+    fecha:String,
     tipo:{type:String, required:true},
     genero:String,
     imagen:Buffer,

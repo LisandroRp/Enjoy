@@ -9,6 +9,7 @@ let insertComentario = (req,res) =>
         nombre:req.body.usuarioId,
         descripcion:req.body.descripcion,
         usuarioId:req.body.usuarioId,
+        fecha:req.body.fecha,
         eventoId:req.body.eventoId
     });
     newComentario.save().

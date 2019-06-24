@@ -17,11 +17,13 @@ import {
 
 function createData(item) {
   return {
-      key: item._id,
-      idEvento: item._id,
-      //imagen: item.imagen,
-      nombre: item.nombre,
-      descripcion: item.descripcion,
+    key: item._id,
+    idEvento: item._id,
+    //imagen: item.imagen,
+    nombre: item.nombre,
+    rating: item.rating,
+    descripcion: item.descripcion,
+    tipo: item.tipo,
   };
 }
 
@@ -77,7 +79,6 @@ okEventos(data) {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
   render() {
-    const perro=3
     return (
       <View style={styles.container}>
       <Text>{this.state.IdUser}</Text>
@@ -90,7 +91,7 @@ okEventos(data) {
           // }}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(perro)}>
+              <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
                 {/* <Image style={styles.image} source={{ uri: item.image }} /> */}
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.nombre}</Text>

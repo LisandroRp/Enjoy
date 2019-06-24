@@ -56,12 +56,19 @@ app.get('/', (req, res) => res.send('Backend Activo'));
 var acdcEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'AC/DC',
-    descripcion:'Recital de Hard Rock',
-    tipo:'Musica',
+    descripcion:'Banda de Rock de...',
+    fecha: '24/06/20',
+    tipo:'Concierto',
     idUsuarioPropietario:'Time4Fun',
     duracion:120,
-    puntajePromedio:8,
-    precio:[{nombre:'entrada', descripcion:'valor entrada', valor:1500}]
+    genero:'Rock',
+    imagen:'',
+    rating:5,
+    personas:2,
+    votos:[],
+    comentarios:[],
+    precios:[],
+    precioE:2500
 });
 
 acdcEvento.save(function(err) {
@@ -73,12 +80,19 @@ acdcEvento.save(function(err) {
 var cafresEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Los Cafres',
-    descripcion:'Recital',
-    tipo:'Musica',
+    descripcion:'Banda de Reggae de...',
+    fecha: '14/06/19',
+    tipo:'Concierto',
     idUsuarioPropietario:'Time4Fun',
     duracion:160,
-    puntajePromedio:6,
-    precio:[{nombre:'entrada', descripcion:'valor entrada', valor:500}]
+    genero:'Reggae',
+    imagen:'',
+    rating:5,
+    personas:2,
+    votos:[],
+    comentarios:[],
+    precios:[],
+    precioE:2500
 });
 
 cafresEvento.save(function(err) {

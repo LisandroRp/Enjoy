@@ -11,7 +11,14 @@ let insertEvento = (req,res) =>
         fecha:req.body.fecha,
         tipo:req.body.tipo,
         genero:req.body.genero,
-        duracion:req.body.duracion
+        duracion:req.body.duracion,
+        imagen: req.body.imagen,
+        rating:req.body.rating,
+        personas:req.body.personas,
+        votos:req.body.votos,
+        comentarios:req.body.comentarios,
+        precios:req.body.precios,
+        precioE:req.body.precioE
     });
     newEvento.save().
     then

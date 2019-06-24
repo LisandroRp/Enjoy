@@ -16,7 +16,7 @@ class ApiController extends Component {
     }
 
     getEventos(okEventos) {
-        let uri = 'http://192.168.1.104:8080/apiAppEventos/getEventos'
+        let uri = 'http://172.20.10.5:8080/apiAppEventos/getEventos'
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => alert("Intentar de nuevo")).
@@ -26,7 +26,7 @@ class ApiController extends Component {
     }
 
     getDetalle(okDetalle, id) {
-        let uri = url+'/getPeliculasAndSeriesById?movieId=' + id
+        let uri = 'http://172.20.10.5:8080/apiAppEventos/getEventoById?id=' + id
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => console.log(err)).
@@ -61,11 +61,7 @@ class ApiController extends Component {
     }
 
     insertUsuario(name, lastName, email, user, password, okCreate) {
-<<<<<<< HEAD
-        let uri = url+'/insertUsuario/Usuario'
-=======
         let uri = 'http://192.168.1.103:8080/apiAppEventos/insertUsuario/Usuario'
->>>>>>> bc8491899e76b519b295f8130ea7e44e8329c116
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -86,12 +82,8 @@ class ApiController extends Component {
     }
 
     changePassword(user, pass, okChange) {
-<<<<<<< HEAD
-        let uri = url+'/updateUsuarioByPassword/Usuario'
-=======
         let uri = 'http://192.168.1.103:8080/apiAppEventos/updateUsuarioByPassword/Usuario'
         console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+user+pass),
->>>>>>> bc8491899e76b519b295f8130ea7e44e8329c116
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -105,16 +97,8 @@ class ApiController extends Component {
     }
 
     getUsuario(okUsuario, username) {
-<<<<<<< HEAD
-        let uri = 'http://192.168.1.104:8080/apiAppEventos/getUsuarioByUsername?username=' + username
-=======
-<<<<<<< HEAD
-        let uri = url+'/getUsuarioByUsername?username=' + username
-=======
-        let uri = 'http://192.168.1.103:8080/apiAppEventos/getUsuarioByUsername?username=' + username
->>>>>>> development
+        let uri = 'http://172.20.10.5:8080/apiAppEventos/getUsuarioByUsername?username=' + username
         
->>>>>>> bc8491899e76b519b295f8130ea7e44e8329c116
         fetch(uri).then(res => {
             console.log(res.body)
             return res.json()
@@ -130,8 +114,9 @@ class ApiController extends Component {
             }));
     }
 
-    createComment(idUsuario, idPelicula, descripcion, title, okComentario) {
-        let uri = url+'/insertComentario/Comentario'
+    createComment(idUsuario, idEvento, descripcion, nombre,fecha, okComentario) {
+        let uri ='http://172.20.10.5:8080/insertComentario/Comentario'
+        console.log('judopppppppppppp')
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -139,8 +124,9 @@ class ApiController extends Component {
             body: JSON.stringify({
                 descripcion: descripcion,
                 usuarioId: idUsuario,
-                peliculaId: idPelicula,
-                peliculaNombre: title,
+                eventoId: idEvento,
+                fecha: fecha,
+                eventoNombre: nombre,
             }),
         }).then((res) => {
             return res.json();

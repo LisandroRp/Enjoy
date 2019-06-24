@@ -25,49 +25,43 @@ class Detalle extends Component {
         super(props);
         this.state = {
             idEvento: this.props.navigation.getParam('IdEvento'),
-            detalle: {
-                "nombre": 'AcDc',
-                "fecha": "2019-03-04",
-                "descripcion": "Re copada la banduli de rock",
-                "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
-                "genero": "Rock",
-                rating: 3,
-                votos:[],
-                personas:0,
-                "duracion": "165",
-                precioE: 10,
-                'precios':[],
-                'tipo': 'Concierto'
-            },
+            detalle: []
+                // "nombre": 'AcDc',
+                // "fecha": "2019-03-04",
+                // "descripcion": "Re copada la banduli de rock",
+                // "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
+                // "genero": "Rock",
+                // rating: 3,
+                // votos:[],
+                // personas:0,
+                // "duracion": "165",
+                // precioE: 10,
+                // 'precios':[],
+                // 'tipo': 'Concierto'
+            ,
             isLoading: true,
             modalVisible: false,
-            Max_Rating: 5,
+            Max_Rating: 2,
             Voted: false,
-            idUser:null,
-            text: "",
-            fecha:{type:Date, default:Date.now()},
+            rating2: 3,
+            personas2: 0,
+
+            //text: "",
             //idUser: props.navigation.getParam('idUser'),
             comentarios: [],
         }
-        this._retrieveData();
+        // this._storeData(this.state.idEvento);
         this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
         this.Star_With_Border = 'http://aboutreact.com/wp-content/uploads/2018/08/star_corner.png';
     }
 
-    _retrieveData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('IdUser');
-            if (value !== null) {
-                this.setState({
-                    idUser: value
-                })
-                this.getUserData(this.state.IdUser);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
+    // _storeData = async () => {
+    //     try {
+    //         await AsyncStorage.setItem('idEvento', this.state.idEvento);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     componentDidMount() {
         this.cargarDetalle();
@@ -77,23 +71,63 @@ class Detalle extends Component {
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
-    
+    /*
         insertarComentario() {
-            console.log('siiiiiiiiiiiiiiiiiii')
-            if (this.state.idUser != null && this.state.idEvento != null && this.state.text != null) {
-                console.log('yeaahiiiihhhhhhhhhhhhhhhhhhhhhhhhh')
-                this.setState({ modalVisible: false });
-                ApiController.createComment(this.state.idUser, this.state.idEvento, this.state.text, this.state.detalle.nombre,this.state.fecha, this.okComentario.bind(this));
+            if (this.state.idUser != null && this.state.id != null && this.state.text != null) {
+                ApiController.createComment(this.state.idUser, this.state.id, this.state.text, this.state.detalle.title, this.okComentario.bind(this));
             }
         }
     
         okComentario() {
             alert("Se guardo tu comentario");
             this.setState({ modalVisible: false });
-            //this.cargarComentarios();
+            this.cargarComentarios();
         }
-    
-        /*
+    */
+
+
+    cargarDetalle() {
+        ApiController.getDetalle(this.okDetalle.bind(this), this.state.idEvento);
+        //this.okDetalle(this.state);
+    }
+
+    okDetalle(data) {
+        if (data != null) {
+            console.log(data)
+            this.setState({
+                rating2:data[0].rating,
+                detalle: data,
+                isLoading: false
+            });
+        } else {
+            alert("Intentar de nuevo")
+        }
+    }
+    UpdateRating(key) {
+        if(this.state.Voted ==false){
+        this.setState({
+            rating2: key
+        } 
+        // "nombre": this.state.detalle.nombre,
+        // "fecha": this.state.detalle.fecha,
+        // "descripcion": this.state.detalle.descripcion,
+        // "imagen": this.state.detalle.imagen,
+        // "genero": this.state.detalle.genero,
+        // rating: key,// HACER EL NUEVO PROMEDIO DE VOTOSSSS
+        // votos: this.state.detalle.votos,
+        // personas: this.state.detalle.personas+1,
+        // "duracion": this.state.detalle.duracion,
+        // "precioE": this.state.detalle.precioE,
+        // precios: this.state.detalle.precios,
+        // 'tipo': this.state.detalle.tipo
+        // }}
+        );
+        this.setState({Voted: false})
+        console.log('caca'+ this.state.detalle.rating)
+        console.log('caca'+ this.state.detalle.personas)
+        }
+    }
+    /*
         cargarComentarios() {
             //ApiController.getComentarioByPelicula(this.okComentarioCargar.bind(this), this.state.id);
             this.okComentarioCargar.bind(this);
@@ -113,44 +147,6 @@ class Detalle extends Component {
             }
         }
     */
-
-    cargarDetalle() {
-        ApiController.getDetalle(this.okDetalle.bind(this), this.state.idEvento);
-        //this.okDetalle(this.state);
-    }
-
-    okDetalle(data) {
-        if (data != null) {
-            this.setState({
-                detalle: data[0],
-                isLoading: false
-            });
-        } else {
-            alert("Intentar de nuevo")
-        }
-    }
-    UpdateRating(key) {
-        if(this.state.Voted ==false){
-        this.setState({ detalle:{
-        "nombre": this.state.detalle.nombre,
-        "fecha": this.state.detalle.fecha,
-        "descripcion": this.state.detalle.descripcion,
-        "imagen": this.state.detalle.imagen,
-        "genero": this.state.detalle.genero,
-        rating: key,// HACER EL NUEVO PROMEDIO DE VOTOSSSS
-        votos: this.state.detalle.votos,
-        personas: this.state.detalle.personas+1,
-        "duracion": this.state.detalle.duracion,
-        "precioE": this.state.detalle.precioE,
-        precios: this.state.detalle.precios,
-        'tipo': this.state.detalle.tipo
-        }});
-        this.setState({Voted: true})
-        console.log('caca'+ this.state.detalle.rating)
-        console.log('caca'+ this.state.detalle.personas)
-        }
-    }
-    
     render() {
         const { navigation } = this.props;
         const id = this.props.agarrarId()
@@ -166,7 +162,7 @@ class Detalle extends Component {
               <Image
                 style={styles.StarImage}
                 source={
-                  i <= this.state.detalle.rating
+                  i <= this.state.rating2
                     ? { uri: this.Star }
                     : { uri: this.Star_With_Border }
                 }
@@ -191,17 +187,17 @@ class Detalle extends Component {
                 <View style={[styles.detalleContainer]}>
                     <ScrollView>
                         <Text>{this.state.idEvento}</Text>
+                        <Text>{this.state.rating2}</Text>
                         <View style={[styles.detalleContainer]}>
                             <View style={[styles.detalleContainer]}>
                                 <View style={{ flex: 0.5, flexDirection: 'row' }}>
                                     <Image
                                         style={{ width: 150, height: 250, marginLeft: 10, marginTop: 10, flex: 0.45, borderRadius: 10 }}
-                                        //source={{ uri: this.state.detalle.imagen}} 
-                                        />
+                                        /*source={{ uri: this.state.detalle[0].imagen}}*/ />
                                     <View style={{ flex: 0.55, flexDirection: 'column', alignContent: 'center', marginHorizontal: 10, marginTop: 20 }}>
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10 }}>
                                             <Text style={styles.detalleTitle}>
-                                                {this.state.detalle.nombre}
+                                                {this.state.detalle[0].nombre}
                                             </Text>
                                         </View>
 
@@ -211,7 +207,7 @@ class Detalle extends Component {
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Entypo name="calendar" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
-                                                    {this.state.detalle.fecha}
+                                                    {this.state.detalle[0].fecha}
                                                 </Text>
                                             </View>
                                         </View>
@@ -222,7 +218,7 @@ class Detalle extends Component {
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Entypo name="clock" size={15} color="#3399ff" />
                                                 <Text style={styles.detalleEvento}>
-                                                    {this.state.detalle.duracion}
+                                                    {this.state.detalle[0].duracion}
                                                 </Text>
                                             </View>
                                         </View>
@@ -235,7 +231,7 @@ class Detalle extends Component {
                                             
                                             
                                             <View style={styles.childView}>{React_Native_Rating_Bar}</View>
-                                            <Text>Votes: {this.state.detalle.personas}</Text>
+                                            <Text>Votes: {this.state.detalle[0].personas}</Text>
 
 
 
@@ -253,7 +249,7 @@ class Detalle extends Component {
                                             }
                                         >
                                             <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.genero}
+                                                {this.state.detalle[0].genero}
                                             </Text>
 
                                         </DropDownItem>
@@ -269,7 +265,7 @@ class Detalle extends Component {
                                             }
                                         >
                                             <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.descripcion}
+                                                {this.state.detalle[0].descripcion}
                                             </Text>
 
                                         </DropDownItem>
@@ -285,7 +281,7 @@ class Detalle extends Component {
                                             }
                                         >
                                             <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.precioE}
+                                                {this.state.detalle[0].precioE}
                                             </Text>
 
                                         </DropDownItem>
@@ -334,27 +330,33 @@ class Detalle extends Component {
                                 <Text
                                     style={styles.modalText}>Comment</Text>
                             </View>
-                            <View style={{ margin: 10, color: '#3399ff', borderColor: 'black', borderWidth: 1, width: width * 0.70, height: 50, backgroundColor: 'white', marginBottom:10 }}>
+                            <View style={{ margin: 10, color: '#3399ff', borderColor: 'black', borderWidth: 1, width: width * 0.70, height: 50, backgroundColor: 'white' }}>
                                 <TextInput multiline={true} autoFocus={true} maxLength={100} onChangeText={(text) => this.setState({ text })} value={this.state.text}>
 
                                 </TextInput>
                             </View>
                             <View style={{ flex: 0.5, flexDirection: 'row', marginTop: 10 }}>
-                                <View style={{ marginRight: 10, width: width * 0.30,marginBottom:5, }}>
+                                <View style={{ marginRight: 10, width: width * 0.30 }}>
                                     <View style={[styles.outterButtonCreate]}>
 
-                                    <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                                            onPress={() => { this.setModalVisible(!this.state.modalVisible); }}>
-                                            <Text style={styles.textButton}> Cancel</Text>
+                                        <TouchableOpacity
+                                            style={styles.SubmitButtonStyle}
+                                            activeOpacity={.5}
+                                            onPress={() => { this.setModalVisible(!this.state.modalVisible); }}
+                                        >
+                                            <Text style={styles.textButton}> Cancelar</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                                 <View style={{ marginLeft: 10, width: width * 0.30 }}>
                                     <View style={[styles.outterButtonCreate]}>
 
-                                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                                            onPress={() =>  this.insertarComentario()}>
-                                            <Text style={styles.textButton}>Accept</Text>
+                                        <TouchableOpacity
+                                            style={styles.SubmitButtonStyle}
+                                            activeOpacity={.5}
+                                            onPress={() => { this.insertarComentario(); }}
+                                        >
+                                            <Text style={styles.textButton}> Aceptar</Text>
                                         </TouchableOpacity>
                                     </View>
 
@@ -503,14 +505,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: height * 0.3,
         left: width * 0.13,
-        backgroundColor: '#ebf0f7',
+        backgroundColor: 'grey',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
         borderColor: 'rgba(0, 0, 0, 0.1)',
         shadowColor: 'black',
         shadowOpacity: 5.0,
-        paddingBottom:33,
     },
     modalText: {
         fontSize: 20,
@@ -541,7 +542,6 @@ const styles = StyleSheet.create({
     },
     SubmitButtonStyle: {
         width: 100,
-        height:50,
         marginTop: 5,
         paddingTop: 5,
         paddingBottom: 5,
@@ -555,8 +555,7 @@ const styles = StyleSheet.create({
     outterButtonCreate: {
         justifyContent: 'center',
         alignSelf: 'center',
-        marginBottom: 39,
-        paddingBottom: 5,
+        marginBottom: 20,
     },
     cositoGris: {
         borderBottomColor: 'grey',
@@ -571,26 +570,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         marginTop: 7,
-    },
-    StarImage: {
+      },
+      StarImage: {
         width: 25,
         height: 25,
         resizeMode: 'cover',
-    },
-    buttonContainer: {
-        height:45,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop:10,
-        marginBottom:10,
-        marginHorizontal: 5,
-        width:120,
-        borderRadius:30,
-        backgroundColor:"#3399ff"
       },
-
-    
 
 })
 
