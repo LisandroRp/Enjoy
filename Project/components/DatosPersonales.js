@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, TextInput, Button, Text } from 'react-native';
+import { View, Image, StyleSheet,ActivityIndicator, TextInput, Button, Text } from 'react-native';
 import { LinearGradient } from 'expo'
 import ApiController from '../controller/ApiController';
 import { AsyncStorage } from 'react-native';
 
 
 class DatosPersonales extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -14,6 +14,7 @@ class DatosPersonales extends Component {
             nombre: null,
             apellido: null,
             email: null,
+            isLoading: true,
         };
         this._retrieveData();
     }
@@ -23,7 +24,8 @@ class DatosPersonales extends Component {
             const value = await AsyncStorage.getItem('IdUser');
             if (value !== null) {
                 this.setState({
-                    IdUser: value
+                    IdUser: value,
+                    isLoading: false
                 })
                 this.getUserData(this.state.IdUser);
             }
@@ -45,38 +47,50 @@ class DatosPersonales extends Component {
     }
 
     render() {
-        return (
-            <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-                <View style={[styles.detalleContainer]} >
-                    <View style={{ alignSelf: 'center', marginBottom: 50 }}>
-                        <Image source={require('./FACHA.png')} style={{
-                            height: 250,
-                            width: 250,
-                            resizeMode: 'contain',
-                            marginBottom: 30
-                        }} />
-                    </View>
-                    <View style={{ alignSelf: 'center' }}>
-                        <View style={[styles.underline]}>
-                            <Text style={[styles.TextUnderline]}>Nombre:</Text>
-                            <Text style={[styles.textInput]}>{this.state.nombre}</Text>
-                        </View>
-                        <View style={[styles.underline]}>
-                            <Text style={[styles.TextUnderline]}>Apellido:</Text>
-                            <Text style={[styles.textInput]}>{this.state.apellido}</Text>
-                        </View>
-                        <View style={[styles.underline]}>
-                            <Text style={[styles.TextUnderline]}>E-Mail:</Text>
-                            <Text style={[styles.textInput]}>{this.state.email}</Text>
-                        </View>
-                        <View style={[styles.underline]}>
-                            <Text style={[styles.TextUnderline]}>Usuario:</Text>
-                            <Text style={[styles.textInput]}>{this.state.IdUser}</Text>
-                        </View>
-                    </View>
+        if (this.state.isLoading) {
+            return (
+                //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+                //<View style={styles.container}>
+                <View style={styles.detalleContainer}>
+                    <ActivityIndicator size="large" color="#3399ff" backgroundColor=' #616161' style={{ flex: 1 }}></ActivityIndicator>
                 </View>
-            </LinearGradient>
-        )
+                //</View>
+                // </LinearGradient>
+            );
+        } else {
+            return (
+                <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+                    <View style={[styles.detalleContainer]} >
+                        <View style={{ alignSelf: 'center', marginBottom: 50 }}>
+                            <Image source={require('./FACHA.png')} style={{
+                                height: 250,
+                                width: 250,
+                                resizeMode: 'contain',
+                                marginBottom: 30
+                            }} />
+                        </View>
+                        <View style={{ alignSelf: 'center' }}>
+                            <View style={[styles.underline]}>
+                                <Text style={[styles.TextUnderline]}>Nombre:</Text>
+                                <Text style={[styles.textInput]}>{this.state.nombre}</Text>
+                            </View>
+                            <View style={[styles.underline]}>
+                                <Text style={[styles.TextUnderline]}>Apellido:</Text>
+                                <Text style={[styles.textInput]}>{this.state.apellido}</Text>
+                            </View>
+                            <View style={[styles.underline]}>
+                                <Text style={[styles.TextUnderline]}>E-Mail:</Text>
+                                <Text style={[styles.textInput]}>{this.state.email}</Text>
+                            </View>
+                            <View style={[styles.underline]}>
+                                <Text style={[styles.TextUnderline]}>Usuario:</Text>
+                                <Text style={[styles.textInput]}>{this.state.IdUser}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </LinearGradient>
+            )
+        }
     }
 };
 

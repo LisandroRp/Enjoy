@@ -9,7 +9,8 @@ import {
   FlatList,
   Dimensions,
   Alert,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 
 function createData(item) {
@@ -31,7 +32,8 @@ class Festivales extends Component {
     this.state = {
       modalVisible: false,
       userSelected: [],
-      eventos: []
+      eventos: [],
+      isLoading: true,
     };
     this.obtenerEventos()
   }
@@ -47,13 +49,24 @@ class Festivales extends Component {
       for (i = 0; i < data.length; i++) {
         newArray.push(createData(data[i], i));
       }
-      this.setState({ eventos: newArray });
+      this.setState({ eventos: newArray, isLoading: false});
     } else {
       alert("Intentar de nuevo")
     }
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+          //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+          //<View style={styles.container}>
+          <View style={styles.container}>
+              <ActivityIndicator size="large" color="#3399ff" backgroundColor=' #616161' style={{ flex: 2 }}></ActivityIndicator>
+          </View>
+          //</View>
+          // </LinearGradient>
+      );
+  } else {
     return (
       <View style={styles.container}>
         <FlatList
@@ -67,7 +80,7 @@ class Festivales extends Component {
             if (item.tipo == 'Festival') {
               return (
                 <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                  {/* <Image style={styles.image} source={{uri: item.image}}/> */}
+                  <Image style={styles.image} source={{uri: item.image}}/>
                   <View style={styles.cardContent}>
                     <Text style={styles.name}>{item.nombre}</Text>
                     <Text style={styles.count}>{item.descripcion}</Text>
@@ -83,10 +96,12 @@ class Festivales extends Component {
     );
   }
 }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     backgroundColor: "#ebf0f7"
   },
   contentList: {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ApiController from '../controller/ApiController'
 import {
     StyleSheet,
     Text,
@@ -15,6 +16,21 @@ import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInput } from "react-native-gesture-handler";
 
+function createData(item) {
+    return {
+      key: item._id,
+      idEvento: item._id,
+      //imagen: item.imagen,
+      nombre: item.nombre,
+      rating: item.rating,
+      descripcion: item.descripcion,
+      tipo: item.tipo,
+      genero: item.genero,
+      //lugar:item.lugar,
+      precioE: item.precioE
+    };
+  }
+
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
@@ -23,21 +39,27 @@ export default class Search extends React.Component {
             value: '',
             modalVisible: false,
             userSelected: [],
-            data: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10, genre: 'Rock/Metal', Type: 'Concierto'},
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2, genre: 'Rock Nacional', Type: 'Concierto' },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8, genre: 'Rock/Pop', Type: 'Concierto' },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3, genre: 'Trap', Type: 'Concierto'},
-            ],
-            memory: [
-                { id: '1', name: "Ac Dc", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-", count: 'El Monumental',price: 10, genre: 'Rock/Metal', Type: 'Concierto'},
-                { id: '2', name: "Los Auntenticos Decadentes", image: "https://img.icons8.com/color/96/000000/dancing-party.png", count: 'Gran Rex', price: 2, genre: 'Rock Nacional', Type: 'Concierto' },
-                { id: '3', name: "Twenty one Pilots", image: "https://img.icons8.com/color/96/000000/dancing.png", count: 'Velez', price: 8, genre: 'Rock/Pop', Type: 'Concierto' },
-                { id: '4', name: "Duki", image: "https://img.icons8.com/flat_round/64/000000/star.png", count: 'Luna Park', price:3, genre: 'Trap', Type: 'Concierto'},
-            ]
+            eventos: [],
+            memory: [],
         };
-
+        this.obtenerEventos()
     }
+    obtenerEventos() {
+        ApiController.getEventos(this.okEventos.bind(this));
+    }
+    okEventos(data) {
+        if (data != null) {
+            var i, newArray = [];
+            console.log(data)
+            for (i = 0; i < data.length; i++) {
+                newArray.push(createData(data[i], i));
+            }
+            this.setState({ eventos: newArray });
+            this.setState({memory: newArray})
+        } else {
+            alert("Intentar de nuevo")
+        }
+      }
     componentDidMount() {
         this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
         this.keyboardWillShow = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow)
@@ -63,33 +85,33 @@ export default class Search extends React.Component {
 
     OrdenarPorPrecio(flag)
     {
-        let resultt = this.state.data
+        let resultt = this.state.eventos
         if (flag==0){
-            resultt = this.state.data.sort((a, b) => {
-                return b.price - a.price});
+            resultt = this.state.eventos.sort((a, b) => {
+                return b.precioE - a.precioE});
         } else {
-            resultt = this.state.data.sort((a, b) => {
-                return a.price - b.price});
+            resultt = this.state.eventos.sort((a, b) => {
+                return a.precioE - b.precioE});
         }
-        this.setState({data: resultt});
+        this.setState({eventos: resultt});
     }
     searchEvent = value => {
         const filteredevents = this.state.memory.filter(event => {
           let eventLowercase = (
-            event.count +
+            event.descripcion +
             ' ' +
-            event.name +
+            event.nombre +
             ' ' +
-            event.genre +
+            event.genero +
             ' ' +
-            event.Type
+            event.tipo
           ).toLowerCase();
     
           let searchTermLowercase = value.toLowerCase();
     
           return eventLowercase.indexOf(searchTermLowercase) > -1;
         });
-        this.setState({ data: filteredevents });
+        this.setState({ eventos: filteredevents });
         this.setState({value})
       };
     render() {
@@ -132,17 +154,17 @@ export default class Search extends React.Component {
                 <FlatList
                     style={{flex:1}}
                     columnWrapperStyle={styles.listContainer}
-                    data={this.state.data}
-                    keyExtractor={(item) => {
-                        return item.id;
-                    }}
+                    data={this.state.eventos}
+                    // keyExtractor={(item) => {
+                    //     return item.id;
+                    // }}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(this.props.id)}>
+                            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
                                 <Image style={styles.image} source={{ uri: item.image }} />
                                 <View style={styles.cardContent}>
-                                    <Text style={styles.name}>{item.name}</Text>
-                                    <Text style={styles.count}>{item.count}</Text>
+                                    <Text style={styles.name}>{item.nombre}</Text>
+                                    <Text style={styles.count}>{item.descripcion}</Text>
                                     <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener()}>
                                         <Text style={styles.followButtonText}>Explore now</Text>
                                     </TouchableOpacity>

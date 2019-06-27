@@ -12,6 +12,7 @@ import {
   FlatList,
   Dimensions,
   Alert,
+  ActivityIndicator,
   ScrollView
 } from 'react-native';
 
@@ -38,7 +39,8 @@ class Craigslist extends Component {
       Status: 'none',
       modalVisible: false,
       userSelected: [],
-      eventos: []
+      eventos: [],
+      isLoading: true,
     };
     this._storeData(this.state.IdUser);
     this.obtenerEventos()
@@ -60,7 +62,7 @@ okEventos(data) {
       for (i = 0; i < data.length; i++) {
           newArray.push(createData(data[i], i));
       }
-      this.setState({ eventos: newArray });
+      this.setState({ eventos: newArray, isLoading: false});
   } else {
       alert("Intentar de nuevo")
   }
@@ -79,6 +81,17 @@ okEventos(data) {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
   render() {
+    if (this.state.isLoading) {
+      return (
+          //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+          //<View style={styles.container}>
+          <View style={styles.container}>
+              <ActivityIndicator size="large" color="#3399ff" backgroundColor=' #616161' style={{ flex: 2 }}></ActivityIndicator>
+          </View>
+          //</View>
+          // </LinearGradient>
+      );
+  } else {
     return (
       <View style={styles.container}>
       <Text>{this.state.IdUser}</Text>
@@ -92,7 +105,7 @@ okEventos(data) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                {/* <Image style={styles.image} source={{ uri: item.image }} /> */}
+                 <Image style={styles.image} source={{ uri: item.image }} />
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.nombre}</Text>
                   <Text style={styles.count}>{item.descripcion}</Text>
@@ -107,10 +120,12 @@ okEventos(data) {
     );
   }
 }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     backgroundColor: "#ebf0f7"
   },
   contentList: {

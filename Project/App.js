@@ -214,8 +214,8 @@ class DetalleScreen extends React.Component {
       />
     );
   }
-  pasarConcierto() {
-    this.props.navigation.navigate('Mapa',{id: this.state.id});
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Mapa',{IdEvento: id});
   }
   pasarId(){
     return this.state.id
@@ -247,8 +247,8 @@ class SearchScreen extends React.Component {
       />
     );
   }
-  pasarConcierto() {
-    this.props.navigation.navigate('Detalle');
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle',{IdEvento: id});
   }
   pasarId(){
     return this.state.id

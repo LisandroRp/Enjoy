@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-var ip = '192.168.1.5';
+var ip = '192.168.1.107';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -16,7 +16,7 @@ class ApiController extends Component {
     }
 
     getEventos(okEventos) {
-        let uri = 'http://172.20.10.5:8080/apiAppEventos/getEventos'
+        let uri = url+'/getEventos'
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => alert("Intentar de nuevo")).
@@ -26,7 +26,7 @@ class ApiController extends Component {
     }
 
     getDetalle(okDetalle, id) {
-        let uri = 'http://172.20.10.5:8080/apiAppEventos/getEventoById?id=' + id
+        let uri = url+'/getEventoById?id=' + id
         fetch(uri).then(res => {
             return res.json()
         }).catch((err) => console.log(err)).
@@ -61,7 +61,7 @@ class ApiController extends Component {
     }
 
     insertUsuario(name, lastName, email, user, password, okCreate) {
-        let uri = 'http://192.168.1.103:8080/apiAppEventos/insertUsuario/Usuario'
+        let uri = url+'/insertUsuario/Usuario'
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -82,7 +82,7 @@ class ApiController extends Component {
     }
 
     changePassword(user, pass, okChange) {
-        let uri = 'http://192.168.1.103:8080/apiAppEventos/updateUsuarioByPassword/Usuario'
+        let uri = url+'/updateUsuarioByPassword/Usuario'
         console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+user+pass),
         fetch(uri, {
             method: 'POST',
@@ -97,7 +97,7 @@ class ApiController extends Component {
     }
 
     getUsuario(okUsuario, username) {
-        let uri = 'http://172.20.10.5:8080/apiAppEventos/getUsuarioByUsername?username=' + username
+        let uri = url+'/getUsuarioByUsername?username=' + username
         
         fetch(uri).then(res => {
             console.log(res.body)
@@ -115,7 +115,7 @@ class ApiController extends Component {
     }
 
     createComment(idUsuario, idEvento, descripcion, nombre,fecha, okComentario) {
-        let uri ='http://172.20.10.5:8080/insertComentario/Comentario'
+        let uri =url+'/insertComentario/Comentario'
         console.log('judopppppppppppp')
         fetch(uri, {
             method: 'POST',

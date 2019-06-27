@@ -46,28 +46,11 @@ class Detalle extends Component {
             idUser:null,
             text: "",
             fecha:{type:Date, default:Date.now()},
-            //idUser: props.navigation.getParam('idUser'),
             comentarios: [],
         }
-        this._retrieveData();
         this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
         this.Star_With_Border = 'http://aboutreact.com/wp-content/uploads/2018/08/star_corner.png';
     }
-
-    _retrieveData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('IdUser');
-            if (value !== null) {
-                this.setState({
-                    idUser: value
-                })
-                this.getUserData(this.state.IdUser);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
 
     componentDidMount() {
         this.cargarDetalle();
