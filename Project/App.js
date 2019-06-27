@@ -236,22 +236,23 @@ class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 'hola'
+      tipo: this.props.navigation.getParam('tipo'),
     }
   }
   render() {
     return (
       <Search
         onPressGo={this.pasarConcierto.bind(this)}
-        agarrarId= {this.pasarId.bind(this)}
+        agarrarTipo= {this.pasarTipo.bind(this)}
       />
     );
   }
   pasarConcierto(id) {
     this.props.navigation.navigate('Detalle',{IdEvento: id});
   }
-  pasarId(){
-    return this.state.id
+  pasarTipo(){
+    console.log(this.state.tipo)
+    return this.state.tipo
   }
 }
 const MockedViewStackNavigator = createStackNavigator(
@@ -273,7 +274,7 @@ const MockedViewStackNavigator = createStackNavigator(
           headerRight: (
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{id: 'hola'})}
+              onPress={() => navigation.navigate('Helado',{tipo: 'Recomendados'})}
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
@@ -311,7 +312,7 @@ const ConciertosStackNavigator = createStackNavigator(
           headerRight: (
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{id: id})}
+              onPress={() => navigation.navigate('Helado',{tipo: 'Concierto'})}
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
@@ -349,7 +350,7 @@ const FestivalesStackNavigator = createStackNavigator(
           headerRight: (
             <View style={{flexDirection: 'row'}}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{id: 'none'})}
+              onPress={() => navigation.navigate('Helado',{tipo: 'Festival'})}
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 

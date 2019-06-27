@@ -58,7 +58,7 @@ router.post('/updateUsuarioByPassword/Usuario',(req, res) =>{
 
 //************************** Recursos de Comentarios *****************************/
 //EndPoint para insertar comentario
-router.post('/insertComentario/Comentario',(req, res) =>{
+router.post('/insertComentario/comentarios',(req, res) =>{
     console.log("Insertar nuevo comentario: ",req.body);
     if(!req.body || req.body.usuarioId =='undefined' || req.body.eventoId =='undefined' || req.body.usuarioId == '' || req.body.usuarioId == null || req.body.eventoId == '' || req.body.eventoId == null) 
         res.status(409).send({ msg: "El campo usuario y evento son requeridos del comentario." });
@@ -81,7 +81,7 @@ router.get('/getComentariosByEvento',(req, res) =>{
     if(!req.query ||  req.query.eventoId =='undefined' || req.query.eventoId == '' || req.query.eventoId == null) 
         res.status(409).send({ msg: "El campo evento es requerido del comentario." });
     else
-        comentarioController.getComentariosByEventoId(req,res);
+        comentarioController.getComentariosByEvento(req,res);
 });
 
 //************************** Recursos de Eventos *****************************/

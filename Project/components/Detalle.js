@@ -24,6 +24,7 @@ class Detalle extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            idUser: null,
             idEvento: this.props.navigation.getParam('IdEvento'),
             detalle: {
                 "nombre": 'AcDc',
@@ -48,21 +49,38 @@ class Detalle extends Component {
             fecha:{type:Date, default:Date.now()},
             comentarios: [],
         }
+        this._retrieveData();
         this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
         this.Star_With_Border = 'http://aboutreact.com/wp-content/uploads/2018/08/star_corner.png';
     }
 
     componentDidMount() {
         this.cargarDetalle();
-        //this.cargarComentarios();
+        this.cargarComentarios();
     }
 
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
+    _retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('IdUser');
+            if (value !== null) {
+                this.setState({
+                    idUser: value,
+                })
+                this.getUserData(this.state.IdUser);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     
         insertarComentario() {
             console.log('siiiiiiiiiiiiiiiiiii')
+            console.log(this.state.idUser)
+            console.log(this.state.idEvento)
+            console.log(this.state.text)
             if (this.state.idUser != null && this.state.idEvento != null && this.state.text != null) {
                 console.log('yeaahiiiihhhhhhhhhhhhhhhhhhhhhhhhh')
                 this.setState({ modalVisible: false });
@@ -76,9 +94,9 @@ class Detalle extends Component {
             //this.cargarComentarios();
         }
     
-        /*
+        
         cargarComentarios() {
-            //ApiController.getComentarioByPelicula(this.okComentarioCargar.bind(this), this.state.id);
+            ApiController.getComentarioByEvento(this.okComentarioCargar.bind(this), this.state.id);
             this.okComentarioCargar.bind(this);
         }
     
@@ -92,10 +110,10 @@ class Detalle extends Component {
                 this.setState({ comentarios: comentarios });
     
             } else {
-                //alert("Intentar de nuevo")
+                alert("Intentar de nuevo")
             }
         }
-    */
+    
 
     cargarDetalle() {
         ApiController.getDetalle(this.okDetalle.bind(this), this.state.idEvento);
@@ -179,7 +197,7 @@ class Detalle extends Component {
                                 <View style={{ flex: 0.5, flexDirection: 'row' }}>
                                     <Image
                                         style={{ width: 150, height: 250, marginLeft: 10, marginTop: 10, flex: 0.45, borderRadius: 10 }}
-                                        //source={{ uri: this.state.detalle.imagen}} 
+                                        source={{ uri: this.state.detalle.imagen}} 
                                         />
                                     <View style={{ flex: 0.55, flexDirection: 'column', alignContent: 'center', marginHorizontal: 10, marginTop: 20 }}>
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10 }}>

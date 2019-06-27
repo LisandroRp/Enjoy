@@ -6,7 +6,7 @@ let insertComentario = (req,res) =>
     console.log(req.body);
     //var date = new Date().toISOString().slice(0,10);
     var newComentario = comentarios({
-        nombre:req.body.usuarioId,
+        nombre:req.body.eventoNombre,
         descripcion:req.body.descripcion,
         usuarioId:req.body.usuarioId,
         fecha:req.body.fecha,
@@ -44,7 +44,7 @@ let getComentariosByUsuarioId = (req, res) =>
     )       
 };
 
-let getComentariosByEventoId = (req, res) =>
+let getComentariosByEvento = (req, res) =>
 {      
     console.log("llegue a leer comentarios con filtro");
     //Obtener id busqueda req.param.tagid
@@ -64,4 +64,4 @@ let getComentariosByEventoId = (req, res) =>
     )       
 };
 
-module.exports = {insertComentario,getComentariosByUsuarioId,getComentariosByEventoId};
+module.exports = {insertComentario,getComentariosByUsuarioId,getComentariosByEvento};

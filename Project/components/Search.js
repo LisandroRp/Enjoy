@@ -10,6 +10,7 @@ import {
     Keyboard,
     Alert,
     ScrollView,
+    ActivityIndicator
 } from 'react-native';
 import { List, ListItem, SearchBar } from "react-native-elements";
 import * as Animatable from 'react-native-animatable';
@@ -20,13 +21,13 @@ function createData(item) {
     return {
       key: item._id,
       idEvento: item._id,
-      //imagen: item.imagen,
+      imagen: item.imagen,
       nombre: item.nombre,
       rating: item.rating,
       descripcion: item.descripcion,
       tipo: item.tipo,
       genero: item.genero,
-      //lugar:item.lugar,
+      ubicacion: item.ubicacion,
       precioE: item.precioE
     };
   }
@@ -41,6 +42,8 @@ export default class Search extends React.Component {
             userSelected: [],
             eventos: [],
             memory: [],
+            tipo: this.props.agarrarTipo(),
+            isLoading: true,
         };
         this.obtenerEventos()
     }
@@ -56,6 +59,7 @@ export default class Search extends React.Component {
             }
             this.setState({ eventos: newArray });
             this.setState({memory: newArray})
+            this.setState({isLoading: false})
         } else {
             alert("Intentar de nuevo")
         }
@@ -98,7 +102,7 @@ export default class Search extends React.Component {
     searchEvent = value => {
         const filteredevents = this.state.memory.filter(event => {
           let eventLowercase = (
-            event.descripcion +
+            event.ubicacion +
             ' ' +
             event.nombre +
             ' ' +
@@ -115,11 +119,21 @@ export default class Search extends React.Component {
         this.setState({value})
       };
     render() {
-        const id= this.props.agarrarId()
+        if (this.state.isLoading) {
+            return (
+                //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+                //<View style={styles.container}>
+                <View style={styles.container}>
+                    <ActivityIndicator size="large" color="#3399ff" backgroundColor=' #616161' style={{ flex: 2 }}></ActivityIndicator>
+                </View>
+                //</View>
+                // </LinearGradient>
+            );
+        } else {
         return (
             <View style={styles.container}>
+            <Text>{this.state.tipo}</Text>
                 <View>
-                <Text>{id}</Text>
                     <SearchBar
                         placeholder="Name/Place/Type/Genre"
                         platform='ios'
@@ -159,22 +173,43 @@ export default class Search extends React.Component {
                     //     return item.id;
                     // }}
                     renderItem={({ item }) => {
+                        if('Recomendados'== this.state.tipo){
+                        if(item.rating > 4){
                         return (
                             <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                                <Image style={styles.image} source={{ uri: item.image }} />
+                                <Image style={styles.image} source={{ uri: item.imagen }} />
                                 <View style={styles.cardContent}>
                                     <Text style={styles.name}>{item.nombre}</Text>
-                                    <Text style={styles.count}>{item.descripcion}</Text>
+                                    <Text style={styles.count}>{item.ubicacion}</Text>
                                     <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener()}>
                                         <Text style={styles.followButtonText}>Explore now</Text>
                                     </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
                         )
-                    }} />
+                        }
+                    }else{
+                        if(item.tipo== this.state.tipo){
+                            return (
+                            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
+                                <Image style={styles.image} source={{ uri: item.imagen }} />
+                                <View style={styles.cardContent}>
+                                    <Text style={styles.name}>{item.nombre}</Text>
+                                    <Text style={styles.count}>{item.ubicacion}</Text>
+                                    <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener()}>
+                                        <Text style={styles.followButtonText}>Explore now</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                        }
+                    }
+                    }
+                    } />
                     </ScrollView>
                     </View>
         );
+    }
     }
 }
 

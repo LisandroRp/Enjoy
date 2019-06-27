@@ -9,14 +9,18 @@ var eventoSchema = new Schema({
     fecha:String,
     tipo:{type:String, required:true},
     genero:String,
-    imagen:Buffer,
+    imagen:String,
     duracion:Number,
     rating:Number,
     personas:Number,
     votos:[{type:Schema.Types.ObjectId, ref: 'Usuario'}],
     comentarios:[{type:Schema.Types.ObjectId, ref: 'Comentario'}],
     precios:[{type:Schema.Types.ObjectId, ref: 'Carta'}],
-    precioE:Number
+    precioE:Number,
+    ubicacion: String,
+    latitude:String,
+    longitude:String
+
 });
 
 var Evento = mongoose.model('Evento', eventoSchema);

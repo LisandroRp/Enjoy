@@ -59,6 +59,20 @@ class ApiController extends Component {
                 alert("No existen Comentarios");
             }));
     }
+    getComentarioByEvento(okComentario, id) {
+        let uri = url+'/getComentariosByEvento?eventoId=' + id
+        fetch(uri).then(res => {
+            return res.json()
+        }).catch((err) => {
+            console.log(err)
+        }).
+            then(data => {
+                okComentario(data);
+            }).catch((err => {
+                console.log(err);
+                alert("No existen Comentarios");
+            }));
+    }
 
     insertUsuario(name, lastName, email, user, password, okCreate) {
         let uri = url+'/insertUsuario/Usuario'
@@ -115,18 +129,18 @@ class ApiController extends Component {
     }
 
     createComment(idUsuario, idEvento, descripcion, nombre,fecha, okComentario) {
-        let uri =url+'/insertComentario/Comentario'
+        let uri =url+'/insertComentario/comentarios'
         console.log('judopppppppppppp')
         fetch(uri, {
             method: 'POST',
             mode: "cors",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                nombre: nombre,
                 descripcion: descripcion,
                 usuarioId: idUsuario,
-                eventoId: idEvento,
                 fecha: fecha,
-                eventoNombre: nombre,
+                eventoId: idEvento, 
             }),
         }).then((res) => {
             return res.json();

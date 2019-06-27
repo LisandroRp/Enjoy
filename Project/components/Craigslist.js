@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { AsyncStorage } from 'react-native';
 import ApiController from '../controller/ApiController'
@@ -20,11 +20,12 @@ function createData(item) {
   return {
     key: item._id,
     idEvento: item._id,
-    //imagen: item.imagen,
+    imagen: item.imagen,
     nombre: item.nombre,
     rating: item.rating,
     descripcion: item.descripcion,
     tipo: item.tipo,
+    ubicacion: item.ubicacion,
   };
 }
 
@@ -42,6 +43,7 @@ class Craigslist extends Component {
       eventos: [],
       isLoading: true,
     };
+    this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
     this._storeData(this.state.IdUser);
     this.obtenerEventos()
     
@@ -103,18 +105,23 @@ okEventos(data) {
           //   return item.id;
           // }}
           renderItem={({ item }) => {
+            if(item.rating > 4){
             return (
               <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                 <Image style={styles.image} source={{ uri: item.image }} />
+                <View  style={{flexDirection:"row"}} >
+                 <Image style={styles.image} source={{ uri: item.imagen }} />
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.nombre}</Text>
-                  <Text style={styles.count}>{item.descripcion}</Text>
-                  <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(JSON.stringify(id))}>
-                    <Text style={styles.followButtonText}>Explore now</Text>
-                  </TouchableOpacity>
-                </View>
+                  <Text style={styles.count}>{item.ubicacion}</Text>
+                  </View>
+                  <View  style={{flexDirection:"column", alignItems:'center', paddingLeft:25, paddingTop:15}} >
+                  <Image style={styles.StarImage} source={{uri: this.Star }} />
+                  <Text style={styles.followButtonText}>{item.rating}</Text>
+                  </View>
+                  </View>
               </TouchableOpacity>
             )
+            }
           }} />
       </View>
     );
@@ -133,7 +140,8 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     marginLeft: 20,
-    marginTop: 10
+    marginTop: 10,
+    flexDirection:"column"
   },
   image: {
     width: 90,
@@ -163,6 +171,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
+    paddingTop:12,
     fontSize: 18,
     flex: 1,
     alignSelf: 'center',
@@ -171,6 +180,7 @@ const styles = StyleSheet.create({
   },
   count: {
     fontSize: 14,
+    paddingBottom:15,
     flex: 1,
     alignSelf: 'center',
     color: "#6666ff"
@@ -189,9 +199,14 @@ const styles = StyleSheet.create({
     borderColor: "#dcdcdc",
   },
   followButtonText: {
-    color: "#dcdcdc",
-    fontSize: 12,
+    color: "black",
+    fontSize: 20,
   },
+  StarImage: {
+    width: 40,
+    height: 40,
+    resizeMode: 'cover',
+},
 })
 
 export default withNavigation(Craigslist);

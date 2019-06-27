@@ -17,11 +17,12 @@ function createData(item) {
   return {
     key: item._id,
     idEvento: item._id,
-    //imagen: item.imagen,
+    imagen: item.imagen,
     nombre: item.nombre,
     rating: item.rating,
     descripcion: item.descripcion,
     tipo: item.tipo,
+    ubicacion: item.ubicacion,
   };
 }
 
@@ -80,10 +81,10 @@ class Conciertos extends Component {
             if(item.tipo=='Concierto'){
             return (
               <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                <Image style={styles.image} source={{uri: item.image}}/>
+                <Image style={styles.image} source={{uri: item.imagen}}/>
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.nombre}</Text>
-                  <Text style={styles.count}>{item.descripcion}</Text>
+                  <Text style={styles.count}>{item.ubicacion}</Text>
                   <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(item)}>
                     <Text style={styles.followButtonText}>Explore now</Text>
                   </TouchableOpacity>
