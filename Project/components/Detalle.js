@@ -17,7 +17,7 @@ function createData(item) {
     return {
         nombre: item.usuarioId,
         descripcion: item.descripcion,
-        //fechaComentario: item.fecha,
+        fechaComentario: item.fecha,
     };
 }
 class Detalle extends Component {
@@ -369,57 +369,64 @@ class Detalle extends Component {
 
 class FlatListItems extends Component {
     render() {
-        return (
-
-            <View style={{
-                flex: 1,
-                backgroundColor: 'white',
-                margin: 5,
-                borderRadius: 10
-            }}>
-                <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
-                    <View style={styles.CircleShapeView}>
-                        <Text style={{ fontSize: 15, color: '#3399ff', marginTop: 5 }}>
-                            {this.props.item.nombre.slice(0, 1).toUpperCase()}
-                        </Text>
-                    </View>
-                    <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10 }}>
-                        <View>
-                            <Text style={{
-                                color: 'black',
-                                padding: 5,
-                                fontSize: 12,
-                                marginTop: 5
-                            }}>
-                                {this.props.item.nombre}
-                            </Text>
-                        </View>
-                        <View>
-                            <Text style={{
-                                color: 'black',
-                                paddingTop: 3,
-                                paddingLeft: 5,
-                                paddingBottom: 5,
-                                fontSize: 12,
-                            }}>
-                                {this.props.item.fechaComentario}
-                            </Text>
-                        </View>
-                    </View>
-                </View>
-
-
-                <View
-                    style={styles.cositoGris2}
-                />
-                <Text style={styles.FlatListItems}>
-                    {this.props.item.descripcion}
-                </Text>
+      return (
+  
+        <View style={{
+          flex: 1,
+          backgroundColor: 'pink',
+          margin: 5,
+          borderRadius: 10
+        }}>
+          <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
+            <View style={styles.CircleShapeView}>
+              <Text style={{ fontSize: 15, color: 'white', marginTop: 8 }}>
+                {this.props.item.nombre.slice(0, 1).toUpperCase()}
+              </Text>
             </View>
-        );
-
+            <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10 }}>
+              <View>
+                <Text style={{
+                  color: 'black',
+                  padding: 5,
+                  fontSize: 20,
+                  marginTop: 5,
+                  fontWeight: 'bold',
+                }}>
+                  {this.props.item.nombre}
+                </Text>
+              </View>
+              <View>
+                <Text style={{
+                  color: 'black',
+                  paddingTop: 3,
+                  paddingLeft: 5,
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}>
+                  {this.props.item.fechaComentario}
+                </Text>
+              </View>
+            </View>
+  
+          </View>
+  
+  
+          <View
+            style={{
+              borderBottomColor: 'grey',
+              borderBottomWidth: 1,
+              marginVertical: 5,
+            }}
+          />
+          <Text style={styles.FlatListItems}>
+            {this.props.item.descripcion}
+          </Text>
+        </View>
+  
+      );
+  
     }
-}
+  }
 
 
 

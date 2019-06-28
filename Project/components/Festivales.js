@@ -23,6 +23,7 @@ function createData(item) {
     descripcion: item.descripcion,
     tipo: item.tipo,
     ubicacion: item.ubicacion,
+    precioE: item.precioE,
   };
 }
 
@@ -36,6 +37,7 @@ class Festivales extends Component {
       eventos: [],
       isLoading: true,
     };
+    this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
     this.obtenerEventos()
   }
 
@@ -81,15 +83,19 @@ class Festivales extends Component {
             if (item.tipo == 'Festival') {
               return (
                 <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                  <Image style={styles.image} source={{uri: item.imagen}}/>
-                  <View style={styles.cardContent}>
-                    <Text style={styles.name}>{item.nombre}</Text>
-                    <Text style={styles.count}>{item.ubicacion}</Text>
-                    <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(item)}>
-                      <Text style={styles.followButtonText}>Explore now</Text>
-                    </TouchableOpacity>
+                <View  style={{flexDirection:"row"}} >
+                 <Image style={styles.image} source={{ uri: item.imagen }} />
+                <View style={styles.cardContent}>
+                  <Text style={styles.name}>{item.nombre}</Text>
+                  <Text style={styles.count}>{item.ubicacion}</Text>
+                  <Text style={{fontSize: 11}}>Entrada General: {item.precioE}$</Text>
                   </View>
-                </TouchableOpacity>
+                  <View  style={{flexDirection:"column", alignItems:'center', paddingLeft:300, paddingTop:15, position: 'absolute'}} >
+                  <Image style={styles.StarImage} source={{uri: this.Star }} />
+                  <Text style={styles.followButtonText}>{item.rating}/5</Text>
+                  </View>
+                  </View>
+              </TouchableOpacity>
               )
             }
           }} />
@@ -140,6 +146,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
+    paddingTop:12,
     fontSize: 18,
     flex: 1,
     alignSelf: 'center',
@@ -148,6 +155,7 @@ const styles = StyleSheet.create({
   },
   count: {
     fontSize: 14,
+    paddingBottom:11,
     flex: 1,
     alignSelf: 'center',
     color: "#6666ff"
@@ -166,9 +174,14 @@ const styles = StyleSheet.create({
     borderColor: "#dcdcdc",
   },
   followButtonText: {
-    color: "#dcdcdc",
-    fontSize: 12,
+    color: "black",
+    fontSize: 20,
   },
+  StarImage: {
+    width: 40,
+    height: 40,
+    resizeMode: 'cover',
+},
 })
 
 export default Festivales;

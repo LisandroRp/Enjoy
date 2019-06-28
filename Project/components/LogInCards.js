@@ -45,7 +45,7 @@ class LogInCards extends Component {
               underlineColorAndroid='transparent'
               onChangeText={(text) => this.setState({ username: text })}
               />
-          <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/flat_round/40/000000/secured-letter.png'}}/>
+          <Image style={styles.inputIcon} source={{uri: "https://img.icons8.com/office/40/000000/user.png"}}/>
         </View>
         
         <View style={styles.inputContainer}>
@@ -55,7 +55,7 @@ class LogInCards extends Component {
               underlineColorAndroid='transparent'
               onChangeText={(text) => this.setState({ password: text })}
               />
-          <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/password.png'}}/>
+          <Image style={styles.inputIcon} source={{uri: "https://img.icons8.com/office/40/000000/forgot-password.png"}}/>
         </View>
 
         <TouchableOpacity style={styles.btnByRegister} onPress={() => this.onClickListener('restore_password')}>

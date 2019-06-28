@@ -26,6 +26,7 @@ function createData(item) {
     descripcion: item.descripcion,
     tipo: item.tipo,
     ubicacion: item.ubicacion,
+    precioE: item.precioE,
   };
 }
 
@@ -113,10 +114,11 @@ okEventos(data) {
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.nombre}</Text>
                   <Text style={styles.count}>{item.ubicacion}</Text>
+                  <Text style={{fontSize: 11}}>Entrada General: {item.precioE}$</Text>
                   </View>
-                  <View  style={{flexDirection:"column", alignItems:'center', paddingLeft:25, paddingTop:15}} >
+                  <View  style={{flexDirection:"column", alignItems:'center', paddingLeft:300, paddingTop:15, position: 'absolute'}} >
                   <Image style={styles.StarImage} source={{uri: this.Star }} />
-                  <Text style={styles.followButtonText}>{item.rating}</Text>
+                  <Text style={styles.followButtonText}>{item.rating}/5</Text>
                   </View>
                   </View>
               </TouchableOpacity>
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
   },
   count: {
     fontSize: 14,
-    paddingBottom:15,
+    paddingBottom:11,
     flex: 1,
     alignSelf: 'center',
     color: "#6666ff"
