@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-var ip = '192.168.1.107';
+var ip = '172.20.10.5';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -43,21 +43,6 @@ class ApiController extends Component {
             then(data => {
                 okSeries(data);
             }).catch((err) => console.log(err));
-    }
-
-    getComentarioByPelicula(okComentario, id) {
-        let uri = url+'/getComentariosByPeliculaId?peliculaId=' + id
-        fetch(uri).then(res => {
-            return res.json()
-        }).catch((err) => {
-            console.log(err)
-        }).
-            then(data => {
-                okComentario(data);
-            }).catch((err => {
-                console.log(err);
-                alert("No existen Comentarios");
-            }));
     }
     getComentarioByEvento(okComentario, id) {
         let uri = url+'/getComentariosByEvento?eventoId=' + id
@@ -128,25 +113,27 @@ class ApiController extends Component {
             }));
     }
 
-    createComment(idUsuario, idEvento, descripcion, nombre,fecha, okComentario) {
-        let uri =url+'/insertComentario/comentarios'
+    createComment(idUsuario, idEvento, descripcion, nombre, okComentario) {
+        let uri =url+'/insertComentario/Comentario'
         console.log('judopppppppppppp')
         fetch(uri, {
             method: 'POST',
             mode: "cors",
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
             body: JSON.stringify({
-                nombre: nombre,
+                nombreE: nombre,
                 descripcion: descripcion,
                 usuarioId: idUsuario,
-                fecha: fecha,
                 eventoId: idEvento, 
-            }),
+            })
         }).then((res) => {
             return res.json();
         }).catch((err) => console.log(err)).then((res) => {
             okComentario();
-        }).catch((err) => console.log(err));
+        }).catch((err) => console.log(err))
     }
 
     getCommentByIdUser(userId, okComentario) {

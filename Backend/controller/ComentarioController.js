@@ -4,12 +4,12 @@ var bodyParser = require('body-parser');
 let insertComentario = (req,res) =>
 {
     console.log(req.body);
-    //var date = new Date().toISOString().slice(0,10);
+    var date = new Date().toISOString().slice(0,10);
     var newComentario = comentarios({
         nombre:req.body.eventoNombre,
         descripcion:req.body.descripcion,
         usuarioId:req.body.usuarioId,
-        fecha:req.body.fecha,
+        fecha:date,
         eventoId:req.body.eventoId
     });
     newComentario.save().
@@ -24,7 +24,7 @@ let insertComentario = (req,res) =>
     ) 
 }
 
-let getComentariosByUsuarioId = (req, res) =>
+let getComentariosByUsuario = (req, res) =>
 {      
     console.log("llegue a leer comentarios con filtro");
     //Obtener id busqueda req.param.tagid
@@ -64,4 +64,4 @@ let getComentariosByEvento = (req, res) =>
     )       
 };
 
-module.exports = {insertComentario,getComentariosByUsuarioId,getComentariosByEvento};
+module.exports = {insertComentario,getComentariosByUsuario,getComentariosByEvento};

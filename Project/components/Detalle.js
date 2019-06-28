@@ -15,9 +15,9 @@ var { height, width } = Dimensions.get('window');
 
 function createData(item) {
     return {
-        nombre: item.nombre,
+        nombre: item.usuarioId,
         descripcion: item.descripcion,
-        fechaComentario: item.fechaComentario,
+        //fechaComentario: item.fecha,
     };
 }
 class Detalle extends Component {
@@ -28,7 +28,6 @@ class Detalle extends Component {
             idEvento: this.props.navigation.getParam('IdEvento'),
             detalle: {
                 "nombre": 'AcDc',
-                "fecha": "2019-03-04",
                 "descripcion": "Re copada la banduli de rock",
                 "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
                 "genero": "Rock",
@@ -46,7 +45,6 @@ class Detalle extends Component {
             Voted: false,
             idUser:null,
             text: "",
-            fecha:{type:Date, default:Date.now()},
             comentarios: [],
         }
         this._retrieveData();
@@ -69,7 +67,6 @@ class Detalle extends Component {
                 this.setState({
                     idUser: value,
                 })
-                this.getUserData(this.state.IdUser);
             }
         } catch (error) {
             console.log(error);
@@ -78,29 +75,28 @@ class Detalle extends Component {
     
         insertarComentario() {
             console.log('siiiiiiiiiiiiiiiiiii')
-            console.log(this.state.idUser)
-            console.log(this.state.idEvento)
-            console.log(this.state.text)
             if (this.state.idUser != null && this.state.idEvento != null && this.state.text != null) {
                 console.log('yeaahiiiihhhhhhhhhhhhhhhhhhhhhhhhh')
                 this.setState({ modalVisible: false });
-                ApiController.createComment(this.state.idUser, this.state.idEvento, this.state.text, this.state.detalle.nombre,this.state.fecha, this.okComentario.bind(this));
+                ApiController.createComment(this.state.idUser, this.state.idEvento, this.state.text, this.state.detalle.nombre, this.okComentario.bind(this));
             }
         }
     
         okComentario() {
             alert("Se guardo tu comentario");
             this.setState({ modalVisible: false });
-            //this.cargarComentarios();
+            this.cargarComentarios();
         }
     
         
         cargarComentarios() {
-            ApiController.getComentarioByEvento(this.okComentarioCargar.bind(this), this.state.id);
-            this.okComentarioCargar.bind(this);
+            ApiController.getComentarioByEvento(this.okComentarioCargar.bind(this), this.state.idEvento);
+            //this.okComentarioCargar.bind(this);
         }
     
         okComentarioCargar(data) {
+            console.log('Entrooooo')
+            console.log(data)
             if (data != null) {
     
                 var i, comentarios = [];
@@ -147,8 +143,8 @@ class Detalle extends Component {
         'tipo': this.state.detalle.tipo
         }});
         this.setState({Voted: true})
-        console.log('caca'+ this.state.detalle.rating)
-        console.log('caca'+ this.state.detalle.personas)
+        // console.log('caca'+ this.state.detalle.rating)
+        // console.log('caca'+ this.state.detalle.personas)
         }
     }
     

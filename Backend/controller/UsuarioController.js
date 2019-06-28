@@ -84,9 +84,9 @@ let getUsuarioByUsername = (req, res) =>
 
 let updateUsuarioByPassword = (req, res) =>
 {      
-    console.log("Actualizar usuario: ",req.body.id);
+    console.log("Actualizar usuario: ",req.body.username);
     //Obtener id busqueda req.param.tagid
-    var myquery = { _id: req.body.id};
+    var myquery = { username: req.body.username};
     console.log("Actualizar key: ",myquery);
     var newvalues = { $set: {password: req.body.password } };
     console.log("Actualizar password: ",newvalues);

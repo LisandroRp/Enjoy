@@ -24,12 +24,13 @@ mongoose.connect(urlBD,opts).then
             console.log("ERROR:" + err); 
            } //manejo error
 );
+var port = process.env.PORT || 8080;
 
 // Importo router
-var apiRoutes = require("./api-routes")
+//var apiRoutes = require("./api-routes")
 
 // Uso Api routes en App
-app.use('/apiAppEventos', apiRoutes);
+//app.use('/apiAppEventos', apiRoutes);
 
 // Todo lo que recibe la app se tratara como json
 app.use(bodyParser.urlencoded(
@@ -38,9 +39,11 @@ app.use(bodyParser.urlencoded(
 }));
 app.use(bodyParser.json());
 app.use(cors());
+var apiRoutes = require("./api-routes")
+app.use('/apiAppEventos', apiRoutes);
 
 // Setup server port
-var port = process.env.PORT || 8080;
+//var port = process.env.PORT || 8080;
 
 // Launch app to listen to specified port
 app.listen(port, function () {
@@ -60,7 +63,7 @@ var acdcEvento = new Evento({
     fecha: '24/06/20',
     tipo:'Concierto',
     idUsuarioPropietario:'Time4Fun',
-    duracion:120,
+    duracion: '3 Horas',
     genero:'Rock',
     imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-',
     rating:5,
@@ -75,6 +78,33 @@ var acdcEvento = new Evento({
 });
 
 acdcEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento guardado con exito.');
+});
+
+var LollaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Lolla Palooza',
+    descripcion:'Terrible festival....',
+    fecha: '24/06/20',
+    tipo:'Festival',
+    idUsuarioPropietario:'Time4Fun',
+    duracion:'3 Dias',
+    genero:'Variado',
+    imagen:'https://www.radiocantilo.com/wp-content/uploads/2018/03/descarga.png',
+    rating:5,
+    personas:50000,
+    votos:[],
+    comentarios:[],
+    precios:[],
+    precioE:2500,
+    ubicacion: 'Hipodromo de San Isidro',
+    latitude:'',
+    longitude:''
+});
+
+LollaEvento.save(function(err) {
     if (err) throw err;
         
     console.log('Evento guardado con exito.');
@@ -137,4 +167,22 @@ usuario2.save(function(err) {
     if (err) throw err;
         
     console.log('Usuario guardado con exito.');
+
+});
+
+var Comentario = require('./model/Comentario'); 
+
+var comentario = new Comentario({
+    nombreE:'AC/DC',
+    descripcion:'Buen evento, muy divertido',
+    usuarioId:'matu_pe',
+    fecha: '5515151',
+    eventoId: '5d145c6357066a2ee88f2749'
+});
+
+comentario.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Comentario guardado con exito.');
+
 });*/

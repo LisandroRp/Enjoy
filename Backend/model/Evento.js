@@ -10,7 +10,7 @@ var eventoSchema = new Schema({
     tipo:{type:String, required:true},
     genero:String,
     imagen:String,
-    duracion:Number,
+    duracion:String,
     rating:Number,
     personas:Number,
     votos:[{type:Schema.Types.ObjectId, ref: 'Usuario'}],

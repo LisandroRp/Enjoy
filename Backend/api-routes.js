@@ -50,7 +50,7 @@ router.post('/insertUsuario/Usuario',(req, res) =>{
 //EndPoint para actualizar password de un usuario
 router.post('/updateUsuarioByPassword/Usuario',(req, res) =>{
     console.log("Actualizar usuario y password: ", req.body);
-    if(!req.body.id || !req.body.password) 
+    if(!req.body.username || !req.body.password) 
         res.status(409).send({ msg: "El campo id y password son requeridos del usuario." });
     else
         usuarioController.updateUsuarioByPassword(req,res); 
@@ -58,7 +58,7 @@ router.post('/updateUsuarioByPassword/Usuario',(req, res) =>{
 
 //************************** Recursos de Comentarios *****************************/
 //EndPoint para insertar comentario
-router.post('/insertComentario/comentarios',(req, res) =>{
+router.post('/insertComentario/Comentario',(req, res) =>{
     console.log("Insertar nuevo comentario: ",req.body);
     if(!req.body || req.body.usuarioId =='undefined' || req.body.eventoId =='undefined' || req.body.usuarioId == '' || req.body.usuarioId == null || req.body.eventoId == '' || req.body.eventoId == null) 
         res.status(409).send({ msg: "El campo usuario y evento son requeridos del comentario." });
@@ -72,7 +72,7 @@ router.get('/getComentariosByUsuario',(req, res) =>{
     if(!req.query || req.query.usuarioId =='undefined' || req.query.usuarioId == '' || req.query.usuarioId == null ) 
         res.status(409).send({ msg: "El campo usuario es requerido del comentario." });
     else
-        comentarioController.getComentariosByUsuarioId(req,res);
+        comentarioController.getComentariosByUsuario(req,res);
 });
 
 //EndPoint para leer comentarios de un evento

@@ -8,11 +8,10 @@ import { withNavigation } from 'react-navigation';
 
 function createData(item) {
   return {
-    nombre: item.nombre,
+    nombre: item.usuarioId,
     descripcion: item.descripcion,
-    fechaComentario: item.fechaComentario,
-    peliculaNombre: item.peliculaNombre,
-    idPelicula: item.peliculaId,
+    fechaComentario: item.fecha,
+    eventoId: item.eventoId,
   }
 }
 
@@ -21,7 +20,7 @@ class Comentarios extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      idUser: null,
+      IdUser: null,
       isLoading: true,
       comentarios: [],
     }
@@ -30,20 +29,20 @@ class Comentarios extends Component {
 
   _retrieveData = async () => {
     try {
-      const value = await AsyncStorage.getItem('idUser');
+      const value = await AsyncStorage.getItem('IdUser');
       if (value !== null) {
         this.setState({
-          idUser: value
+          IdUser: value
         })
-        this.getComments(this.state.idUser);
+        this.getComments(this.state.IdUser);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  getComments(idUser) {
-    ApiController.getCommentByIdUser(idUser, this.okComments.bind(this));
+  getComments(IdUser) {
+    ApiController.getCommentByIdUser(IdUser, this.okComments.bind(this));
   }
 
   okComments(data) {
@@ -53,6 +52,7 @@ class Comentarios extends Component {
       for (i = 0; i < data.length; i++) {
         comentarios.push(createData(data[i], i));
       }
+      console.log(comentarios)
       this.setState({
         comentarios: comentarios,
         isLoading: false,
@@ -60,12 +60,12 @@ class Comentarios extends Component {
       });
 
     } else {
-      //alert("Intentar de nuevo")
+      alert("Intentar de nuevo")
     }
   }
 
-  pasarDetalle(idMovie, idUser) {
-    this.props.navigation.navigate('Detalle', { id: idMovie, idUser: idUser })
+  pasarDetalle(idEvento, IdUser) {
+    this.props.navigation.navigate('Detalle', { IdEvento: idEvento, IdUser: IdUser })
   }
 
   render() {
@@ -88,7 +88,7 @@ class Comentarios extends Component {
               renderItem={({ item, index }) => {
                 return (
                   <TouchableOpacity
-                    onPress={() => this.pasarDetalle(item.idPelicula, this.state.idUser)}
+                    onPress={() => this.pasarDetalle(item.eventoId, this.state.IdUser)}
                   >
                     <FlatListItems item={item} index={index}>
                     </FlatListItems>
@@ -132,7 +132,7 @@ class FlatListItems extends Component {
                 marginTop: 5,
                 fontWeight: 'bold',
               }}>
-                {this.props.item.peliculaNombre}
+                {this.props.item.nombre}
               </Text>
             </View>
             <View>
