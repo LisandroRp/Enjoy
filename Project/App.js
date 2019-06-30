@@ -11,9 +11,11 @@ import Craigslist from './components/Craigslist'
 import LogInCards from './components/LogInCards'
 import CardView from './components/CardView'
 import Festivales from './components/Festivales';
-import Mapa from './components/Mapa';
+import MapaVarios from './components/MapaVarios';
+import MapaUnEvento from './components/MapaUnEvento'
 import Search from './components/Search';
 import MenuDrawer from './components/MenuDrawer';
+import { AsyncStorage } from 'react-native';
 import {FontAwesome } from '@expo/vector-icons';
 import {
   createSwitchNavigator,
@@ -180,13 +182,13 @@ class FestivalesScreen extends React.Component {
 }
 class DetalleScreen extends React.Component {
 
-  static  navigationOptions= ({ navigation }) => {
+  static  navigationOptions= ({ navigation}) => {
     return {
       headerRight: (
         a= '',
         <View style={{flexDirection: 'row'}}>
         <FontAwesome name="map-marker" style={{ paddingRight: 20, color: '#3399ff'}} 
-          onPress={() => navigation.navigate("Mapa")}
+          onPress={() => navigation.navigate("MapaUnEvento")}
           size={22}
         />
         </View>
@@ -202,7 +204,9 @@ class DetalleScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: this.props.navigation.getParam('id')
+      id: this.props.navigation.getParam('id'),
+      latitude: null,
+      longitude: null,
     }
   }
   render() {
@@ -210,15 +214,20 @@ class DetalleScreen extends React.Component {
       <Detalle
         agarrarId= {this.pasarId.bind(this)}
         onPress={this.pasarConcierto.bind(this)}
+        guardarPos={this.guardarPos.bind(this)}
 
       />
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Mapa',{IdEvento: id});
+    this.props.navigation.navigate('MapaUnEvento',{IdEvento: id});
   }
   pasarId(){
     return this.state.id
+  }
+  guardarPos(lat, long){
+    this.setState({latitude: lat})
+    this.setState({longitude: long})
   }
 }
 class SearchScreen extends React.Component {
@@ -278,7 +287,7 @@ const MockedViewStackNavigator = createStackNavigator(
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Mapa',{type: 'Recomendados'})}
+              onPress={() => navigation.navigate('MapaVarios',{type: 'Recomendados'})}
               size={22}
             />
             </View>
@@ -288,7 +297,8 @@ const MockedViewStackNavigator = createStackNavigator(
     },
     Helado: {screen: SearchScreen},
     Detalle: { screen: DetalleScreen},
-    Mapa: {screen: Mapa},
+    MapaVarios: {screen: MapaVarios},
+    MapaUnEvento: {screen: MapaUnEvento},
   },
   {
     initialRouteName: 'MockedViewScreen',
@@ -316,7 +326,7 @@ const ConciertosStackNavigator = createStackNavigator(
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate("Mapa")}
+              onPress={() => navigation.navigate("MapaVarios")}
               size={22}
             />
             </View>
@@ -326,7 +336,8 @@ const ConciertosStackNavigator = createStackNavigator(
     },
     Helado: {screen: SearchScreen},
     Detalle: { screen: DetalleScreen},
-    Mapa: {screen: Mapa}
+    MapaVarios: {screen: MapaVarios},
+    MapaUnEvento: {screen: MapaUnEvento},
   },
   {
     initialRouteName: 'ConciertosScreen',
@@ -354,7 +365,7 @@ const FestivalesStackNavigator = createStackNavigator(
               size={22}
             />
             <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate("Mapa")}
+              onPress={() => navigation.navigate("MapaVarios")}
               size={22}
             />
             </View>
@@ -364,7 +375,8 @@ const FestivalesStackNavigator = createStackNavigator(
     },
     Helado: {screen: SearchScreen},
     Detalle: { screen: DetalleScreen},
-    Mapa: {screen: Mapa}
+    MapaVarios: {screen: MapaVarios},
+    MapaUnEvento: {screen: MapaUnEvento},
   },
   {
     initialRouteName: 'FestivalesScreen',

@@ -45,6 +45,7 @@ class Craigslist extends Component {
       isLoading: true,
     };
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
+    //this.Star = 'https://img.icons8.com/color/96/000000/christmas-star.png';
     this._storeData(this.state.IdUser);
     this.obtenerEventos()
     
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
   },
   followButtonText: {
     color: "black",
-    fontSize: 20,
+    fontSize: 15,
   },
   StarImage: {
     width: 40,

@@ -18,8 +18,8 @@ var eventoSchema = new Schema({
     precios:[{type:Schema.Types.ObjectId, ref: 'Carta'}],
     precioE:Number,
     ubicacion: String,
-    latitude:String,
-    longitude:String
+    latitude:Number,
+    longitude:Number
 
 });
 

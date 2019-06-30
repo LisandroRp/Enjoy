@@ -5,7 +5,7 @@ import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 import DropDownItem from 'react-native-drop-down-item';
 import { Rating, AirbnbRating } from 'react-native-elements';
-import Mapa from './Mapa';
+import MapaUnEvento from './MapaUnEvento';
 import ApiController from '../controller/ApiController';
 import { AsyncStorage } from 'react-native';
 import { LinearGradient } from 'expo'
@@ -21,6 +21,11 @@ function createData(item) {
         fechaComentario: item.fecha,
     };
 }
+function createUser(item) {
+    return {
+        username: item.username
+    };
+}
 class Detalle extends Component {
     constructor(props) {
         super(props);
@@ -33,18 +38,19 @@ class Detalle extends Component {
                 "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-",
                 "genero": "Rock",
                 rating: 3,
-                votos:[],
-                personas:0,
+                votos: [],
+                personas: 0,
                 "duracion": "165",
                 precioE: 10,
-                'precios':[],
-                'tipo': 'Concierto'
+                'precios': [],
+                'tipo': 'Concierto',
+                'latitude': null,
+                'longitude': null,
             },
             isLoading: true,
             modalVisible: false,
             Max_Rating: 5,
             Voted: false,
-            idUser:null,
             text: "",
             comentarios: [],
             voto: {
@@ -53,13 +59,14 @@ class Detalle extends Component {
             }
         }
         this._retrieveData();
+        this._storeData(this.state.idEvento);
         // this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
         // this.Star_With_Border = 'http://aboutreact.com/wp-content/uploads/2018/08/star_corner.png';
         this.Star = 'https://img.icons8.com/color/96/000000/filled-star.png';
         this.Star_With_Border = 'https://img.icons8.com/color/96/000000/star.png';
-        this.Star_Half='https://img.icons8.com/color/96/000000/star-half.png';
-        this.Star_Voted='https://img.icons8.com/color/96/000000/christmas-star.png'
-        this.changeVote=this.Star;
+        this.Star_Half = 'https://img.icons8.com/color/96/000000/star-half-empty.png';
+        this.Star_Voted = 'https://img.icons8.com/color/96/000000/christmas-star.png'
+        this.changeVote = this.Star;
     }
 
     componentDidMount() {
@@ -82,44 +89,47 @@ class Detalle extends Component {
             console.log(error);
         }
     };
-    
-        insertarComentario() {
-            console.log('siiiiiiiiiiiiiiiiiii')
-            if (this.state.idUser != null && this.state.idEvento != null && this.state.text != null) {
-                console.log('yeaahiiiihhhhhhhhhhhhhhhhhhhhhhhhh')
-                this.setState({ modalVisible: false });
-                ApiController.createComment(this.state.idUser, this.state.idEvento, this.state.text, this.state.detalle.nombre, this.okComentario.bind(this));
-            }
+    _storeData = async () => {
+        try {
+            await AsyncStorage.setItem('IdEvento', this.state.idEvento);
+        } catch (error) {
+            console.log(error);
         }
-    
-        okComentario() {
-            alert("Se guardo tu comentario");
+    };
+
+    insertarComentario() {
+        if (this.state.idUser != null && this.state.idEvento != null && this.state.text != null) {
             this.setState({ modalVisible: false });
-            this.cargarComentarios();
+            ApiController.createComment(this.state.idUser, this.state.idEvento, this.state.text, this.state.detalle.nombre, this.okComentario.bind(this));
         }
-    
-        
-        cargarComentarios() {
-            ApiController.getComentarioByEvento(this.okComentarioCargar.bind(this), this.state.idEvento);
-            //this.okComentarioCargar.bind(this);
-        }
-    
-        okComentarioCargar(data) {
-            console.log('Entrooooo')
-            console.log(data)
-            if (data != null) {
-    
-                var i, comentarios = [];
-                for (i = 0; i < data.length; i++) {
-                    comentarios.push(createData(data[i], i));
-                }
-                this.setState({ comentarios: comentarios });
-    
-            } else {
-                alert("Intentar de nuevo")
+    }
+
+    okComentario() {
+        alert("Se guardo tu comentario");
+        this.setState({ modalVisible: false });
+        this.cargarComentarios();
+    }
+
+
+    cargarComentarios() {
+        ApiController.getComentarioByEvento(this.okComentarioCargar.bind(this), this.state.idEvento);
+        //this.okComentarioCargar.bind(this);
+    }
+
+    okComentarioCargar(data) {
+        if (data != null) {
+
+            var i, comentarios = [];
+            for (i = 0; i < data.length; i++) {
+                comentarios.push(createData(data[i], i));
             }
+            this.setState({ comentarios: comentarios });
+
+        } else {
+            alert("Intentar de nuevo")
         }
-    
+    }
+
 
     cargarDetalle() {
         ApiController.getDetalle(this.okDetalle.bind(this), this.state.idEvento);
@@ -132,90 +142,92 @@ class Detalle extends Component {
                 detalle: data[0],
                 isLoading: false
             });
+            this.yaVoto();
+            this.props.guardarPos(this.state.detalle.latitude,this.state.detalle.longitude)
         } else {
             alert("Intentar de nuevo")
         }
     }
-    yaVoto()
-    {
-        contadorUsers = this.state.detalle.votos.map((item) =>
-            {if(item.username==this.state.idUser){
-                this.setState({Voted: true})
-            }}
-        );
-    }
-    UpdateRating(key) {
-        this.yaVoto()
-        if(this.state.Voted ==false){
-        this.votar(this.state.idUser, key, this.state.votos)
-        this.setState({ detalle:{
-        "nombre": this.state.detalle.nombre,
-        "fecha": this.state.detalle.fecha,
-        "descripcion": this.state.detalle.descripcion,
-        "imagen": this.state.detalle.imagen,
-        "genero": this.state.detalle.genero,
-        rating: key,// HACER EL NUEVO PROMEDIO DE VOTOSSSS
-        votos: this.state.detalle.votos,
-        personas: this.state.detalle.personas+1,
-        "duracion": this.state.detalle.duracion,
-        "precioE": this.state.detalle.precioE,
-        precios: this.state.detalle.precios,
-        'tipo': this.state.detalle.tipo
-        }});
-        this.setState({Voted: true})
-        this.changeVote=this.Star_Voted;
-        // console.log('caca'+ this.state.detalle.rating)
-        // console.log('caca'+ this.state.detalle.personas)
+    yaVoto() {
+        for (var i = 0; i < this.state.detalle.votos.length; i++) {
+            if (this.state.idUser == this.state.detalle.votos[i].username) {
+                this.setState({ Voted: true })
+                this.changeVote = this.Star_Voted;
+            }
         }
     }
-    votar(user,puntuacion){
-        voto= {
+    UpdateRating(key) {
+        if (this.state.Voted == false) {
+            this.votar(this.state.idUser, key, this.state.votos)
+            this.setState({
+                detalle: {
+                    "nombre": this.state.detalle.nombre,
+                    "fecha": this.state.detalle.fecha,
+                    "descripcion": this.state.detalle.descripcion,
+                    "imagen": this.state.detalle.imagen,
+                    "genero": this.state.detalle.genero,
+                    rating: key,// HACER EL NUEVO PROMEDIO DE VOTOSSSS
+                    votos: this.state.detalle.votos,
+                    personas: this.state.detalle.personas + 1,
+                    "duracion": this.state.detalle.duracion,
+                    "precioE": this.state.detalle.precioE,
+                    precios: this.state.detalle.precios,
+                    'tipo': this.state.detalle.tipo
+                }
+            });
+            this.setState({ Voted: true })
+            this.changeVote = this.Star_Voted;
+        }
+    }
+    votar(user, puntuacion) {
+        voto = {
             username: user,
             puntuacion: puntuacion,
         }
-        contadorVotos=0
-        contadorUsers=0
-        newRating=0
-        personasNew=this.state.detalle.personas+1;
+        contadorVotos = 0
+        contadorUsers = 0
+        newRating = 0
+        personasNew = this.state.detalle.personas + 1;
         this.state.detalle.votos.push(voto)
-        console.log(voto)
-        contadorUsers = contadorUsers + this.state.detalle.votos.map((item) =>
-            1
-        );
-        console.log(contadorUsers)
-        contadorVotos = contadorVotos + this.state.detalle.votos.map((item) =>
-            item.puntuacion
-        );
-        console.log(contadorVotos)
-        newRating=contadorVotos/contadorUsers;
-        ApiController.votar(this.state.idEvento, voto,newRating, personasNew,this.okVote.bind(this));
+        for (var i = 0; i < this.state.detalle.votos.length; i++) {
+            contadorVotos = contadorVotos + this.state.detalle.votos[i].puntuacion;
+            contadorUsers++;
+        }
+        newRating = contadorVotos / contadorUsers;
+        ApiController.votar(this.state.idEvento, voto, newRating, personasNew, this.okVote.bind(this));
     }
-    okVote(){
+    okVote() {
         alert("Su voto ha sido procesado con exito");
     }
     render() {
-        rating2=this.state.detalle.rating
+        rating2 = this.state.detalle.rating
         const { navigation } = this.props;
         const id = this.props.agarrarId()
         let React_Native_Rating_Bar = [];
+        var aux = -1;
         //Array to hold the filled or empty Stars
         for (var i = 1; i <= this.state.Max_Rating; i++) {
-          React_Native_Rating_Bar.push(
-              
-            <TouchableOpacity
-              activeOpacity={0.7}
-              key={i}
-              onPress={this.UpdateRating.bind(this, i)}>
-              <Image
-                style={styles.StarImage}
-                source={
-                  i <= rating2
-                    ? { uri: this.changeVote }
-                    : { uri: this.Star_With_Border }
-                }
-              />
-            </TouchableOpacity>
-          );
+            aux++;
+            React_Native_Rating_Bar.push(
+                <TouchableOpacity
+                    activeOpacity={0.7}
+                    key={i}
+                    onPress={this.UpdateRating.bind(this, i)}>
+                    <Image
+                        style={styles.StarImage}
+                        source={
+                            i <= rating2
+                                ? { uri: this.changeVote }
+                                : rating2 < (aux + 1)
+                                    ? { uri: this.Star_Half }
+                                    : { uri: this.Star_With_Border }
+                        }
+                    />
+                </TouchableOpacity>
+            );
+            if (rating2 < (aux + 1)) {
+                aux = -5;
+            }
         }
 
         if (this.state.isLoading) {
@@ -233,14 +245,13 @@ class Detalle extends Component {
                 //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
                 <View style={[styles.detalleContainer]}>
                     <ScrollView>
-                        <Text>{this.state.idEvento}</Text>
                         <View style={[styles.detalleContainer]}>
                             <View style={[styles.detalleContainer]}>
                                 <View style={{ flex: 0.5, flexDirection: 'row' }}>
                                     <Image
                                         style={{ width: 150, height: 250, marginLeft: 10, marginTop: 10, flex: 0.45, borderRadius: 10 }}
-                                        source={{ uri: this.state.detalle.imagen}} 
-                                        />
+                                        source={{ uri: this.state.detalle.imagen }}
+                                    />
                                     <View style={{ flex: 0.55, flexDirection: 'column', alignContent: 'center', marginHorizontal: 10, marginTop: 20 }}>
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10 }}>
                                             <Text style={styles.detalleTitle}>
@@ -274,11 +285,11 @@ class Detalle extends Component {
 
                                         <View style={{ borderRadius: 10, backgroundColor: 'white', height: 50, marginBottom: 10, marginTop: 10 }}>
                                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                            
-                                            
-                                            
-                                            <View style={styles.childView}>{React_Native_Rating_Bar}</View>
-                                            <Text>Votes: {this.state.detalle.personas}</Text>
+
+
+
+                                                <View style={styles.childView}>{React_Native_Rating_Bar}</View>
+                                                <Text>Votes: {this.state.detalle.personas}</Text>
 
 
 
@@ -377,16 +388,16 @@ class Detalle extends Component {
                                 <Text
                                     style={styles.modalText}>Comment</Text>
                             </View>
-                            <View style={{ margin: 10, color: '#3399ff', borderColor: 'black', borderWidth: 1, width: width * 0.70, height: 50, backgroundColor: 'white', marginBottom:10 }}>
+                            <View style={{ margin: 10, color: '#3399ff', borderColor: 'black', borderWidth: 1, width: width * 0.70, height: 50, backgroundColor: 'white', marginBottom: 10 }}>
                                 <TextInput multiline={true} autoFocus={true} maxLength={100} onChangeText={(text) => this.setState({ text })} value={this.state.text}>
 
                                 </TextInput>
                             </View>
                             <View style={{ flex: 0.5, flexDirection: 'row', marginTop: 10 }}>
-                                <View style={{ marginRight: 10, width: width * 0.30,marginBottom:5, }}>
+                                <View style={{ marginRight: 10, width: width * 0.30, marginBottom: 5, }}>
                                     <View style={[styles.outterButtonCreate]}>
 
-                                    <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
                                             onPress={() => { this.setModalVisible(!this.state.modalVisible); }}>
                                             <Text style={styles.textButton}> Cancel</Text>
                                         </TouchableOpacity>
@@ -396,7 +407,7 @@ class Detalle extends Component {
                                     <View style={[styles.outterButtonCreate]}>
 
                                         <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                                            onPress={() =>  this.insertarComentario()}>
+                                            onPress={() => this.insertarComentario()}>
                                             <Text style={styles.textButton}>Accept</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -415,68 +426,68 @@ class Detalle extends Component {
 
 class FlatListItems extends Component {
     render() {
-      return (
-  
-        <View style={{
-          flex: 1,
-          backgroundColor: '#D2E5FF',
-          marginHorizontal:10,
-          marginVertical:5,
-          borderRadius: 10
-        }}>
-          <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
-            <View style={styles.CircleShapeView}>
-              <Text style={{ fontSize: 15, color: 'white', marginTop: 8 }}>
-                {this.props.item.nombre.slice(0, 1).toUpperCase()}
-              </Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10 }}>
-              <View>
-                <Text style={{
-                  color: '#3399ff',
-                  padding: 5,
-                  fontSize: 20,
-                  marginTop: 5,
-                  fontWeight: 'bold',
-                }}>
-                  {this.props.item.nombre}
-                </Text>
-              </View>
-              <View>
-                <Text style={{
-                  color: 'black',
-                  paddingTop: 3,
-                  paddingLeft: 5,
-                  paddingBottom: 5,
-                  fontSize: 11,
-                }}>
-                  {this.props.item.fechaComentario}
-                </Text>
-              </View>
-            </View>
-  
-          </View>
-  
-  
-          <View
-            style={{
-              borderBottomColor: 'grey',
-              borderBottomWidth: 1,
-              marginVertical: 5,
-              marginHorizontal: 10,
-              fontSize:20,
+        return (
 
-            }}
-          />
-          <Text style={styles.FlatListItems}>
-            {this.props.item.descripcion}
-          </Text>
-        </View>
-  
-      );
-  
+            <View style={{
+                flex: 1,
+                backgroundColor: '#D2E5FF',
+                marginHorizontal: 10,
+                marginVertical: 5,
+                borderRadius: 10
+            }}>
+                <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
+                    <View style={styles.CircleShapeView}>
+                        <Text style={{ fontSize: 15, color: 'white', marginTop: 8 }}>
+                            {this.props.item.nombre.slice(0, 1).toUpperCase()}
+                        </Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10 }}>
+                        <View>
+                            <Text style={{
+                                color: '#3399ff',
+                                padding: 5,
+                                fontSize: 20,
+                                marginTop: 5,
+                                fontWeight: 'bold',
+                            }}>
+                                {this.props.item.nombre}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text style={{
+                                color: 'black',
+                                paddingTop: 3,
+                                paddingLeft: 5,
+                                paddingBottom: 5,
+                                fontSize: 11,
+                            }}>
+                                {this.props.item.fechaComentario}
+                            </Text>
+                        </View>
+                    </View>
+
+                </View>
+
+
+                <View
+                    style={{
+                        borderBottomColor: 'grey',
+                        borderBottomWidth: 1,
+                        marginVertical: 5,
+                        marginHorizontal: 10,
+                        fontSize: 20,
+
+                    }}
+                />
+                <Text style={styles.FlatListItems}>
+                    {this.props.item.descripcion}
+                </Text>
+            </View>
+
+        );
+
     }
-  }
+}
 
 
 
@@ -564,7 +575,7 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(0, 0, 0, 0.1)',
         shadowColor: 'black',
         shadowOpacity: 5.0,
-        paddingBottom:33,
+        paddingBottom: 33,
     },
     modalText: {
         fontSize: 20,
@@ -595,7 +606,7 @@ const styles = StyleSheet.create({
     },
     SubmitButtonStyle: {
         width: 100,
-        height:50,
+        height: 50,
         marginTop: 5,
         paddingTop: 5,
         paddingBottom: 5,
@@ -632,19 +643,19 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     buttonContainer: {
-        height:45,
+        height: 45,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop:10,
-        marginBottom:10,
+        marginTop: 10,
+        marginBottom: 10,
         marginHorizontal: 5,
-        width:120,
-        borderRadius:30,
-        backgroundColor:"#3399ff"
-      },
+        width: 120,
+        borderRadius: 30,
+        backgroundColor: "#3399ff"
+    },
 
-    
+
 
 })
 
