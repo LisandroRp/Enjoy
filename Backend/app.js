@@ -66,8 +66,8 @@ var lollaEvento = new Evento({
     personas:50000,
     precioE:2500,
     ubicacion: 'Hipodromo de San Isidro',
-    latitude:'-58.507587',
-    longitude:'-34.480023'
+    latitude:-34.480023,
+    longitude:-58.507587
 });
 
 lollaEvento.save(function(err) {
@@ -89,8 +89,8 @@ var disneyEvento = new Evento({
     rating:5,
     precioE:850,
     ubicacion:'Luna Park',
-    latitude:'-58.368697',
-    longitude:'-34.602055'
+    latitude:-34.602055,
+    longitude:-58.368697
 });
 
 disneyEvento.save(function(err) {
@@ -112,8 +112,8 @@ var wweEvento = new Evento({
     rating:3.5,
     precioE:1000,
     ubicacion:'Luna Park',
-    latitude:'-58.368697',
-    longitude:'-34.602055'
+    latitude:-34.602055,
+    longitude:-58.368697
 });
 
 wweEvento.save(function(err) {
@@ -135,8 +135,8 @@ var tiniEvento = new Evento({
     rating:4.5,
     precioE:700,
     ubicacion:'Luna Park',
-    latitude:'-58.368697',
-    longitude:'-34.602055'
+    latitude:-34.602055,
+    longitude:-58.368697
 });
 
 tiniEvento.save(function(err) {
@@ -158,8 +158,8 @@ var saboresEvento = new Evento({
     rating:4.5,
     precioE:700,
     ubicacion:'La Rural, Palermo',
-    latitude:'-58.420584',
-    longitude:'-34.578170'
+    latitude:-34.578170,
+    longitude:-58.420584
 });
 
 saboresEvento.save(function(err) {
@@ -181,8 +181,8 @@ var aladinEvento = new Evento({
     rating:3.5,
     precioE:450,
     ubicacion:'Teatro Gran Rex',
-    latitude:'-58.378877',
-    longitude:'-34.603114'
+    latitude:-34.603114,
+    longitude:-58.378877
 });
 
 aladinEvento.save(function(err) {
@@ -221,7 +221,7 @@ usuario2.save(function(err) {
     if (err) throw err;
         
     console.log('Usuario guardado con exito.');
-});*/
+});
 
 var usuario3 = new Usuario({
     _id: new mongoose.Types.ObjectId(),
@@ -236,7 +236,7 @@ usuario3.save(function(err) {
     if (err) throw err;
         
     console.log('Usuario guardado con exito.');
-});
+});*/
 
 var Comentario = require('./model/Comentario'); 
 
