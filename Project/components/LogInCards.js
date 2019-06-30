@@ -10,6 +10,7 @@ import {
   Alert
 } from 'react-native'; 
 import ApiController from '../controller/ApiController';
+import {KeyboardAvoidingView} from 'react-native';
 
 class LogInCards extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class LogInCards extends Component {
  
   render() {
     return (
-
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
        <View style={styles.container}>
        <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/>
        <View style={{paddingTop:100}}>
@@ -77,6 +78,7 @@ class LogInCards extends Component {
         </TouchableOpacity>
       </View>
       </View>
+      </KeyboardAvoidingView>
     );
   }
 }

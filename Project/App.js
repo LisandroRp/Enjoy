@@ -9,14 +9,13 @@ import Information from './components/DatosPersonales';
 import Comments from './components/Comentarios';
 import Craigslist from './components/Craigslist'
 import LogInCards from './components/LogInCards'
-import CardView from './components/CardView'
 import Festivales from './components/Festivales';
 import MapaVarios from './components/MapaVarios';
 import MapaUnEvento from './components/MapaUnEvento'
 import Search from './components/Search';
 import MenuDrawer from './components/MenuDrawer';
 import { AsyncStorage } from 'react-native';
-import {FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -29,7 +28,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 
 function handleSearch() {
-  
+
 }
 
 class App extends Component {
@@ -39,23 +38,23 @@ class App extends Component {
 }
 export default App;
 
-class SignUpClass extends React.Component{
-  constructor(props){
+class SignUpClass extends React.Component {
+  constructor(props) {
     super(props)
   }
-  render(){
+  render() {
     return (
       <LogInCards
-          onPressLogin={this.checkLogin.bind(this)}
-          onPressPass={this.goPass.bind(this)}
-          onPressCreate={this.goCreate.bind(this)}
+        onPressLogin={this.checkLogin.bind(this)}
+        onPressPass={this.goPass.bind(this)}
+        onPressCreate={this.goCreate.bind(this)}
       />
     )
   }
   checkLogin(IdUser) {
     //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
     /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
-    this.props.navigation.navigate('MockedViewScreen',{IdUser: IdUser});
+    this.props.navigation.navigate('MockedViewScreen', { IdUser: IdUser });
   }
 
   goPass() {
@@ -108,7 +107,7 @@ class MockedViewScreen extends React.Component {
     title: 'Recommended',
     headerStyle: {
       backgroundColor: 'white',
-      height:45
+      height: 45
     },
     headerTintColor: '#3399ff',
   };
@@ -116,18 +115,18 @@ class MockedViewScreen extends React.Component {
     return (
       <Craigslist
         onPressGo={this.pasarConcierto.bind(this)}
-        agarrarId= {this.pasarIdEvento.bind(this)}
+        agarrarId={this.pasarIdEvento.bind(this)}
         agarrarIdUsuario={this.pasarUsuario.bind(this)}
       />
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Detalle',{IdEvento: id});
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
   }
-  pasarIdEvento(){
+  pasarIdEvento() {
     return this.state.idEvento
   }
-  pasarUsuario(){
+  pasarUsuario() {
     //return this.state.idUser
   }
 
@@ -138,7 +137,7 @@ class ConciertosScreen extends React.Component {
     title: 'Concerts',
     headerStyle: {
       backgroundColor: 'white',
-      height:45
+      height: 45
     },
     headerTintColor: '#3399ff',
   };
@@ -153,7 +152,7 @@ class ConciertosScreen extends React.Component {
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Detalle',{IdEvento: id});
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
   }
 }
 class FestivalesScreen extends React.Component {
@@ -162,7 +161,7 @@ class FestivalesScreen extends React.Component {
     title: 'Festivals',
     headerStyle: {
       backgroundColor: 'white',
-      height:45
+      height: 45
     },
     headerTintColor: '#3399ff',
   };
@@ -177,28 +176,28 @@ class FestivalesScreen extends React.Component {
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Detalle',{IdEvento: id});
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
   }
 }
 class DetalleScreen extends React.Component {
 
-  static  navigationOptions= ({ navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       headerRight: (
-        a= '',
-        <View style={{flexDirection: 'row'}}>
-        <FontAwesome name="map-marker" style={{ paddingRight: 20, color: '#3399ff'}} 
-          onPress={() => navigation.navigate("MapaUnEvento")}
-          size={22}
-        />
+        a = '',
+        <View style={{ flexDirection: 'row' }}>
+          <FontAwesome name="map-marker" style={{ paddingRight: 20, color: '#3399ff' }}
+            onPress={() => navigation.navigate("MapaUnEvento")}
+            size={22}
+          />
         </View>
       ),
       title: 'Details',
-    headerStyle: {
-      backgroundColor: 'white',
-      height:45
-    },
-    headerTintColor: '#3399ff',
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 45
+      },
+      headerTintColor: '#3399ff',
     }
   }
   constructor(props) {
@@ -212,7 +211,7 @@ class DetalleScreen extends React.Component {
   render() {
     return (
       <Detalle
-        agarrarId= {this.pasarId.bind(this)}
+        agarrarId={this.pasarId.bind(this)}
         onPress={this.pasarConcierto.bind(this)}
         guardarPos={this.guardarPos.bind(this)}
 
@@ -220,14 +219,14 @@ class DetalleScreen extends React.Component {
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('MapaUnEvento',{IdEvento: id});
+    this.props.navigation.navigate('MapaUnEvento', { IdEvento: id });
   }
-  pasarId(){
+  pasarId() {
     return this.state.id
   }
-  guardarPos(lat, long){
-    this.setState({latitude: lat})
-    this.setState({longitude: long})
+  guardarPos(lat, long) {
+    this.setState({ latitude: lat })
+    this.setState({ longitude: long })
   }
 }
 class SearchScreen extends React.Component {
@@ -236,7 +235,7 @@ class SearchScreen extends React.Component {
     title: 'Search',
     headerStyle: {
       backgroundColor: 'white',
-      height:45,
+      height: 45,
       borderBottomWidth: 0
     },
     headerTintColor: '#3399ff',
@@ -252,14 +251,14 @@ class SearchScreen extends React.Component {
     return (
       <Search
         onPressGo={this.pasarConcierto.bind(this)}
-        agarrarTipo= {this.pasarTipo.bind(this)}
+        agarrarTipo={this.pasarTipo.bind(this)}
       />
     );
   }
   pasarConcierto(id) {
-    this.props.navigation.navigate('Detalle',{IdEvento: id});
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
   }
-  pasarTipo(){
+  pasarTipo() {
     console.log(this.state.tipo)
     return this.state.tipo
   }
@@ -268,7 +267,7 @@ const MockedViewStackNavigator = createStackNavigator(
   {
     MockedViewScreen: {
       screen: MockedViewScreen,
-      
+
 
       navigationOptions: ({ navigation }) => {
         return {
@@ -281,24 +280,24 @@ const MockedViewStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{tipo: 'Recomendados'})}
-              size={22}
-            />
-            <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('MapaVarios',{type: 'Recomendados'})}
-              size={22}
-            />
+            <View style={{ flexDirection: 'row' }}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Recomendados' })}
+                size={22}
+              />
+              <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('MapaVarios', { tipo: 'Recomendados' })}
+                size={22}
+              />
             </View>
           )
         }
       }
     },
-    Helado: {screen: SearchScreen},
-    Detalle: { screen: DetalleScreen},
-    MapaVarios: {screen: MapaVarios},
-    MapaUnEvento: {screen: MapaUnEvento},
+    Helado: { screen: SearchScreen },
+    Detalle: { screen: DetalleScreen },
+    MapaVarios: { screen: MapaVarios },
+    MapaUnEvento: { screen: MapaUnEvento },
   },
   {
     initialRouteName: 'MockedViewScreen',
@@ -309,7 +308,7 @@ const ConciertosStackNavigator = createStackNavigator(
   {
     ConciertosScreen: {
       screen: ConciertosScreen,
-      navigationOptions: ({ navigation}) => {
+      navigationOptions: ({ navigation }) => {
         return {
           headerLeft: (
             <Icon
@@ -320,24 +319,24 @@ const ConciertosStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{tipo: 'Concierto'})}
-              size={22}
-            />
-            <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate("MapaVarios")}
-              size={22}
-            />
+            <View style={{ flexDirection: 'row' }}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Concierto' })}
+                size={22}
+              />
+              <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate("MapaVarios", { tipo: 'Concierto' })}
+                size={22}
+              />
             </View>
           )
         }
       }
     },
-    Helado: {screen: SearchScreen},
-    Detalle: { screen: DetalleScreen},
-    MapaVarios: {screen: MapaVarios},
-    MapaUnEvento: {screen: MapaUnEvento},
+    Helado: { screen: SearchScreen },
+    Detalle: { screen: DetalleScreen },
+    MapaVarios: { screen: MapaVarios },
+    MapaUnEvento: { screen: MapaUnEvento },
   },
   {
     initialRouteName: 'ConciertosScreen',
@@ -359,24 +358,24 @@ const FestivalesStackNavigator = createStackNavigator(
             />
           ),
           headerRight: (
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate('Helado',{tipo: 'Festival'})}
-              size={22}
-            />
-            <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff'}} 
-              onPress={() => navigation.navigate("MapaVarios")}
-              size={22}
-            />
+            <View style={{ flexDirection: 'row' }}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Festival' })}
+                size={22}
+              />
+              <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate("MapaVarios", { tipo: 'Festival' })}
+                size={22}
+              />
             </View>
           )
         }
       }
     },
-    Helado: {screen: SearchScreen},
-    Detalle: { screen: DetalleScreen},
-    MapaVarios: {screen: MapaVarios},
-    MapaUnEvento: {screen: MapaUnEvento},
+    Helado: { screen: SearchScreen },
+    Detalle: { screen: DetalleScreen },
+    MapaVarios: { screen: MapaVarios },
+    MapaUnEvento: { screen: MapaUnEvento },
   },
   {
     initialRouteName: 'FestivalesScreen',
@@ -426,7 +425,7 @@ const PerfilTabNavigator = createBottomTabNavigator({
         color: '#3399ff',
         headerStyle: {
           backgroundColor: 'white',
-          height:50
+          height: 50
         }
       }
     },
@@ -443,33 +442,33 @@ const PerfilTabNavigator = createBottomTabNavigator({
 
     }
   });
-  
+
 
 
 const PerfilStackNavigator = createStackNavigator({
   PerfilTabNavigator: PerfilTabNavigator
 });
 
-const DrawerConfig={
+const DrawerConfig = {
   contentComponent: ({ navigation }) => {
-    return (<MenuDrawer navigation= {navigation}/>)
+    return (<MenuDrawer navigation={navigation} />)
   },
   contentOptions: {
     activeTintColor: '#3399ff'
   }
 }
-const customDrawerComponent= (props) =>(
+const customDrawerComponent = (props) => (
   <View style={{ flex: 1 }}>
     <View style={styles.profile}>
-            <View style={styles.imgView}>
-              <Image style={styles.img} source={require('./components/FACHA.png')} ></Image>
-            </View>
-            <View style={styles.profileText}>
-              <Text style={styles.name}>Lisandro Rodriguez Prados</Text>
-            </View>
-        </View>
-    <ScrollView style={{borderTopWidth: 0, marginTop:0, paddingTop:0}}>
-      <DrawerItems {...props} style={{borderTopWidth: 0, marginTop:0, paddingTop:0}} />
+      <View style={styles.imgView}>
+        <Image style={styles.img} source={require('./components/FACHA.png')} ></Image>
+      </View>
+      <View style={styles.profileText}>
+        <Text style={styles.name}>Lisandro Rodriguez Prados</Text>
+      </View>
+    </View>
+    <ScrollView style={{ borderTopWidth: 0, marginTop: 0, paddingTop: 0 }}>
+      <DrawerItems {...props} style={{ borderTopWidth: 0, marginTop: 0, paddingTop: 0 }} />
     </ScrollView>
   </View>
 )
@@ -479,29 +478,29 @@ const AppDrawerNavigator = createDrawerNavigator({
   Festivals: FestivalesStackNavigator,
   Profile: PerfilStackNavigator,
 },
-// DrawerConfig,
-{
-  contentComponent: customDrawerComponent,
-  drawerBackgroundColor: '#ebf0f7',
+  // DrawerConfig,
+  {
+    contentComponent: customDrawerComponent,
+    drawerBackgroundColor: '#ebf0f7',
     contentOptions: {
       //Esto sirve para cambiar algunos colores
       activeTintColor: '#6666ff',
-      inactiveTintColor:'#3399ff'
+      inactiveTintColor: '#3399ff'
     }
-},
-//  {
-//     drawerBackgroundColor: '#ebf0f7',
-//     contentOptions: {
-//       //Esto sirve para cambiar algunos colores
-//       activeTintColor: '#6666ff',
-//       inactiveTintColor:'#3399ff'
-//     }
-//   }
+  },
+  //  {
+  //     drawerBackgroundColor: '#ebf0f7',
+  //     contentOptions: {
+  //       //Esto sirve para cambiar algunos colores
+  //       activeTintColor: '#6666ff',
+  //       inactiveTintColor:'#3399ff'
+  //     }
+  //   }
 );
 
 
 const AppSwitchNavigator = createSwitchNavigator({
-  SignUpClass: { screen: SignUpClass},
+  SignUpClass: { screen: SignUpClass },
   Craigslist: { screen: MockedViewScreen },
   ChangePassword: { screen: ChangePasswordScreen },
   //Login: { screen: LoginScreen },
@@ -516,10 +515,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },name: {
-    fontSize:20,
-    paddingLeft:10,
-    paddingTop:5,
+  }, name: {
+    fontSize: 20,
+    paddingLeft: 10,
+    paddingTop: 5,
     color: 'white',
     textAlign: 'left',
   },
@@ -544,7 +543,7 @@ const styles = StyleSheet.create({
   },
   profileText: {
     flex: 3,
-    paddingLeft:10,
+    paddingLeft: 10,
     flexDirection: 'column',
     justifyContent: 'center'
   },

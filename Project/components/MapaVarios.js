@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ActivityIndicator,
   Image,
   TouchableOpacity,
   FlatList,
@@ -15,64 +16,36 @@ import MapView from 'react-native-maps';
 import { withNavigation } from 'react-navigation';
 import {AsyncStorage} from 'react-native';
 import { Marker } from 'react-native-maps';
+import ApiController from '../controller/ApiController';
 
+function createData(item) {
+  return {
+    key: item._id,
+    idEvento: item._id,
+    nombre: item.nombre,
+    rating: item.rating,
+    descripcion: item.descripcion,
+    tipo: item.tipo,
+    ubicacion: item.ubicacion,
+    latitude: item.latitude,
+    longitude:item.longitude,
 
-
-
+  };
+}
 
 class Mapa extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      tipo:props.navigation.getParam('tipo'),
       modalVisible:false,
       userSelected:[],
       idEvento: null,
-      markers: [
-        {id:'1',  title: "Ac Dc",                         latlng:"",    coords: {
-          "accuracy": 5,
-          "altitude": 0,
-          "altitudeAccuracy": -1,
-          "heading": -1,
-          "latitude": -34.61152409323304,
-          "longitude": -58.38945865631104,
-          "speed": -1,
-          "key": 1
-        }},
-        {id:'2',  title: "Los Auntenticos Decadentes",    latlng:"",   coords: {
-          "accuracy": 5,
-          "altitude": 0,
-          "altitudeAccuracy": -1,
-          "heading": -1,
-          "latitude": -34.611877295266034,
-          "longitude": -58.3974838256836,
-          "speed": -1,
-          "key": 2
-        }},
-        {id:'3',  title: "Twenty one Pilots",             latlng:"",   coords: {
-          "accuracy": 5,
-          "altitude": 0,
-          "altitudeAccuracy": -1,
-          "heading": -1,
-          "latitude": -34.60908695824987,
-          "longitude": -58.36113452911378,
-          "speed": -1,
-          "key": 3
-        }} ,
-        {id:'4',  title: "Duki",                          latlng:"",   coords: {
-          "accuracy": 5,
-          "altitude": 0,
-          "altitudeAccuracy": -1,
-          "heading": -1,
-          "latitude": -34.60382391547706,
-          "longitude": -58.39010238647462,
-          "speed": -1,
-          "key": 4
-        }} ,
-      ]
+      isLoading: true,
+      eventos: []
     };
-    
+    this.obtenerEventos()
     this.handlePress = this.handlePress.bind(this);
-    this._retrieveData();
   }
   static navigationOptions = {
     title: '',
@@ -83,32 +56,62 @@ class Mapa extends Component {
     },
     headerTintColor: '#3399ff',
   };
+
+  obtenerEventos() {
+    ApiController.getEventos(this.okEventos.bind(this));
+}
+okEventos(data) {
+  if (data != null) {
+      var i, newArray = [];
+      console.log(data)
+      for (i = 0; i < data.length; i++) {
+        if(this.state.tipo=='Recomendados'){
+        if(data[i].rating>=4)
+        {
+          newArray.push(createData(data[i], i));
+        }
+      }else{
+        if(data[i].tipo==this.state.tipo){
+          newArray.push(createData(data[i], i));
+        }
+      }
+      }
+      this.setState({ eventos: newArray, isLoading: false});
+  } else {
+      alert("Intentar de nuevo")
+  }
+}
       handlePress(e) {
           console.log(e.nativeEvent.coordinate)
       }
 
-      _retrieveData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('idEvento');
-            if (value !== null) {
-                this.setState({idEvento: value})
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
+    createMarker(marker){
+      console.log(marker)
+      console.log('holaaa')
+      Pos={
+        latitude:marker.latitude,
+        longitude:marker.longitude,
+      }
+        return Pos;
+    }
+    newKey(){
+      var newKey=this.state.key++
+      this.setState({key: newKey})
+      return newKey;
+    }
   render() {
+    if (this.state.isLoading) {
+      return (
+          <View style={styles.container}>
+              <ActivityIndicator size="large" color="#3399ff" backgroundColor=' #616161' style={{ flex: 1 }}></ActivityIndicator>
+          </View>
+      );
+  } else {
     return (
       <View style={styles.container}>
-      <Text>{this.state.idEvento}hola</Text>
-        
       <MapView style={styles.Mapa} 
                 showsUserLocation={true} initialRegion={{
-                    latitude: -34.618269992307674,
-                    longitude: -58.38224887847901,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
+                  
                 }}
                 onPress={this.handlePress}
           >
@@ -120,23 +123,27 @@ class Mapa extends Component {
                         containerStyle={{backgroundColor: 'white', height:50, paddingBottom:22}}
                         buttonStyle={{paddingBottom:22}}
                     />
-    {/* {this.state.markers.map(marker => (
+    {this.state.eventos.map(marker => (
     <Marker
-        coordinate={marker.coords}
-        title={marker.title}
-        description={this.state.idEvento}>
-        <View style={styles.marker}>
+        key= {marker.key}
+        coordinate= {this.createMarker(marker)}
+        title={marker.nombre}
+        description={marker.ubicacion}>
+                <Image style={{ width: 33, height: 33}}
+               source={{uri: "https://img.icons8.com/color/96/000000/marker.png"}}/>
+        {/* <View style={styles.marker}>
           <Text style={styles.text}>{marker.title}</Text>
           <Text>Hola Perreques</Text>
-        </View>
+        </View> */}
      </Marker>
     
-  ))} */}
+  ))}
 
         </MapView>
       </View>
     );
   }
+}
 }
 
 const styles = StyleSheet.create({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, TextInput, Text } from 'react-native';
 import ApiController from '../controller/ApiController';
+import { KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo'
 
 
@@ -32,8 +33,8 @@ class Login extends Component {
 
     render() {
         return (
-           // <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-
+            // <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
+            <KeyboardAvoidingView style={styles.loginContainer} behavior="padding" enabled>
                 <View style={[styles.loginContainer]}>
                     <View style={[styles.imageContainer]}>
                         <Image
@@ -76,16 +77,19 @@ class Login extends Component {
                                 secureTextEntry={true}
                             />
                         </View>
-                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                            onPress={() => this.checkCreate()}>
-                            <Text style={{color: 'white'}}>Create Account </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                            onPress={() => this.props.onPress()}>
-                            <Text style={{color: 'white'}}>Go back </Text>
-                        </TouchableOpacity>
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                                onPress={() => this.checkCreate()}>
+                                <Text style={{ color: 'white' }}>Create Account </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                                onPress={() => this.props.onPress()}>
+                                <Text style={{ color: 'white' }}>Go back </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
+            </KeyboardAvoidingView>
             //</LinearGradient>
         );
     }
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     outterInput: {
-       borderBottomColor: '#F5FCFF',
+        borderBottomColor: '#F5FCFF',
         backgroundColor: '#FFFFFF',
         borderRadius: 30,
         borderBottomWidth: 1,
@@ -120,6 +124,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         height: '100%',
+        marginBottom: 120
     },
     imageStyle: {
         width: '100%',
@@ -128,8 +133,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imageContainer: {
-        marginTop: 50,
-        paddingBottom:30,
+        flex: 1,
         justifyContent: 'center'
     },
     outterButton: {
@@ -156,47 +160,27 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         backgroundColor: "#00b5ec",
-    
+        marginHorizontal: 5,
         shadowColor: "#808080",
         shadowOffset: {
-          width: 0,
-          height: 9,
+            width: 0,
+            height: 9,
         },
         shadowOpacity: 0.50,
         shadowRadius: 12.35,
-    
+
         elevation: 19,
-      },
-      buttonContainer: {
-        height:45,
+    },
+    buttonContainer: {
+        height: 45,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 15,
-        width:150,
-        borderRadius:30,
-        backgroundColor:'transparent'
-      },
-    /*
-    textButton: {
-        color: 'white',
-        fontSize: 15,
-        alignSelf: 'center',
-        textAlign: 'center',
-        fontWeight: 'bold'
-    },*/
+        width: 150,
+        borderRadius: 30,
+        backgroundColor: 'transparent'
+    },
 })
 
 export default Login;
-
-  /*
-                        <View style={[styles.outterButtonCreate]}>
-                            <TouchableOpacity
-                                style={styles.SubmitButtonStyle}
-                                activeOpacity={.5}
-                                onPress={() => this.props.onPress()}>
-                                <Text style={styles.textButton}> Go Back </Text>
-                            </TouchableOpacity>
-
-                        </View>
-                        */

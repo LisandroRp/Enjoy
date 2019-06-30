@@ -297,9 +297,8 @@ class Detalle extends Component {
                                         </View>
                                     </View>
                                 </View>
-                                <ScrollView>
                                     <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                        <DropDownItem key={1} style={styles.dropDownItem} contentVisible={false}
+                                        <DropDownItem key={1} contentVisible={false}
                                             header={
                                                 <Text style={styles.detalleGenresTitles}>
                                                     Genre
@@ -315,7 +314,7 @@ class Detalle extends Component {
                                     <View style={styles.cositoGris2} />
 
                                     <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                        <DropDownItem key={2} style={styles.dropDownItem} contentVisible={false}
+                                        <DropDownItem key={2} contentVisible={false}
                                             header={
                                                 <Text style={styles.detalleGenresTitles}>
                                                     Summary
@@ -331,7 +330,7 @@ class Detalle extends Component {
                                     <View style={styles.cositoGris2} />
 
                                     <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                        <DropDownItem key={3} style={styles.dropDownItem} contentVisible={false}
+                                        <DropDownItem key={3} contentVisible={false}
                                             header={
                                                 <Text style={styles.detalleGenresTitles}>
                                                     Price
@@ -364,8 +363,6 @@ class Detalle extends Component {
                                         >
                                         </FlatList>
                                     </View>
-                                </ScrollView>
-
                             </View>
                         </View>
                     </ScrollView>
