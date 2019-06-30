@@ -26,7 +26,7 @@ class ApiController extends Component {
     }
 
     votar(eventoId,votos,rating, personas, okVote) {
-        let uri = url+'/votar/Evento'
+        let uri = url+'/votarEvento/Evento'
         console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+eventoId+votos+personas),
         fetch(uri, {
             method: 'POST',

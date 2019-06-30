@@ -162,13 +162,14 @@ let updateEventoByPuntajeProm = (req, res) =>
       });    
       res.status(206).send({ msg: "Se actualizaron los eventos." });  
 };
-let votar = (req, res) =>
+
+let votarEvento = (req, res) =>
 {      
     console.log("Evento en el que se votó: ",req.body.eventoId);
     //Obtener id busqueda req.param.tagid
-    var myquery = { eventoId: req.body.eventoId};
+    var myquery = { _id: req.body.eventoId};
     console.log("Actualizar key: ",myquery);
-    var newvalues = { $set: {rating:req.body.rating, votos: req.body.votos, personas: req.body.personas} };
+    var newvalues = { $set: {rating:req.body.rating, personas:req.body.personas}, $push: {votos:req.body.votos} };
     console.log("Actualizar votos: ",newvalues);
     //Listar resultados
     eventos.updateMany(myquery, newvalues, function(err, res) {
@@ -177,4 +178,4 @@ let votar = (req, res) =>
       });    
       res.status(206).send({ msg: "Se actualizaron los votos." });  
 };
-module.exports = {getEventos,getEventoById,getEventoByNombre,getEventoByTipo,getEventosSortByPrecio,insertEvento,updateEventoByDuracion,updateEventoByPuntajeProm,votar};
+module.exports = {getEventos,getEventoById,getEventoByNombre,getEventoByTipo,getEventosSortByPrecio,insertEvento,updateEventoByDuracion,updateEventoByPuntajeProm,votarEvento};
