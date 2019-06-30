@@ -148,6 +148,14 @@ router.post('/updateEventoByPuntajeProm/Evento',(req, res) =>{
     else
         eventoController.updateEventoByPuntajeProm(req,res); 
 });
+//EndPoint para votar un evento
+router.post('/votar/Evento',(req, res) =>{
+    console.log("Actualizar votos: ", req.body);
+    if(!req.body.eventoId|| !req.body.votos || !req.body.rating || !req.body.personas) 
+        res.status(409).send({ msg: "El campo eventoId y/o votos son requeridos." });
+    else
+        eventoController.votar(req,res); 
+});
 
 // Export API routes
 module.exports = router;

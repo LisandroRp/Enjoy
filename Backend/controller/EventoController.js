@@ -162,5 +162,19 @@ let updateEventoByPuntajeProm = (req, res) =>
       });    
       res.status(206).send({ msg: "Se actualizaron los eventos." });  
 };
-
-module.exports = {getEventos,getEventoById,getEventoByNombre,getEventoByTipo,getEventosSortByPrecio,insertEvento,updateEventoByDuracion,updateEventoByPuntajeProm};
+let votar = (req, res) =>
+{      
+    console.log("Evento en el que se votó: ",req.body.eventoId);
+    //Obtener id busqueda req.param.tagid
+    var myquery = { eventoId: req.body.eventoId};
+    console.log("Actualizar key: ",myquery);
+    var newvalues = { $set: {rating:req.body.rating, votos: req.body.votos, personas: req.body.personas} };
+    console.log("Actualizar votos: ",newvalues);
+    //Listar resultados
+    eventos.updateMany(myquery, newvalues, function(err, res) {
+        if (err) console.log(err);
+        console.log("Documento actualizado",res.nModified);
+      });    
+      res.status(206).send({ msg: "Se actualizaron los votos." });  
+};
+module.exports = {getEventos,getEventoById,getEventoByNombre,getEventoByTipo,getEventosSortByPrecio,insertEvento,updateEventoByDuracion,updateEventoByPuntajeProm,votar};

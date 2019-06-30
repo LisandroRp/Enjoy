@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-var ip = '172.20.10.5';
+var ip = '192.168.1.110';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -23,6 +23,21 @@ class ApiController extends Component {
             then(data => {
                 okEventos(data);
             }).catch((err) => alert("Intentar de nuevo"));
+    }
+
+    votar(eventoId,votos,rating, personas, okVote) {
+        let uri = url+'/votar/Evento'
+        console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+eventoId+votos+personas),
+        fetch(uri, {
+            method: 'POST',
+            mode: "cors",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ eventoId: eventoId, votos: votos, rating:rating, personas:personas}),
+        }).then((res) => {
+            return res.json();
+        }).catch((err) => console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+err)).then((res) => {
+            okVote();
+        }).catch((err) => console.log(err));
     }
 
     getDetalle(okDetalle, id) {
@@ -82,7 +97,6 @@ class ApiController extends Component {
 
     changePassword(user, pass, okChange) {
         let uri = url+'/updateUsuarioByPassword/Usuario'
-        console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+user+pass),
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -90,7 +104,7 @@ class ApiController extends Component {
             body: JSON.stringify({ username: user, password: pass }),
         }).then((res) => {
             return res.json();
-        }).catch((err) => console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+err)).then((res) => {
+        }).catch((err) => console.log(err)).then((res) => {
             okChange();
         }).catch((err) => console.log(err));
     }

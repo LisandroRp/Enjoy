@@ -13,7 +13,7 @@ var eventoSchema = new Schema({
     duracion:String,
     rating:Number,
     personas:Number,
-    votos:[{type:Schema.Types.ObjectId, ref: 'Usuario'}],
+    votos:[],
     comentarios:[{type:Schema.Types.ObjectId, ref: 'Comentario'}],
     precios:[{type:Schema.Types.ObjectId, ref: 'Carta'}],
     precioE:Number,
@@ -23,6 +23,6 @@ var eventoSchema = new Schema({
 
 });
 
-var Evento = mongoose.model('Evento', eventoSchema);
+var Eventos = mongoose.model('Evento', eventoSchema);
 console.log("se creo modelo Evento");
-module.exports = Evento;
+module.exports = Eventos;

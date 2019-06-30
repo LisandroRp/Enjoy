@@ -106,7 +106,7 @@ okEventos(data) {
           //   return item.id;
           // }}
           renderItem={({ item }) => {
-            if(item.rating > 4){
+            if(item.rating >= 4){
             return (
               <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
                 <View  style={{flexDirection:"row"}} >

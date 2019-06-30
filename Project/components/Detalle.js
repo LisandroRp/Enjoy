@@ -11,6 +11,7 @@ import { AsyncStorage } from 'react-native';
 import { LinearGradient } from 'expo'
 
 
+
 var { height, width } = Dimensions.get('window');
 
 function createData(item) {
@@ -46,10 +47,19 @@ class Detalle extends Component {
             idUser:null,
             text: "",
             comentarios: [],
+            voto: {
+                username: null,
+                voto: null,
+            }
         }
         this._retrieveData();
-        this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
-        this.Star_With_Border = 'http://aboutreact.com/wp-content/uploads/2018/08/star_corner.png';
+        // this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
+        // this.Star_With_Border = 'http://aboutreact.com/wp-content/uploads/2018/08/star_corner.png';
+        this.Star = 'https://img.icons8.com/color/96/000000/filled-star.png';
+        this.Star_With_Border = 'https://img.icons8.com/color/96/000000/star.png';
+        this.Star_Half='https://img.icons8.com/color/96/000000/star-half.png';
+        this.Star_Voted='https://img.icons8.com/color/96/000000/christmas-star.png'
+        this.changeVote=this.Star;
     }
 
     componentDidMount() {
@@ -126,8 +136,18 @@ class Detalle extends Component {
             alert("Intentar de nuevo")
         }
     }
+    yaVoto()
+    {
+        contadorUsers = this.state.detalle.votos.map((item) =>
+            {if(item.username==this.state.idUser){
+                this.setState({Voted: true})
+            }}
+        );
+    }
     UpdateRating(key) {
+        this.yaVoto()
         if(this.state.Voted ==false){
+        this.votar(this.state.idUser, key, this.state.votos)
         this.setState({ detalle:{
         "nombre": this.state.detalle.nombre,
         "fecha": this.state.detalle.fecha,
@@ -143,12 +163,38 @@ class Detalle extends Component {
         'tipo': this.state.detalle.tipo
         }});
         this.setState({Voted: true})
+        this.changeVote=this.Star_Voted;
         // console.log('caca'+ this.state.detalle.rating)
         // console.log('caca'+ this.state.detalle.personas)
         }
     }
-    
+    votar(user,puntuacion){
+        voto= {
+            username: user,
+            puntuacion: puntuacion,
+        }
+        contadorVotos=0
+        contadorUsers=0
+        newRating=0
+        personasNew=this.state.detalle.personas+1;
+        this.state.detalle.votos.push(voto)
+        console.log(voto)
+        contadorUsers = contadorUsers + this.state.detalle.votos.map((item) =>
+            1
+        );
+        console.log(contadorUsers)
+        contadorVotos = contadorVotos + this.state.detalle.votos.map((item) =>
+            item.puntuacion
+        );
+        console.log(contadorVotos)
+        newRating=contadorVotos/contadorUsers;
+        ApiController.votar(this.state.idEvento, voto,newRating, personasNew,this.okVote.bind(this));
+    }
+    okVote(){
+        alert("Su voto ha sido procesado con exito");
+    }
     render() {
+        rating2=this.state.detalle.rating
         const { navigation } = this.props;
         const id = this.props.agarrarId()
         let React_Native_Rating_Bar = [];
@@ -163,8 +209,8 @@ class Detalle extends Component {
               <Image
                 style={styles.StarImage}
                 source={
-                  i <= this.state.detalle.rating
-                    ? { uri: this.Star }
+                  i <= rating2
+                    ? { uri: this.changeVote }
                     : { uri: this.Star_With_Border }
                 }
               />
@@ -373,8 +419,9 @@ class FlatListItems extends Component {
   
         <View style={{
           flex: 1,
-          backgroundColor: 'pink',
-          margin: 5,
+          backgroundColor: '#D2E5FF',
+          marginHorizontal:10,
+          marginVertical:5,
           borderRadius: 10
         }}>
           <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
@@ -386,7 +433,7 @@ class FlatListItems extends Component {
             <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10 }}>
               <View>
                 <Text style={{
-                  color: 'black',
+                  color: '#3399ff',
                   padding: 5,
                   fontSize: 20,
                   marginTop: 5,
@@ -401,7 +448,7 @@ class FlatListItems extends Component {
                   paddingTop: 3,
                   paddingLeft: 5,
                   paddingBottom: 5,
-                  fontSize: 12,
+                  fontSize: 11,
                 }}>
                   {this.props.item.fechaComentario}
                 </Text>
@@ -416,6 +463,9 @@ class FlatListItems extends Component {
               borderBottomColor: 'grey',
               borderBottomWidth: 1,
               marginVertical: 5,
+              marginHorizontal: 10,
+              fontSize:20,
+
             }}
           />
           <Text style={styles.FlatListItems}>
@@ -531,7 +581,7 @@ const styles = StyleSheet.create({
         width: 35,
         height: 35,
         borderRadius: 35 / 2,
-        backgroundColor: '#00BCD4',
+        backgroundColor: '#6666ff',
         marginTop: 15,
         alignItems: 'center',
         alignContent: 'center'
