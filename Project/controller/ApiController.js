@@ -128,9 +128,9 @@ class ApiController extends Component {
     }
 
     getCoordenadas(direccion,okCoordenadas) {
-        let uri = 'https://maps.googleapis.com/maps/api/geocode/json?address='+direccion+'&key=AIzaSyAc6UPN08xNQGIFMfkYGFhfKqD3f3bNc-w'
+        let urigoogle = 'https://maps.googleapis.com/maps/api/geocode/json?address='+direccion+'&key=AIzaSyAc6UPN08xNQGIFMfkYGFhfKqD3f3bNc-w'
         
-        fetch(uri).then(res => {
+        fetch(urigoogle).then(res => {
             return res.json()
         }).catch((err) => {
             console.log(err)
@@ -140,7 +140,7 @@ class ApiController extends Component {
                 okCoordenadas(data);
             }).catch((err => {
                 console.log(err);
-                alert("No existe el direccion");
+                alert("No existe la direccion");
             }));
     }
 

@@ -27,7 +27,7 @@ function createData(item) {
   };
 }
 
-class Festivales extends Component {
+class Exposicion extends Component {
 
   constructor(props) {
     super(props);
@@ -40,7 +40,6 @@ class Festivales extends Component {
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
     this.obtenerEventos()
   }
-
   obtenerEventos() {
     ApiController.getEventos(this.okEventos.bind(this));
   }
@@ -53,6 +52,7 @@ class Festivales extends Component {
         newArray.push(createData(data[i], i));
       }
       this.setState({ eventos: newArray, isLoading: false});
+
     } else {
       alert("Intentar de nuevo")
     }
@@ -80,9 +80,9 @@ class Festivales extends Component {
           //   return item.id;
           // }}
           renderItem={({ item }) => {
-            if (item.tipo == 'Festival') {
-              return (
-                <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
+            if(item.tipo=='Exposicion'){
+            return (
+              <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
                 <View  style={{flexDirection:"row"}} >
                  <Image style={styles.image} source={{ uri: item.imagen }} />
                 <View style={styles.cardContent}>
@@ -96,7 +96,7 @@ class Festivales extends Component {
                   </View>
                   </View>
               </TouchableOpacity>
-              )
+            )
             }
           }} />
       </View>
@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
     //alignSelf: 'center',
     color: "#6666ff"
   },
+
   followButton: {
     marginTop: 10,
     height: 35,
@@ -175,9 +176,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dcdcdc",
   },
-  followButtonText: {
+ followButtonText: {
     color: "black",
-    fontSize: 20,
+    fontSize: 15,
+    marginTop:4,
   },
   StarImage: {
     width: 40,
@@ -186,4 +188,4 @@ const styles = StyleSheet.create({
 },
 })
 
-export default Festivales;
+export default Exposicion;

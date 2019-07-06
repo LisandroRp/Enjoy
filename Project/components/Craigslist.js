@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
   followButtonText: {
     color: "black",
     fontSize: 15,
+    marginTop:4,
   },
   StarImage: {
     width: 40,

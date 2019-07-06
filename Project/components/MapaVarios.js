@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   Image,
+  Keyboard,
   TouchableOpacity,
   FlatList,
   Dimensions,
@@ -17,6 +18,9 @@ import { withNavigation } from 'react-navigation';
 import { AsyncStorage } from 'react-native';
 import { Marker } from 'react-native-maps';
 import ApiController from '../controller/ApiController';
+import * as Animatable from 'react-native-animatable';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { TextInput } from "react-native-gesture-handler";
 
 function createData(item) {
   return {
@@ -51,8 +55,11 @@ class Mapa extends Component {
       isLoading: true,
       eventos: [],
       coordenadasNew: [],
-      longitude:-58.38224887847901,
-      latitude:-34.618269992307674,
+      longitude: -58.38224887847901,
+      latitude: -34.618269992307674,
+      markerOk: false,
+      searchBarFocused: false,
+      regionPosta:null,
     };
     this.obtenerEventos()
     this.handlePress = this.handlePress.bind(this);
@@ -94,10 +101,12 @@ class Mapa extends Component {
     if (data != null) {
       var i, newArray = [];
       //console.log(data)
-            newArray=createCoord(data)
-        
-        console.log(newArray)
-      this.setState({ coordenadasNew: newArray, longitude:newArray.lng, latitude: newArray.lat});
+      newArray = createCoord(data)
+
+      console.log(newArray)
+      this.setState({ coordenadasNew: newArray, longitude: newArray.coordenadas.lng, latitude: newArray.coordenadas.lat });
+      // console.log(this.state.longitude)
+      // console.log(this.state.latitude)
     } else {
       alert("Intentar de nuevo")
     }
@@ -105,23 +114,44 @@ class Mapa extends Component {
   handlePress(e) {
     console.log(e.nativeEvent.coordinate)
   }
-  searchEvent(direccion){
-    var result=[]
-      result[0]= ApiController.getCoordenadas(direccion,this.okCoordenadas.bind(this))
-  };
   createMarker(marker) {
-    console.log(marker)
-    console.log('holaaa')
+    //console.log(marker)
+    //console.log('holaaa')
     Pos = {
       latitude: marker.latitude,
       longitude: marker.longitude,
     }
     return Pos;
+
   }
   newKey() {
     var newKey = this.state.key++
     this.setState({ key: newKey })
     return newKey;
+  }
+  searchEvent2(){
+    if(this.state.regionPosta!=null){
+    ApiController.getCoordenadas(this.state.regionPosta, this.okCoordenadas.bind(this))
+  }
+  };
+  searchEvent= value => {
+    this.setState({regionPosta:value})
+    this.setState({ value })
+  }
+  componentDidMount() {
+    this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
+    this.keyboardWillShow = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow)
+    this.keyboardWillHide = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide)
+  }
+  keyboardDidShow = () => {
+    this.setState({ searchBarFocused: true })
+  }
+  keyboardWillShow = () => {
+    this.setState({ searchBarFocused: true })
+  }
+  keyboardWillHide = () => {
+    this.setState({ searchBarFocused: false })
+    this.searchEvent2()
   }
   render() {
     if (this.state.isLoading) {
@@ -133,22 +163,38 @@ class Mapa extends Component {
     } else {
       return (
         <View style={styles.container}>
-        <View>
-        <SearchBar
-              placeholder={this.state.idEvento}
+          {/* <View style={{ height: 50, backgroundColor: '#c45653', justifyContent: 'center', paddingHorizontal: 5 }}>
+
+            <Animatable.View style={{ height: 30, backgroundColor: 'white', flexDirection: 'row', padding: 5, alignItems: 'center', borderRadius: 45, }}>
+              <Animatable.View animation={this.state.searchBarFocused ? "fadeInLeft" : "fadeInRight"} duration={1000}>
+                <Icon name={this.state.searchBarFocused ? "md-arrow-back" : "ios-search"} style={{ fontSize: 24 }} />
+              </Animatable.View>
+              <TextInput placeholder="Search" style={{ fontSize: 24, marginLeft: 15, flex: 1 }} onChangeText={value => this.searchEvent2(value)} />
+            </Animatable.View> 
+            </View>
+            */}
+            <SearchBar
+              placeholder="Search"
               platform='ios'
               onChangeText={value => this.searchEvent(value)}
               value={this.state.value}
               containerStyle={{ backgroundColor: 'white', height: 50, paddingBottom: 22 }}
               buttonStyle={{ paddingBottom: 22 }}
             />
-            </View>
-          <MapView style={styles.Mapa}
+          <MapView style={{backgroundColor: this.state.searchBarFocused ? 'rgba(0,0,0,0.3)' : 'red', position: 'absolute', top: 50, left: 0, bottom: 0, right: 0 }}
             showsUserLocation={true} initialRegion={{
+              longitude: -58.38224887847901,
+              latitude: -34.618269992307674,
+              // longitude: this.state.longitude,
+              // latitude: this.state.latitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            region={{
+              longitude: this.state.longitude,
               latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
             }}
             onPress={this.handlePress}
           >
@@ -161,19 +207,20 @@ class Mapa extends Component {
                 <Image style={{ width: 33, height: 33 }}
                   source={{ uri: "https://img.icons8.com/color/96/000000/marker.png" }} />
                 {/* <View style={styles.marker}>
-          <Text style={styles.text}>{marker.title}</Text>
-          <Text>Hola Perreques</Text>
-        </View> */}
+<Text style={styles.text}>{marker.title}</Text>
+<Text>Hola Perreques</Text>
+</View> */}
               </Marker>
 
             ))}
-
           </MapView>
         </View>
       );
     }
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -182,7 +229,7 @@ const styles = StyleSheet.create({
   },
   Mapa: {
     position: 'absolute',
-    top: 0,
+    top: 50,
     left: 0,
     bottom: 0,
     right: 0

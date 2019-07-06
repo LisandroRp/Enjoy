@@ -116,7 +116,9 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     marginLeft: 20,
-    marginTop: 10
+    marginTop: 10,
+    width:180,
+    flexDirection: "column"
   },
   image: {
     width: 90,
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     paddingTop:12,
     fontSize: 18,
     flex: 1,
-    alignSelf: 'center',
+    //alignSelf: 'center',
     color: "#3399ff",
     fontWeight: 'bold'
   },
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingBottom:11,
     flex: 1,
-    alignSelf: 'center',
+    //alignSelf: 'center',
     color: "#6666ff"
   },
 
@@ -176,7 +178,8 @@ const styles = StyleSheet.create({
   },
  followButtonText: {
     color: "black",
-    fontSize: 20,
+    marginTop:4,
+    fontSize: 15,
   },
   StarImage: {
     width: 40,

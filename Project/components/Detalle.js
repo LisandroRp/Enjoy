@@ -47,6 +47,7 @@ class Detalle extends Component {
                 'latitude': null,
                 'longitude': null,
             },
+            usuarioDone: false,
             isLoading: true,
             modalVisible: false,
             Max_Rating: 5,
@@ -143,6 +144,7 @@ class Detalle extends Component {
                 isLoading: false
             });
             this.yaVoto();
+            this.setState({usuarioDone: true})
             this.props.guardarPos(this.state.detalle.latitude,this.state.detalle.longitude)
         } else {
             alert("Intentar de nuevo")
@@ -206,6 +208,7 @@ class Detalle extends Component {
         let React_Native_Rating_Bar = [];
         var aux = -1;
         //Array to hold the filled or empty Stars
+        if(this.state.usuarioDone==true){
         for (var i = 1; i <= this.state.Max_Rating; i++) {
             aux++;
             React_Native_Rating_Bar.push(
@@ -218,17 +221,21 @@ class Detalle extends Component {
                         source={
                             i <= rating2
                                 ? { uri: this.changeVote }
-                                : rating2 < (aux + 1)
+                                : rating2 > (aux)
                                     ? { uri: this.Star_Half }
                                     : { uri: this.Star_With_Border }
                         }
                     />
                 </TouchableOpacity>
             );
+            // console.log('rating: '+rating2)
+            // console.log('i: '+i)
+            // console.log('aux: '+aux)
             if (rating2 < (aux + 1)) {
-                aux = -5;
+                aux = 50;
             }
         }
+    }
 
         if (this.state.isLoading) {
             return (

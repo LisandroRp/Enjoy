@@ -63,9 +63,9 @@ var lollaEvento = new Evento({
     genero:'Variado',
     imagen:'https://www.radiocantilo.com/wp-content/uploads/2018/03/descarga.png',
     rating:5,
-    personas:50000,
+    personas:0,
     precioE:2500,
-    ubicacion: 'Hipodromo de San Isidro',
+    ubicacion: 'Hipodromo de San Isidro, San Isidro',
     latitude:-34.480023,
     longitude:-58.507587
 });
@@ -85,10 +85,11 @@ var disneyEvento = new Evento({
     idUsuarioPropietario:'Disney',
     duracion:'2 Horas',
     genero:'Infantil',
-    imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-',
+    imagen:'https://3.bp.blogspot.com/-1vhb8Umidi4/W5h3sofRJLI/AAAAAAAAbPY/vQbqIZJ0jrU3AhUXuNTva-geRYg5YHuSwCLcBGAs/s1600/IMG_8624.JPG',
     rating:5,
+    personas:0,
     precioE:850,
-    ubicacion:'Luna Park',
+    ubicacion:'Luna Park, CABA',
     latitude:-34.602055,
     longitude:-58.368697
 });
@@ -108,10 +109,11 @@ var wweEvento = new Evento({
     idUsuarioPropietario:'WWE',
     duracion:'2 Horas',
     genero:'Pelea',
-    imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-',
+    imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXnF2ecEQydigrd4PYoJtQ7PO4SsPyCsKL_YpVVOXJJV1-Q4D50w',
     rating:3.5,
     precioE:1000,
-    ubicacion:'Luna Park',
+    personas:0,
+    ubicacion:'Luna Park, CABA',
     latitude:-34.602055,
     longitude:-58.368697
 });
@@ -131,10 +133,11 @@ var tiniEvento = new Evento({
     idUsuarioPropietario:'Time4Fun',
     duracion:'2 Horas',
     genero:'Pop',
-    imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-',
+    imagen:'https://i.pinimg.com/originals/4a/6d/38/4a6d388d62d2797947eb1f5f396314b9.jpg',
     rating:4.5,
+    personas:0,
     precioE:700,
-    ubicacion:'Luna Park',
+    ubicacion:'Luna Park, CABA',
     latitude:-34.602055,
     longitude:-58.368697
 });
@@ -150,12 +153,13 @@ var saboresEvento = new Evento({
     nombre:'Caminos y Sabores 15º Edicion',
     descripcion:'El Mercado de los sabores, la Cultura y la Identidad Argentina',
     fecha:'06/07/20',
-    tipo:'Feria',
+    tipo:'Exposicion',
     idUsuarioPropietario:'Ciudad BA',
     duracion:'2 Horas',
     genero:'Gastronomia',
-    imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-',
+    imagen:'http://novedadesaoca.site/wp-content/uploads/2019/02/Imagen2.png',
     rating:4.5,
+    personas:0,
     precioE:700,
     ubicacion:'La Rural, Palermo',
     latitude:-34.578170,
@@ -177,10 +181,11 @@ var aladinEvento = new Evento({
     idUsuarioPropietario:'Mp Producciones',
     duracion:'2 Horas',
     genero:'Infantil',
-    imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-',
+    imagen:'https://www.ticketonline.de/obj/media/DE-eventim/galery/222x222/d/disney-aladdin-neu-tickets-2016.jpg',
     rating:3.5,
+    personas:0,
     precioE:450,
-    ubicacion:'Teatro Gran Rex',
+    ubicacion:'Teatro Gran Rex, CABA',
     latitude:-34.603114,
     longitude:-58.378877
 });
@@ -191,9 +196,9 @@ aladinEvento.save(function(err) {
     console.log('Evento '+aladinEvento.nombre+' guardado con exito.');
 });
 
-var Usuario = require('./model/Usuario');
+/*var Usuario = require('./model/Usuario');
 
-/*var usuario1 = new Usuario({
+var usuario1 = new Usuario({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Gonzalo',
     apellido:'Fernandez',
@@ -238,43 +243,45 @@ usuario3.save(function(err) {
     console.log('Usuario guardado con exito.');
 });
 
-var Comentario = require('./model/Comentario'); 
+// var Comentario = require('./model/Comentario'); 
 
-var comentario1 = new Comentario({
-    nombreE: lollaEvento.nombre,
-    descripcion:'Buen evento, muy divertido',
-    usuarioId:'matu_pe',
-    eventoId: lollaEvento._id
-});
+// var comentario1 = new Comentario({
+//     nombreE: lollaEvento.nombre,
+//     descripcion:'Buen evento, muy divertido',
+//     usuarioId:'matu_pe',
+//     eventoId: lollaEvento._id
+// });
 
-comentario1.save(function(err) {
-    if (err) throw err;
+// comentario1.save(function(err) {
+//     if (err) throw err;
         
-    console.log('Comentario guardado con exito.');
-});
+//     console.log('Comentario guardado con exito.');
+// });
 
-var comentario2 = new Comentario({
-    nombreE: lollaEvento.nombre,
-    descripcion:'Estuvo terrible!! Vuelvo el año que viene...',
-    usuarioId:'gonza_fer',
-    eventoId: lollaEvento._id
-});
+// var comentario2 = new Comentario({
+//     nombreE: lollaEvento.nombre,
+//     descripcion:'Estuvo terrible!! Vuelvo el año que viene...',
+//     usuarioId:'gonza_fer',
+//     eventoId: lollaEvento._id
+// });
 
-comentario2.save(function(err) {
-    if (err) throw err;
+// comentario2.save(function(err) {
+//     if (err) throw err;
         
-    console.log('Comentario guardado con exito.');
-});
+//     console.log('Comentario guardado con exito.');
+// });
 
-var comentario3 = new Comentario({
-    nombreE: saboresEvento.nombre,
-    descripcion:'Excelente feria. Muchas ofertas gastronomicas. Super recomendable',
-    usuarioId:'susicoronel',
-    eventoId: saboresEvento._id
-});
+// var comentario3 = new Comentario({
+//     nombreE: saboresEvento.nombre,
+//     descripcion:'Excelente feria. Muchas ofertas gastronomicas. Super recomendable',
+//     usuarioId:'susicoronel',
+//     eventoId: saboresEvento._id
+// });
 
-comentario3.save(function(err) {
-    if (err) throw err;
+// comentario3.save(function(err) {
+//     if (err) throw err;
         
-    console.log('Comentario guardado con exito.');
-});*/
+//     console.log('Comentario guardado con exito.');
+// });
+
+*/
