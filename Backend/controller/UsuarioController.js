@@ -99,13 +99,13 @@ let updateUsuarioByPassword = (req, res) =>
       res.status(206).send({ msg: "Se actualizaron los usuarios." });  
 };
 
-let updateUsuarioByGenre = (req, res) =>
+let updateUsuarioByGeneroEvento = (req, res) =>
 {      
     console.log("Actualizar usuario: ",req.body.username);
     //Obtener id busqueda req.param.tagid
     var myquery = { username: req.body.username};
     console.log("Actualizar key: ",myquery);
-    var newvalues = { $set: {genre: req.body.genre } };
+    var newvalues = { $push: {generoEvento: req.body.genre } };
     console.log("Actualizar genre: ",newvalues);
     //Listar resultados
     usuarios.updateMany(myquery, newvalues, function(err, res) {
@@ -115,4 +115,20 @@ let updateUsuarioByGenre = (req, res) =>
       res.status(206).send({ msg: "Se actualizaron los usuarios." });  
 };
 
-module.exports = {getUsuarios,getUsuarioById,getUsuarioByUsername,insertUsuario,updateUsuarioByPassword, updateUsuarioByGenre};
+let updateUsuarioByTipoEvento = (req, res) =>
+{      
+    console.log("Actualizar usuario: ",req.body.username);
+    //Obtener id busqueda req.param.tagid
+    var myquery = { username: req.body.username};
+    console.log("Actualizar key: ",myquery);
+    var newvalues = { $push: {tipoEvento: req.body.tipo } };
+    console.log("Actualizar genre: ",newvalues);
+    //Listar resultados
+    usuarios.updateMany(myquery, newvalues, function(err, res) {
+        if (err) console.log(err);
+        console.log("Documento actualizado",res.nModified);
+      });    
+      res.status(206).send({ msg: "Se actualizaron los usuarios." });  
+};
+
+module.exports = {getUsuarios,getUsuarioById,getUsuarioByUsername,insertUsuario,updateUsuarioByPassword,updateUsuarioByGeneroEvento,updateUsuarioByTipoEvento};

@@ -56,6 +56,23 @@ router.post('/updateUsuarioByPassword/Usuario',(req, res) =>{
         usuarioController.updateUsuarioByPassword(req,res); 
 });
 
+//EndPoint para actualizar el perfil de un usuario en base al genero de evento
+router.post('/updateUsuarioByGeneroEvento/Usuario',(req, res) =>{
+    console.log("Actualizar perfil (genero de evento): ", req.body);
+    if(!req.body.username || req.body.username == 'undefined' || req.body.username == '') 
+        res.status(409).send({ msg: "El campo username es requerido del usuario." });
+    else
+        usuarioController.updateUsuarioByGeneroEvento(req,res); 
+});
+
+//EndPoint para actualizar el perfil de un usuario en base al tipo de evento
+router.post('/updateUsuarioByTipoEvento/Usuario',(req, res) =>{
+    console.log("Actualizar perfil (tipo de evento): ", req.body);
+    if(!req.body.username || req.body.username == 'undefined' || req.body.username == '') 
+        res.status(409).send({ msg: "El campo username es requerido del usuario." });
+    else
+        usuarioController.updateUsuarioByTipoEvento(req,res); 
+});
 //************************** Recursos de Comentarios *****************************/
 //EndPoint para insertar comentario
 router.post('/insertComentario/Comentario',(req, res) =>{
