@@ -5,16 +5,6 @@ var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
 
-    getPeliculas(okPeliculas, nombre) {
-        let uri = url+'/getPeliculasByKey?key=' + nombre
-        fetch(uri).then(res => {
-            return res.json()
-        }).catch((err) => alert("Intentar de nuevo")).
-            then(data => {
-                okPeliculas(data);
-            }).catch((err) => alert("Intentar de nuevo"));
-    }
-
     getEventos(okEventos) {
         let uri = url+'/getEventos'
         fetch(uri).then(res => {
@@ -48,16 +38,6 @@ class ApiController extends Component {
             then(data => {
                 okDetalle(data);
             }).catch((error) => console.log(error));
-    }
-
-    getSeries(okSeries, nombre) {
-        let uri = url+'/getSeriesByKey?key=' + nombre
-        fetch(uri).then(res => {
-            return res.json()
-        }).catch((err) => console.log(err)).
-            then(data => {
-                okSeries(data);
-            }).catch((err) => console.log(err));
     }
     getComentarioByEvento(okComentario, id) {
         let uri = url+'/getComentariosByEvento?eventoId=' + id
@@ -102,6 +82,22 @@ class ApiController extends Component {
             mode: "cors",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: user, password: pass }),
+        }).then((res) => {
+            return res.json();
+        }).catch((err) => console.log(err)).then((res) => {
+            okChange();
+        }).catch((err) => console.log(err));
+    }
+
+    saveGenre(user, genre, okChange) {
+        let uri = url+'/updateUsuarioByGenre/Usuario'
+        console.log(user)
+        console.log(genre)
+        fetch(uri, {
+            method: 'POST',
+            mode: "cors",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, genre: genre }),
         }).then((res) => {
             return res.json();
         }).catch((err) => console.log(err)).then((res) => {

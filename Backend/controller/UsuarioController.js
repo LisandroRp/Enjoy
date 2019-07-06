@@ -10,7 +10,8 @@ let insertUsuario = (req,res) =>
         apellido:req.body.apellido,
         username:req.body.username,
         email:req.body.email,
-        password:req.body.password
+        password:req.body.password,
+        genre: req.body.genre
     });
     newUsuario.save().
     then
@@ -98,4 +99,20 @@ let updateUsuarioByPassword = (req, res) =>
       res.status(206).send({ msg: "Se actualizaron los usuarios." });  
 };
 
-module.exports = {getUsuarios,getUsuarioById,getUsuarioByUsername,insertUsuario,updateUsuarioByPassword};
+let updateUsuarioByGenre = (req, res) =>
+{      
+    console.log("Actualizar usuario: ",req.body.username);
+    //Obtener id busqueda req.param.tagid
+    var myquery = { username: req.body.username};
+    console.log("Actualizar key: ",myquery);
+    var newvalues = { $set: {genre: req.body.genre } };
+    console.log("Actualizar genre: ",newvalues);
+    //Listar resultados
+    usuarios.updateMany(myquery, newvalues, function(err, res) {
+        if (err) console.log(err);
+        console.log("Documento actualizado",res.nModified);
+      });    
+      res.status(206).send({ msg: "Se actualizaron los usuarios." });  
+};
+
+module.exports = {getUsuarios,getUsuarioById,getUsuarioByUsername,insertUsuario,updateUsuarioByPassword, updateUsuarioByGenre};

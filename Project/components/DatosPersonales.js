@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet,ActivityIndicator, TextInput, Button, Text } from 'react-native';
+import { View, Image, StyleSheet,ActivityIndicator, TextInput, Button, Text,Keyboard} from 'react-native';
 import { LinearGradient } from 'expo'
 import ApiController from '../controller/ApiController';
 import { AsyncStorage } from 'react-native';
-
 
 class DatosPersonales extends Component {
 
@@ -15,6 +14,8 @@ class DatosPersonales extends Component {
             apellido: null,
             email: null,
             isLoading: true,
+            genrePosta:null,
+            searchBarFocused: false,
         };
         this._retrieveData();
     }
@@ -34,6 +35,31 @@ class DatosPersonales extends Component {
         }
     };
 
+    changeGenre= value => {
+        this.setState({genrePosta:value})
+        this.setState({ value })
+      }
+      componentDidMount() {
+        this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
+        this.keyboardWillShow = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow)
+        this.keyboardWillHide = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide)
+      }
+      keyboardDidShow = () => {
+        this.setState({ searchBarFocused: true })
+      }
+      keyboardWillShow = () => {
+        this.setState({ searchBarFocused: true })
+      }
+      keyboardWillHide = () => {
+        this.setState({ searchBarFocused: false })
+        this.changeGenre2()
+      }
+      changeGenre2(){
+        if(this.state.genrePosta!=null){
+            console.log(this.state.IdUser)
+            console.log(this.state.genrePosta)
+            ApiController.saveGenre(this.state.IdUser, this.state.genrePosta,this.okChange.bind(this));
+      }}
     getUserData() {
         ApiController.getUsuario(this.okUserData.bind(this), this.state.IdUser);
     }
@@ -43,9 +69,12 @@ class DatosPersonales extends Component {
             nombre: data.nombre,
             apellido: data.apellido,
             email: data.email,
+            genre: data.genre,
         })
     }
-
+    okChange() {
+        alert("Se cambio con exito su genero favorito");
+    }
     render() {
         if (this.state.isLoading) {
             return (
@@ -63,8 +92,8 @@ class DatosPersonales extends Component {
                     <View style={[styles.detalleContainer]} >
                         <View style={{ alignSelf: 'center', marginBottom: 50 }}>
                             <Image source={require('./FACHA.png')} style={{
-                                height: 250,
-                                width: 250,
+                                height: 150,
+                                width: 150,
                                 resizeMode: 'contain',
                                 marginBottom: 30
                             }} />
@@ -85,6 +114,13 @@ class DatosPersonales extends Component {
                             <View style={[styles.underline]}>
                                 <Text style={[styles.TextUnderline]}>Usuario:</Text>
                                 <Text style={[styles.textInput]}>{this.state.IdUser}</Text>
+                            </View>
+                            <View style={[styles.underline]}>
+                            <TextInput placeholder="Search" style={{ fontSize: 24, marginLeft: 15, flex: 1 }} onChangeText={value => this.changeGenre(value)} />
+                            </View>
+                            <View style={[styles.underline]}>
+                            <Text style={[styles.TextUnderline]}>Generos Favoritos:</Text>
+                                <Text style={[styles.textInput]}>{this.state.genre}</Text>
                             </View>
                         </View>
                     </View>
