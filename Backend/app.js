@@ -50,7 +50,7 @@ app.listen(port, function () {
 app.get('/', (req, res) => res.send('Backend Activo'));
 
 /************ Test ***********/
-var Evento = require('./model/Evento');
+/*var Evento = require('./model/Evento');
 
 var lollaEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
@@ -236,7 +236,7 @@ usuario3.save(function(err) {
     if (err) throw err;
         
     console.log('Usuario guardado con exito.');
-});*/
+});
 
 var Comentario = require('./model/Comentario'); 
 
@@ -277,4 +277,4 @@ comentario3.save(function(err) {
     if (err) throw err;
         
     console.log('Comentario guardado con exito.');
-});
+});*/

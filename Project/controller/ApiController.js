@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-var ip = '192.168.1.110';
+var ip = '172.20.10.5';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -124,6 +124,23 @@ class ApiController extends Component {
             }).catch((err => {
                 console.log(err);
                 alert("No existe el usuario");
+            }));
+    }
+
+    getCoordenadas(direccion,okCoordenadas) {
+        let uri = 'https://maps.googleapis.com/maps/api/geocode/json?address='+direccion+'&key=AIzaSyAc6UPN08xNQGIFMfkYGFhfKqD3f3bNc-w'
+        
+        fetch(uri).then(res => {
+            return res.json()
+        }).catch((err) => {
+            console.log(err)
+
+        }).
+            then(data => {
+                okCoordenadas(data);
+            }).catch((err => {
+                console.log(err);
+                alert("No existe el direccion");
             }));
     }
 

@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
   cardContent: {
     marginLeft: 20,
     marginTop: 10,
+    width:180,
     flexDirection: "column"
   },
   image: {
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     fontSize: 18,
     flex: 1,
-    alignSelf: 'center',
+    //alignSelf: 'center',
     color: "#3399ff",
     fontWeight: 'bold'
   },
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingBottom: 11,
     flex: 1,
-    alignSelf: 'center',
+    //alignSelf: 'center',
     color: "#6666ff"
   },
   followButton: {

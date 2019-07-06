@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons';
 import Detalle from './components/Detalle';
 import Conciertos from './components/Conciertos'
+import Shows from './components/Shows'
 import ChangePassword from './components/ChangePassword'
 import CreateUser from './components/CreateUser'
 import Information from './components/DatosPersonales';
@@ -179,6 +180,30 @@ class FestivalesScreen extends React.Component {
     this.props.navigation.navigate('Detalle', { IdEvento: id });
   }
 }
+class ShowsScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Shows',
+    headerStyle: {
+      backgroundColor: 'white',
+      height: 45
+    },
+    headerTintColor: '#3399ff',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Shows
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
+  }
+}
 class DetalleScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -342,6 +367,44 @@ const ConciertosStackNavigator = createStackNavigator(
     initialRouteName: 'ConciertosScreen',
   }
 );
+const ShowsStackNavigator = createStackNavigator(
+  {
+    ShowsScreen: {
+      screen: ShowsScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10, color: '#3399ff' }}
+              onPress={() => navigation.openDrawer()}
+              name="md-menu"
+              size={30}
+            />
+          ),
+          headerRight: (
+            <View style={{ flexDirection: 'row' }}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Show' })}
+                size={22}
+              />
+              <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate("MapaVarios", { tipo: 'Show' })}
+                size={22}
+              />
+            </View>
+          )
+        }
+      }
+    },
+    Helado: { screen: SearchScreen },
+    Detalle: { screen: DetalleScreen },
+    MapaVarios: { screen: MapaVarios },
+    MapaUnEvento: { screen: MapaUnEvento },
+  },
+  {
+    initialRouteName: 'ShowsScreen',
+  }
+);
 
 const FestivalesStackNavigator = createStackNavigator(
   {
@@ -476,6 +539,7 @@ const AppDrawerNavigator = createDrawerNavigator({
   Recommended: MockedViewStackNavigator,
   Concerts: ConciertosStackNavigator,
   Festivals: FestivalesStackNavigator,
+  Shows: ShowsStackNavigator,
   Profile: PerfilStackNavigator,
 },
   // DrawerConfig,
