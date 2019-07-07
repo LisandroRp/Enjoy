@@ -67,7 +67,8 @@ var lollaEvento = new Evento({
     precioE:2500,
     ubicacion: 'Hipodromo de San Isidro, San Isidro',
     latitude:-34.480023,
-    longitude:-58.507587
+    longitude:-58.507587,
+    precios: [{nombre:'Entrada general', precio:'2500'},{nombre:'VIP', precio:'3500'},{nombre:'Agua 500ml', precio:'120'},{nombre:'Gaseosa lata', precio:'100'},{nombre:'Hamburguesa', precio:'280-320'}]
 });
 
 lollaEvento.save(function(err) {

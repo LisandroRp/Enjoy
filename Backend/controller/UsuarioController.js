@@ -11,7 +11,7 @@ let insertUsuario = (req,res) =>
         username:req.body.username,
         email:req.body.email,
         password:req.body.password,
-        genre: req.body.genre
+        generoEvento: req.body.generoEvento
     });
     newUsuario.save().
     then
@@ -105,7 +105,7 @@ let updateUsuarioByGeneroEvento = (req, res) =>
     //Obtener id busqueda req.param.tagid
     var myquery = { username: req.body.username};
     console.log("Actualizar key: ",myquery);
-    var newvalues = { $push: {generoEvento: req.body.genre } };
+    var newvalues = { $set: {generoEvento: req.body.generoEvento } };
     console.log("Actualizar genre: ",newvalues);
     //Listar resultados
     usuarios.updateMany(myquery, newvalues, function(err, res) {

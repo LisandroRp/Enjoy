@@ -15,7 +15,7 @@ var eventoSchema = new Schema({
     personas:Number,
     votos:[],
     comentarios:[{type:Schema.Types.ObjectId, ref: 'Comentario'}],
-    precios:[{type:Schema.Types.ObjectId, ref: 'Carta'}],
+    precios:[],
     precioE:Number,
     ubicacion: String,
     latitude:Number,

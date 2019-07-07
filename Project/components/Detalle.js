@@ -144,8 +144,8 @@ class Detalle extends Component {
                 isLoading: false
             });
             this.yaVoto();
-            this.setState({usuarioDone: true})
-            this.props.guardarPos(this.state.detalle.latitude,this.state.detalle.longitude)
+            this.setState({ usuarioDone: true })
+            this.props.guardarPos(this.state.detalle.latitude, this.state.detalle.longitude)
         } else {
             alert("Intentar de nuevo")
         }
@@ -208,34 +208,34 @@ class Detalle extends Component {
         let React_Native_Rating_Bar = [];
         var aux = -1;
         //Array to hold the filled or empty Stars
-        if(this.state.usuarioDone==true){
-        for (var i = 1; i <= this.state.Max_Rating; i++) {
-            aux++;
-            React_Native_Rating_Bar.push(
-                <TouchableOpacity
-                    activeOpacity={0.7}
-                    key={i}
-                    onPress={this.UpdateRating.bind(this, i)}>
-                    <Image
-                        style={styles.StarImage}
-                        source={
-                            i <= rating2
-                                ? { uri: this.changeVote }
-                                : rating2 > (aux)
-                                    ? { uri: this.Star_Half }
-                                    : { uri: this.Star_With_Border }
-                        }
-                    />
-                </TouchableOpacity>
-            );
-            // console.log('rating: '+rating2)
-            // console.log('i: '+i)
-            // console.log('aux: '+aux)
-            if (rating2 < (aux + 1)) {
-                aux = 50;
+        if (this.state.usuarioDone == true) {
+            for (var i = 1; i <= this.state.Max_Rating; i++) {
+                aux++;
+                React_Native_Rating_Bar.push(
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        key={i}
+                        onPress={this.UpdateRating.bind(this, i)}>
+                        <Image
+                            style={styles.StarImage}
+                            source={
+                                i <= rating2
+                                    ? { uri: this.changeVote }
+                                    : rating2 > (aux)
+                                        ? { uri: this.Star_Half }
+                                        : { uri: this.Star_With_Border }
+                            }
+                        />
+                    </TouchableOpacity>
+                );
+                // console.log('rating: '+rating2)
+                // console.log('i: '+i)
+                // console.log('aux: '+aux)
+                if (rating2 < (aux + 1)) {
+                    aux = 50;
+                }
             }
         }
-    }
 
         if (this.state.isLoading) {
             return (
@@ -304,72 +304,90 @@ class Detalle extends Component {
                                         </View>
                                     </View>
                                 </View>
-                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                        <DropDownItem key={1} contentVisible={false}
-                                            header={
-                                                <Text style={styles.detalleGenresTitles}>
-                                                    Genre
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                    <DropDownItem key={1} contentVisible={false}
+                                        header={
+                                            <Text style={styles.detalleGenresTitles}>
+                                                Genre
                                                                 </Text>
-                                            }
-                                        >
-                                            <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.genero}
-                                            </Text>
+                                        }
+                                    >
+                                        <Text style={styles.detalleGenres}>
+                                            {this.state.detalle.genero}
+                                        </Text>
 
-                                        </DropDownItem>
-                                    </View>
-                                    <View style={styles.cositoGris2} />
+                                    </DropDownItem>
+                                </View>
+                                <View style={styles.cositoGris2} />
 
-                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                        <DropDownItem key={2} contentVisible={false}
-                                            header={
-                                                <Text style={styles.detalleGenresTitles}>
-                                                    Summary
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                    <DropDownItem key={2} contentVisible={false}
+                                        header={
+                                            <Text style={styles.detalleGenresTitles}>
+                                                Summary
                                                                 </Text>
-                                            }
-                                        >
-                                            <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.descripcion}
-                                            </Text>
+                                        }
+                                    >
+                                        <Text style={styles.detalleGenres}>
+                                            {this.state.detalle.descripcion}
+                                        </Text>
 
-                                        </DropDownItem>
-                                    </View>
-                                    <View style={styles.cositoGris2} />
+                                    </DropDownItem>
+                                </View>
+                                <View style={styles.cositoGris2} />
 
-                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
-                                        <DropDownItem key={3} contentVisible={false}
-                                            header={
-                                                <Text style={styles.detalleGenresTitles}>
-                                                    Price
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10, paddingBottom: 10 }}>
+                                    <DropDownItem key={3} contentVisible={false}
+                                        header={
+                                            <Text style={styles.detalleGenresTitles}>
+                                                Price
                                                                 </Text>
-                                            }
-                                        >
-                                            <Text style={styles.detalleGenres}>
-                                                {this.state.detalle.precioE}
-                                            </Text>
-
-                                        </DropDownItem>
-                                    </View>
-                                    <View style={styles.cositoGris2} />
-
-
-                                    <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
-                                        <Text style={styles.detalleComentariosTitles}>
-                                            Comments
-                                    </Text>
+                                        }
+                                    >
                                         <FlatList
-                                            data={this.state.comentarios}
-                                            keyExtractor={(item, index) => 'key' + index}
-                                            renderItem={({ item, index }) => {
+                                            style={styles.contentList}
+                                            columnWrapperStyle={styles.listContainer}
+                                            data={this.state.detalle.precios}
+                                            keyExtractor={(item) => {
+                                               return item.nombre;
+                                             }}
+                                            renderItem={({ item }) => {
                                                 return (
-                                                    <FlatListItems item={item} index={index}>
+                                                <View style={{flexDirection:'row', backgroundColor: '#D2E5FF', marginHorizontal: 10 ,marginVertical: 5, borderRadius: 10, paddingRight:150,paddingTop:2}}>
+                                                <Text style={styles.detalleGenres3}>•</Text>
+                                                <Text style={styles.detalleGenres}>
+                                                {item.nombre}: 
+                                                </Text>
+                                                <Text style={styles.detalleGenres2}>
+                                                    {item.precio}
+                                                </Text>
+                                                </View>
+                                                )
+                                            }} />
 
-                                                    </FlatListItems>
-                                                );
-                                            }}
-                                        >
-                                        </FlatList>
-                                    </View>
+
+                                    </DropDownItem>
+                                </View>
+                                <View style={styles.cositoGris2} />
+
+
+                                <View style={{ borderRadius: 10, backgroundColor: 'white', marginBottom: 10, marginTop: 10, marginHorizontal: 10 }}>
+                                    <Text style={styles.detalleComentariosTitles}>
+                                        Comments
+                                    </Text>
+                                    <FlatList
+                                        data={this.state.comentarios}
+                                        keyExtractor={(item, index) => 'key' + index}
+                                        renderItem={({ item, index }) => {
+                                            return (
+                                                <FlatListItems item={item} index={index}>
+
+                                                </FlatListItems>
+                                            );
+                                        }}
+                                    >
+                                    </FlatList>
+                                </View>
                             </View>
                         </View>
                     </ScrollView>
@@ -525,7 +543,21 @@ const styles = StyleSheet.create({
         fontSize: 15,
         margin: 10,
         marginTop: 2.5,
-        color: "#6666ff"
+        color: "#6666ff",
+        textDecorationLine: 'underline',
+    },
+    detalleGenres2: {
+        fontSize: 15,
+        margin: 10,
+        marginTop: 2.5,
+        color: "#6666ff",
+    },
+    detalleGenres3: {
+        fontSize: 15,
+        margin: 2,
+        marginTop: 2.5,
+        marginLeft:4,
+        color: "#6666ff",
     },
     detalleGenresTitles: {
         fontSize: 17,
