@@ -3,6 +3,8 @@ import { SearchBar, Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { AsyncStorage } from 'react-native';
 import ApiController from '../controller/ApiController'
+import ImageCarousel from 'react-native-image-carousel';
+
 import {
   StyleSheet,
   Text,
@@ -32,7 +34,6 @@ function createData(item) {
 
 class Craigslist extends Component {
 
-
   constructor(props) {
     super(props);
     this.state = {
@@ -45,11 +46,38 @@ class Craigslist extends Component {
       isLoading: true,
     };
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
-    //this.Star = 'https://img.icons8.com/color/96/000000/christmas-star.png';
     this._storeData(this.state.IdUser);
     this.obtenerEventos()
 
   }
+  componentWillMount() {
+    (this)._renderHeader = this._renderHeader.bind(this);
+  }
+  _renderHeader() {
+    return (
+      <TouchableWithoutFeedback onPress={this._imageCarousel.close}>
+        <View>
+          <Text style={styles.closeText}>Exit</Text>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+
+  _renderFooter() {
+    return (
+      <Text style={styles.footerText}>Footer!</Text>
+    );
+  }
+  _renderContent(idx) {
+    return (
+      <Image
+        style={styles.container}
+        source={{ uri: urls[idx] }}
+        resizeMode={'contain'}
+      />
+    );
+  }
+
   static navigationOptions = {
     headerStyle: {
       backgroundColor: 'white',
@@ -87,17 +115,34 @@ class Craigslist extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-        //<View style={styles.container}>
         <View style={styles.container}>
           <ActivityIndicator size="large" color="#3399ff" backgroundColor=' #616161' style={{ flex: 2 }}></ActivityIndicator>
         </View>
-        //</View>
-        // </LinearGradient>
       );
     } else {
+      this.state.eventos.map((evento)=> {console.log(evento.image)})
       return (
         <View style={styles.container}>
+          <View style={styles.container}>
+            <ImageCarousel style={styles.container}
+              ref={(imageCarousel) => {
+                this._imageCarousel = imageCarousel;
+              }}
+              renderContent={this._renderContent}
+              renderHeader={this._renderHeader}
+              renderFooter={this._renderFooter}
+            >
+              {this.state.eventos.map((evento) => (
+                <Image
+                  key={evento.idEvento}
+                  style={styles.carouselImage}
+                  source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGkzHiLqaw3MedLtDd7EPKBlqhPW1IJE9jRFC1je3lLo79mDQ-'}}
+                  resizeMode={'contain'}
+                  backgroundColor='#FFFFFF' 
+                />
+              ))}
+            </ImageCarousel>
+          </View>
           <FlatList
             style={styles.contentList}
             columnWrapperStyle={styles.listContainer}
@@ -152,6 +197,10 @@ const styles = StyleSheet.create({
     borderRadius: 45,
     borderWidth: 2,
     borderColor: "#ebf0f7"
+  },
+  carouselImage:{
+    width: 300,
+    height: 150,
   },
 
   card: {
