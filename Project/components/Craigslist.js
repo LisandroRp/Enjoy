@@ -27,6 +27,7 @@ function createData(item) {
     tipo: item.tipo,
     ubicacion: item.ubicacion,
     precioE: item.precioE,
+    genero: item.genero,
   };
 }
 
@@ -43,11 +44,13 @@ class Craigslist extends Component {
       userSelected: [],
       eventos: [],
       isLoading: true,
+      generoEvento: [],
     };
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
     //this.Star = 'https://img.icons8.com/color/96/000000/christmas-star.png';
     this._storeData(this.state.IdUser);
-    this.obtenerEventos()
+    this.getUserData()
+    //this.obtenerEventos()
 
   }
   static navigationOptions = {
@@ -72,7 +75,15 @@ class Craigslist extends Component {
     }
     this._storeData(this.state.idUser);
   }
-
+  getUserData() {
+    ApiController.getUsuario(this.okUserData.bind(this), this.state.IdUser);
+  }
+  okUserData(data) {
+    this.setState({
+      generoEvento: data.generoEvento,
+    })
+    this.obtenerEventos()
+  }
   _storeData = async () => {
     try {
       await AsyncStorage.setItem('IdUser', this.state.IdUser);
@@ -80,7 +91,14 @@ class Craigslist extends Component {
       console.log(error);
     }
   };
-
+  esGenero(genero) {
+    for (i = 0; i <= this.state.generoEvento.length; i++) {
+      if (this.state.generoEvento[i] == genero) {
+        return true
+      }
+    }
+    return false
+  }
   clickEventListener = (item) => {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
@@ -106,7 +124,7 @@ class Craigslist extends Component {
             //   return item.id;
             // }}
             renderItem={({ item }) => {
-              if (item.rating >= 4) {
+              if (item.rating >= 4 || this.esGenero(item.genero)) {
                 return (
                   <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
                     <View style={{ flexDirection: "row" }} >
@@ -143,7 +161,7 @@ const styles = StyleSheet.create({
   cardContent: {
     marginLeft: 20,
     marginTop: 10,
-    width:180,
+    width: 180,
     flexDirection: "column"
   },
   image: {
@@ -204,7 +222,7 @@ const styles = StyleSheet.create({
   followButtonText: {
     color: "black",
     fontSize: 15,
-    marginTop:4,
+    marginTop: 4,
   },
   StarImage: {
     width: 40,

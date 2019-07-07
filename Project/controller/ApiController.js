@@ -89,15 +89,15 @@ class ApiController extends Component {
         }).catch((err) => console.log(err));
     }
 
-    saveGenre(user, genre, okChange) {
+    saveGenre(user, generoEvento, okChange) {
         let uri = url+'/updateUsuarioByGeneroEvento/Usuario'
         console.log(user)
-        console.log(genre)
+        console.log(generoEvento)
         fetch(uri, {
             method: 'POST',
             mode: "cors",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, genre: genre }),
+            body: JSON.stringify({ username: user, generoEvento: generoEvento }),
         }).then((res) => {
             return res.json();
         }).catch((err) => console.log(err)).then((res) => {

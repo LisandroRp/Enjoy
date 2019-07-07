@@ -11,7 +11,6 @@ var usuarioSchema = new Schema({
     email:{type:String, required:true, max:100},
     password:{type:String, required:true, min:8, max:20},
     generoEvento:[],
-    tipoEvento:[]
 });
 
 //usuarioSchema.virtual('nombreCompleto').get(function(){return this.nombre+' '+this.apellido});

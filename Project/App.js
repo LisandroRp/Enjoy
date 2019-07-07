@@ -552,14 +552,16 @@ const PerfilTabNavigator = createBottomTabNavigator({
         color: '#3399ff',
         headerStyle: {
           backgroundColor: 'white',
-          height: 50
+          height: 45,
+          borderBottomWidth: 0
         }
       }
     },
     tabBarOptions: {
-      inactiveTintColor: 'black',
+      activeTintColor: '#6666ff',
+      inactiveTintColor: '#3399ff',
       style: {
-        backgroundColor: 'pink',
+        backgroundColor: '#D2E5FF',
 
       },
       labelStyle: {
