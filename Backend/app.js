@@ -130,7 +130,7 @@ var tiniEvento = new Evento({
     nombre:'Tini Quiero Volver Tour',
     descripcion:'Tini llega al Luna Park para presentar su segunda gira "Quiero Volver Tour"',
     fecha:'18/10/20',
-    tipo:'Recital',
+    tipo:'Concierto',
     idUsuarioPropietario:'Time4Fun',
     duracion:'2 Horas',
     genero:'Pop',
@@ -159,7 +159,7 @@ var saboresEvento = new Evento({
     duracion:'2 Horas',
     genero:'Gastronomia',
     imagen:'http://novedadesaoca.site/wp-content/uploads/2019/02/Imagen2.png',
-    rating:4.5,
+    rating:3.7,
     personas:0,
     precioE:700,
     ubicacion:'La Rural, Palermo',
@@ -207,7 +207,7 @@ var glamEvento = new Evento({
     duracion:'2 Horas',
     genero:'Rock',
     imagen:'http://www.mtsproducciones.com/imagenes/locales/zag-glamnation-300x270.jpg',
-    rating:3.5,
+    rating:3.0,
     personas:0,
     precioE:150,
     precios: [{nombre:'Entrada general', precio:'150'}],
@@ -227,12 +227,12 @@ var joseEvento = new Evento({
     nombre:'Josefita',
     descripcion:'La ya conocida banda de las hormigas no para y continúa con sus noche de #RocanrolYCarnaval',
     fecha:'13/07/20',
-    tipo:'Show',
+    tipo:'Concierto',
     idUsuarioPropietario:'The Roxy Live',
     duracion:'2 Horas',
     genero:'Rock',
     imagen:'http://www.mtsproducciones.com/imagenes/locales/ROXY-LVB-WEB-300x270-JOSE-ROX-13-7-19.jpg',
-    rating:3.5,
+    rating:2.5,
     personas:0,
     precioE:300,
     precios: [{nombre:'Entrada general', precio:'300'}],
@@ -252,12 +252,12 @@ var bocaEvento = new Evento({
     nombre:'Boca vs Athletico Paranaense',
     descripcion:'Copa Libertadores 2019',
     fecha:'31/07/20',
-    tipo:'Deporte',
+    tipo:'Show',
     idUsuarioPropietario:'Boca Juniors',
     duracion:'2 Horas',
     genero:'Futbol',
     imagen:'http://e00-ar-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/05/09/15573533399660.jpg',
-    rating:3.5,
+    rating:4.8,
     personas:0,
     precioE:3599,
     precios: [{nombre:'Graba Media', precio:'3599'},{nombre:'Palcos', precio:'13000'},{nombre:'Torre', precio:'6769'},{nombre:'Tribuna inferior', precio:'3600'},{nombre:'Upper tier', precio:'4680'}],
@@ -277,12 +277,12 @@ var barEvento = new Evento({
     nombre:'Musica en Bares Notables',
     descripcion:'Los Cafés y Bares Notables que se hallan diseminados en diversos barrios de la Ciudad de Buenos Aires',
     fecha:'13/07/20',
-    tipo:'Bares',
+    tipo:'Show',
     idUsuarioPropietario:'DisfrutemosBA',
     duracion:'2 Horas',
     genero:'Espectaculo',
     imagen:'https://media-cdn.tripadvisor.com/media/photo-s/0f/f5/91/83/bar-iberia.jpg',
-    rating:3.5,
+    rating:3.1,
     personas:0,
     precioE:0,
     precios: [{nombre:'Entrada general', precio:'Gratis'}],
@@ -300,14 +300,14 @@ barEvento.save(function(err) {
 var milongaEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Convocatoria BA Milonga',
-    descripcion:'Abierta a quienes impulsen milongas ',
+    descripcion:'Abierta a quienes impulsen milongas',
     fecha:'22/07/20',
-    tipo:'Baile',
+    tipo:'Show',
     idUsuarioPropietario:'DisfrutemosBA',
     duracion:'2 Horas',
     genero:'Espectaculo',
     imagen:'https://www.buenosaires.gob.ar/sites/gcaba/files/field/image/foto_37_0.jpg',
-    rating:3.5,
+    rating:3.3,
     personas:0,
     precioE:0,
     precios: [{nombre:'Entrada general', precio:'Gratis'}],
@@ -320,6 +320,31 @@ milongaEvento.save(function(err) {
     if (err) throw err;
         
     console.log('Evento '+milongaEvento.nombre+' guardado con exito.');
+});
+
+var oktoberEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Oktoberfest 2019',
+    descripcion:'Fiesta Nacional de la Cerveza',
+    fecha:'04/10/20',
+    tipo:'Festival',
+    idUsuarioPropietario:'Oktoberfest',
+    duracion:'6 Horas',
+    genero:'Variado',
+    imagen:'https://i0.wp.com/www.lawebdelvalle.com/wp-content/uploads/2018/10/oktober-2019.jpg?fit=960%2C640&ssl=1',
+    rating:3.9,
+    personas:0,
+    precioE:300,
+    precios: [{nombre:'Entrada general', precio:'300'},{nombre:'Cerveza', precio:'200'},{nombre:'Pancho Chucrut', precio:'200'}],
+    ubicacion:'Villa General Belgrano, Cordoba',
+    latitude:-34.982599,
+    longitude:-64.566771
+});
+
+oktoberEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+oktoberEvento.nombre+' guardado con exito.');
 });*/
 
 /*var Usuario = require('./model/Usuario');
