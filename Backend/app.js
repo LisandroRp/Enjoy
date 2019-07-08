@@ -65,10 +65,10 @@ var lollaEvento = new Evento({
     rating:5,
     personas:0,
     precioE:2500,
+    precios: [{nombre:'Entrada general', precio:'2500'},{nombre:'VIP', precio:'3500'},{nombre:'Agua 500ml', precio:'120'},{nombre:'Gaseosa lata', precio:'100'},{nombre:'Hamburguesa', precio:'280-320'}],
     ubicacion: 'Hipodromo de San Isidro, San Isidro',
     latitude:-34.480023,
-    longitude:-58.507587,
-    precios: [{nombre:'Entrada general', precio:'2500'},{nombre:'VIP', precio:'3500'},{nombre:'Agua 500ml', precio:'120'},{nombre:'Gaseosa lata', precio:'100'},{nombre:'Hamburguesa', precio:'280-320'}]
+    longitude:-58.507587
 });
 
 lollaEvento.save(function(err) {
@@ -197,6 +197,131 @@ aladinEvento.save(function(err) {
     console.log('Evento '+aladinEvento.nombre+' guardado con exito.');
 });
 
+var glamEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Glamnation',
+    descripcion:'LETS FUCKIN ROCK!',
+    fecha:'12/07/20',
+    tipo:'Show',
+    idUsuarioPropietario:'The Roxy Live',
+    duracion:'2 Horas',
+    genero:'Rock',
+    imagen:'http://www.mtsproducciones.com/imagenes/locales/zag-glamnation-300x270.jpg',
+    rating:3.5,
+    personas:0,
+    precioE:150,
+    precios: [{nombre:'Entrada general', precio:'150'}],
+    ubicacion:'Niceto Vega 5542, CABA',
+    latitude:-34.585187,
+    longitude:-58.438715
+});
+
+glamEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+glamEvento.nombre+' guardado con exito.');
+});
+
+var joseEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Josefita',
+    descripcion:'La ya conocida banda de las hormigas no para y continúa con sus noche de #RocanrolYCarnaval',
+    fecha:'13/07/20',
+    tipo:'Show',
+    idUsuarioPropietario:'The Roxy Live',
+    duracion:'2 Horas',
+    genero:'Rock',
+    imagen:'http://www.mtsproducciones.com/imagenes/locales/ROXY-LVB-WEB-300x270-JOSE-ROX-13-7-19.jpg',
+    rating:3.5,
+    personas:0,
+    precioE:300,
+    precios: [{nombre:'Entrada general', precio:'300'}],
+    ubicacion:'Niceto Vega 5542, CABA',
+    latitude:-34.585187,
+    longitude:-58.438715
+});
+
+joseEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+joseEvento.nombre+' guardado con exito.');
+});
+
+var bocaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Boca vs Athletico Paranaense',
+    descripcion:'Copa Libertadores 2019',
+    fecha:'31/07/20',
+    tipo:'Deporte',
+    idUsuarioPropietario:'Boca Juniors',
+    duracion:'2 Horas',
+    genero:'Futbol',
+    imagen:'http://e00-ar-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/05/09/15573533399660.jpg',
+    rating:3.5,
+    personas:0,
+    precioE:3599,
+    precios: [{nombre:'Graba Media', precio:'3599'},{nombre:'Palcos', precio:'13000'},{nombre:'Torre', precio:'6769'},{nombre:'Tribuna inferior', precio:'3600'},{nombre:'Upper tier', precio:'4680'}],
+    ubicacion:'Brandsen 805, CABA',
+    latitude:-34.635417,
+    longitude:-58.364692
+});
+
+bocaEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+bocaEvento.nombre+' guardado con exito.');
+});
+
+var barEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Musica en Bares Notables',
+    descripcion:'Los Cafés y Bares Notables que se hallan diseminados en diversos barrios de la Ciudad de Buenos Aires',
+    fecha:'13/07/20',
+    tipo:'Bares',
+    idUsuarioPropietario:'DisfrutemosBA',
+    duracion:'2 Horas',
+    genero:'Espectaculo',
+    imagen:'https://media-cdn.tripadvisor.com/media/photo-s/0f/f5/91/83/bar-iberia.jpg',
+    rating:3.5,
+    personas:0,
+    precioE:0,
+    precios: [{nombre:'Entrada general', precio:'Gratis'}],
+    ubicacion:'Av. de Mayo 1196, CABA',
+    latitude:-34.609031,
+    longitude:-58.383409
+});
+
+barEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+barEvento.nombre+' guardado con exito.');
+});
+
+var milongaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Convocatoria BA Milonga',
+    descripcion:'Abierta a quienes impulsen milongas ',
+    fecha:'22/07/20',
+    tipo:'Baile',
+    idUsuarioPropietario:'DisfrutemosBA',
+    duracion:'2 Horas',
+    genero:'Espectaculo',
+    imagen:'https://www.buenosaires.gob.ar/sites/gcaba/files/field/image/foto_37_0.jpg',
+    rating:3.5,
+    personas:0,
+    precioE:0,
+    precios: [{nombre:'Entrada general', precio:'Gratis'}],
+    ubicacion:'Av. de Mayo 575, CABA',
+    latitude:-34.607977,
+    longitude:-58.374413
+});
+
+milongaEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+milongaEvento.nombre+' guardado con exito.');
+});*/
+
 /*var Usuario = require('./model/Usuario');
 
 var usuario1 = new Usuario({
@@ -242,7 +367,7 @@ usuario3.save(function(err) {
     if (err) throw err;
         
     console.log('Usuario guardado con exito.');
-});
+});*/
 
 // var Comentario = require('./model/Comentario'); 
 
@@ -284,5 +409,3 @@ usuario3.save(function(err) {
         
 //     console.log('Comentario guardado con exito.');
 // });
-
-*/
