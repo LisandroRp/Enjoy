@@ -91,7 +91,7 @@ class DatosPersonales extends Component {
     }
     okChange() {
         alert("Your favorite genre was successfully added");
-        this.setState({ value: null })
+        this.setState({ value: null, genrePosta:null })
         this.getUserData(this.state.IdUser)
     }
     borrarGenero() {

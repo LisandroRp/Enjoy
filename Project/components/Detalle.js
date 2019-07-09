@@ -349,19 +349,23 @@ class Detalle extends Component {
                                             columnWrapperStyle={styles.listContainer}
                                             data={this.state.detalle.precios}
                                             keyExtractor={(item) => {
-                                               return item.nombre;
-                                             }}
+                                                return item.nombre;
+                                            }}
                                             renderItem={({ item }) => {
                                                 return (
-                                                <View style={{flexDirection:'row', backgroundColor: '#D2E5FF', marginHorizontal: 10 ,marginVertical: 5, borderRadius: 10, paddingRight:150,paddingTop:2}}>
-                                                <Text style={styles.detalleGenres3}>•</Text>
-                                                <Text style={styles.detalleGenres}>
-                                                {item.nombre}: 
-                                                </Text>
-                                                <Text style={styles.detalleGenres2}>
-                                                    {item.precio}
-                                                </Text>
-                                                </View>
+                                                    <View style={{ flexDirection: 'row', backgroundColor: '#D2E5FF', marginHorizontal: 10, marginVertical: 5, marginTop: 2, borderRadius: 10, paddingRight: 200, paddingTop: 2 }}>
+                                                        <View>
+                                                            <Text style={styles.detalleGenres3}>•</Text>
+                                                        </View>
+                                                        <View>
+                                                            <Text style={styles.detalleGenres2}>{item.nombre}:</Text>
+                                                        </View>
+                                                        <View style={{position: 'absolute', right: 0,marginTop:2.5}}>
+                                                            <Text style={styles.detalleGenres1}>
+                                                                {item.precio}
+                                                            </Text>
+                                                        </View>
+                                                    </View>
                                                 )
                                             }} />
 
@@ -544,19 +548,26 @@ const styles = StyleSheet.create({
         margin: 10,
         marginTop: 2.5,
         color: "#6666ff",
-        textDecorationLine: 'underline',
+    },
+    detalleGenres1: {
+        fontSize: 15,
+        margin: 10,
+        marginTop: 2.5,
+        color: "#6666ff",
+        alignSelf: 'flex-end',
     },
     detalleGenres2: {
         fontSize: 15,
         margin: 10,
         marginTop: 2.5,
         color: "#6666ff",
+        textDecorationLine: 'underline',
     },
     detalleGenres3: {
         fontSize: 15,
         margin: 2,
         marginTop: 2.5,
-        marginLeft:4,
+        marginLeft: 4,
         color: "#6666ff",
     },
     detalleGenresTitles: {

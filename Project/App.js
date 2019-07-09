@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons';
 import Detalle from './components/Detalle';
+import Prueba from './components/MapaConAnimaciones'
 import Conciertos from './components/Conciertos'
 import Shows from './components/Shows'
 import Exposicion from './components/Exposicion'
@@ -313,6 +314,35 @@ class SearchScreen extends React.Component {
     return this.state.tipo
   }
 }
+class MapaVariosScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Map',
+    headerStyle: {
+      backgroundColor: 'white',
+      height: 45,
+      borderBottomWidth: 0
+    },
+    headerTintColor: '#3399ff',
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tipo: this.props.navigation.getParam('tipo'),
+    }
+  }
+  render() {
+    return (
+      <MapaVarios
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
+  }
+}
 const MockedViewStackNavigator = createStackNavigator(
   {
     MockedViewScreen: {
@@ -344,9 +374,10 @@ const MockedViewStackNavigator = createStackNavigator(
         }
       }
     },
+    Prueba: {screen: Prueba},
     Helado: { screen: SearchScreen },
     Detalle: { screen: DetalleScreen },
-    MapaVarios: { screen: MapaVarios },
+    MapaVarios: { screen: MapaVariosScreen },
     MapaUnEvento: { screen: MapaUnEvento },
   },
   {
@@ -385,7 +416,7 @@ const ConciertosStackNavigator = createStackNavigator(
     },
     Helado: { screen: SearchScreen },
     Detalle: { screen: DetalleScreen },
-    MapaVarios: { screen: MapaVarios },
+    MapaVarios: { screen: MapaVariosScreen },
     MapaUnEvento: { screen: MapaUnEvento },
   },
   {
@@ -423,7 +454,7 @@ const ShowsStackNavigator = createStackNavigator(
     },
     Helado: { screen: SearchScreen },
     Detalle: { screen: DetalleScreen },
-    MapaVarios: { screen: MapaVarios },
+    MapaVarios: { screen: MapaVariosScreen },
     MapaUnEvento: { screen: MapaUnEvento },
   },
   {
@@ -463,7 +494,7 @@ const ExposicionStackNavigator = createStackNavigator(
     },
     Helado: { screen: SearchScreen },
     Detalle: { screen: DetalleScreen },
-    MapaVarios: { screen: MapaVarios },
+    MapaVarios: { screen: MapaVariosScreen },
     MapaUnEvento: { screen: MapaUnEvento },
   },
   {
@@ -501,7 +532,7 @@ const FestivalesStackNavigator = createStackNavigator(
     },
     Helado: { screen: SearchScreen },
     Detalle: { screen: DetalleScreen },
-    MapaVarios: { screen: MapaVarios },
+    MapaVarios: { screen: MapaVariosScreen },
     MapaUnEvento: { screen: MapaUnEvento },
   },
   {

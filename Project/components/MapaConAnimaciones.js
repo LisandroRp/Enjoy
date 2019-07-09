@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Animated, Image, Dimensions } from "react-native";
 import MapView from 'react-native-maps';
+import { Marker } from 'react-native-maps';
 
 
 import { Components } from 'expo';
@@ -16,10 +17,10 @@ const Images = [
 
 const { width, height } = Dimensions.get("window");
 
-const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+const CARD_HEIGHT = height / 4.5;
+const CARD_WIDTH = CARD_HEIGHT - 55;
 
-export default class screens extends Component {
+export default class MapaConAnimaciones extends Component {
   state = {
     markers: [
       {
@@ -171,6 +172,12 @@ export default class screens extends Component {
         >
           {this.state.markers.map((marker, index) => (
             <View style={styles.card} key={index}>
+            <Marker
+                title={marker.nombre}
+                description={marker.ubicacion}>
+                <Image style={{ width: 33, height: 33 }}
+                  source={{ uri: "https://img.icons8.com/color/96/000000/marker.png" }} />
+              </Marker>
               <Image
                 source={marker.image}
                 style={styles.cardImage}
