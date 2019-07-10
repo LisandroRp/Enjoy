@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-var ip = '172.20.10.5';
+var ip = '192.168.0.149';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {

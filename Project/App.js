@@ -28,6 +28,7 @@ import {
   DrawerItems,
 } from 'react-navigation';
 import { ScrollView } from 'react-native-gesture-handler';
+import UserDataManager from './components/UserDataManager';
 
 
 function handleSearch() {
@@ -57,6 +58,7 @@ class SignUpClass extends React.Component {
   checkLogin(IdUser) {
     //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
     /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
+    UserDataManager.getInstance().setCurrentPositionFromReact()
     this.props.navigation.navigate('MockedViewScreen', { IdUser: IdUser });
   }
 
