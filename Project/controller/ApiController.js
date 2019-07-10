@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-var ip = '192.168.0.149';
+var ip = '192.168.1.116';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -17,7 +17,6 @@ class ApiController extends Component {
 
     votar(eventoId,votos,rating, personas, okVote) {
         let uri = url+'/votarEvento/Evento'
-        console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+eventoId+votos+personas),
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -25,7 +24,7 @@ class ApiController extends Component {
             body: JSON.stringify({ eventoId: eventoId, votos: votos, rating:rating, personas:personas}),
         }).then((res) => {
             return res.json();
-        }).catch((err) => console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+err)).then((res) => {
+        }).catch((err) => console.log(err)).then((res) => {
             okVote();
         }).catch((err) => console.log(err));
     }

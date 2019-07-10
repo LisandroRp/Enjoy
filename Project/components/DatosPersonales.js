@@ -145,7 +145,7 @@ class DatosPersonales extends Component {
                         <Text style={{ color: 'white', fontSize: 15 }}>{this.state.email}</Text>
                     </LinearGradient>
                     <ScrollView style={{}}>
-                        <View style={{ alignItems: 'center', flexDirection: 'row', height: 100 }}>
+                        <View style={{alignItems: 'center', flexDirection: 'row', backgroundColor:'#D2E5FF', marginTop:18, paddingBottom:18, paddingHorizontal:9, marginHorizontal:18, borderRadius:10,}}>
                             <View style={styles.contentList}>
                                 <View style={[styles.underline]}>
                                     <Text style={[styles.TextUnderline]}>Favorite Genres:</Text>
@@ -165,10 +165,11 @@ class DatosPersonales extends Component {
                                         }} />
                                 </View>
                             </View>
-                            <View style={{ width: 200, alignItems: 'center', marginTop:180 }}>
+                            <View style={{ width: 200, alignItems: 'center' }}>
                                 <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
                                     onPress={() => this.borrarGenero()}>
-                                    <Text style={styles.loginText}>Erase Genres</Text>
+                                    <Text style={styles.loginText}>Erase</Text>
+                                    <Text style={styles.loginText}>Genres</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 5,
         marginHorizontal: 5,
-        width: 150,
+        width: 100,
         borderRadius: 30,
         backgroundColor: 'transparent'
     },
@@ -238,7 +239,12 @@ const styles = StyleSheet.create({
     },
     contentList: {
         flexDirection: 'column',
-        marginLeft: 30
+        marginLeft: 18,
+        backgroundColor:'white' ,
+        borderRadius:10,
+        //height:200,
+        paddingHorizontal: 18,
+        marginTop:18,
         // alignItems:'center', height:100 
     },
     contentList2: {

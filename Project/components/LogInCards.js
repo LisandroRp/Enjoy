@@ -12,6 +12,7 @@ import {
 import ApiController from '../controller/ApiController';
 import {KeyboardAvoidingView} from 'react-native';
 import { LinearGradient } from 'expo'
+import UserDataManager from './UserDataManager';
 
 class LogInCards extends Component {
   constructor(props) {
@@ -35,11 +36,17 @@ class LogInCards extends Component {
   }
  
   render() {
+    UserDataManager.getInstance().setCurrentPositionFromReact()
     return (
       <KeyboardAvoidingView  behavior="padding" enabled>
        <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.container}>
        {/* <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/> */}
-       <View style={{paddingTop:250}}>
+       <View style={[styles.imageContainer]}>
+                        <Image
+                            style={{height:300, width:300,resizeMode: 'contain',}}
+                            source={require('./Licha-enjoy.png')}></Image>
+                    </View>
+       <View style={{paddingTop:50}}>
         <View style={styles.inputContainer}>
           <TextInput style={styles.inputs}
               placeholder="Username"
@@ -69,10 +76,11 @@ class LogInCards extends Component {
         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.onPressCreate()}>
             <Text style={styles.btnText}>Create an account</Text>
         </TouchableOpacity>
-
+        <View style={{flexDirection:'center', width:100}}>
         <TouchableOpacity style={styles.buttonContainerPass} onPress={() => this.props.onPressPass()}>
             <Text style={styles.btnText}>Change password</Text>
         </TouchableOpacity>
+        </View>
       </View>
       </LinearGradient>
       </KeyboardAvoidingView>
@@ -127,7 +135,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height:45,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop:20,
@@ -138,7 +145,6 @@ const styles = StyleSheet.create({
   },
   buttonContainerPass: {
     height:20,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom:20,
@@ -191,8 +197,6 @@ const styles = StyleSheet.create({
     color:"white",
     fontWeight:'bold',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
   },
   textByRegister:{
     color:"white",

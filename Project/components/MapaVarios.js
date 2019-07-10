@@ -26,7 +26,7 @@ import { TextInput } from "react-native-gesture-handler";
 import UserDataManager from './UserDataManager';
 var { height, width } = Dimensions.get('window');
 function createData(item,distance) {
-  console.log("This is the distance comming into the funciton create data: "+ distance)
+  //console.log("This is the distance comming into the funciton create data: "+ distance)
   return {
     key: item._id,
     imagen: item.imagen,
@@ -79,14 +79,16 @@ class Mapa extends Component {
       isLoading: true,
       eventos: [],
       coordenadasNew: [],
-      longitude: UserDataManager.getInstance().getLongitude(),
-      latitude: UserDataManager.getInstance().getLatitude(),
+      longitude: 0, //UserDataManager.getInstance().getLongitude(),
+      latitude: 0, //UserDataManager.getInstance().getLatitude(),
       markerOk: false,
       coordenadasGuardadas: [],
       searchBarFocused: false,
       regionPosta: null,
       eventoMarcado: {
       },
+      miLongitude: 0,
+      miLatitude: 0,
       cambiados: [],
       cambiados2:[],
     };
@@ -105,37 +107,42 @@ class Mapa extends Component {
     headerTintColor: '#3399ff',
   };
 
+  obtenerPos(){
+      this.setState({ longitude: UserDataManager.getInstance().getLongitude(), })
+      this.setState({ latitude: UserDataManager.getInstance().getLatitude(), })
+      this.setState({ isLoading: false });
+  }
 
 
-  getCurrentDistanceToEvent(Event){
-    let lat1 = this.state.latitude
-    let lon1 = this.state.longitude
-    if (this.state.latitude == null || this.state.longitude == null) {
-      return;
-    }
-    let lat2 = Event.latitude
-    let lon2 = Event.longitude
-    return this.getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
-}
+//   getCurrentDistanceToEvent(Event){
+//     let lat1 = this.state.latitude
+//     let lon1 = this.state.longitude
+//     if (this.state.latitude == null || this.state.longitude == null) {
+//       return;
+//     }
+//     let lat2 = Event.latitude
+//     let lon2 = Event.longitude
+//     return this.getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
+// }
 
-getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  console.log("Distance in KM " + d)
-  return d;
-}
+// getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+//   var R = 6371; // Radius of the earth in km
+//   var dLat = deg2rad(lat2-lat1);  // deg2rad below
+//   var dLon = deg2rad(lon2-lon1); 
+//   var a = 
+//     Math.sin(dLat/2) * Math.sin(dLat/2) +
+//     Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+//     Math.sin(dLon/2) * Math.sin(dLon/2)
+//     ; 
+//   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+//   var d = R * c; // Distance in km
+//   //console.log("Distance in KM " + d)
+//   return d;
+// }
 
-deg2rad(deg) {
-  return deg * (Math.PI/180)
-}
+// deg2rad(deg) {
+//   return deg * (Math.PI/180)
+// }
   obtenerEventos() {
     //this.getCurrentPositionFromReact()
     ApiController.getEventos(this.okEventos.bind(this));
@@ -146,7 +153,6 @@ deg2rad(deg) {
       for (i = 0; i < data.length; i++) {
         if (this.state.tipo == 'Recomendados') {
           if (data[i].rating >= 4) {
-            console.log(this.getCurrentDistanceToEvent(data[i]))
             newArray.push(createData(data[i]));
           }
         } else {
@@ -155,12 +161,13 @@ deg2rad(deg) {
           }
         }
       }
-      //console.log(newArray)
-      this.setState({ eventos: newArray, isLoading: false });
-      newArray.map( (element) => {
-        console.log("This is the element in the new array: " + JSON.stringify(element))
-        console.log("This is the element's distance" + element.distance)
-      })
+      // this.setState({ eventos: newArray, isLoading: false });
+      this.setState({ eventos: newArray});
+      this.obtenerPos()
+      // newArray.map( (element) => {
+      //   console.log("This is the element in the new array: " + JSON.stringify(element))
+      //   console.log("This is the element's distance" + element.distance)
+      // })
     } else {
       alert("Intentar de nuevo")
     }
@@ -225,7 +232,6 @@ deg2rad(deg) {
             nombre: marker.nombre,
             contador: 0
           }
-          console.log(Pos.nombre)
           this.state.coordenadasGuardadas.push(Pos)
           return Pos;
         }
@@ -236,7 +242,6 @@ deg2rad(deg) {
             nombre: marker.nombre,
             contador: 0
           }
-          console.log('1')
           this.state.coordenadasGuardadas.push(Pos)
           return Pos;
         }
@@ -247,7 +252,6 @@ deg2rad(deg) {
             nombre: marker.nombre,
             contador: 0
           }
-          console.log('2')
           this.state.coordenadasGuardadas.push(Pos)
           return Pos;
         }
@@ -336,8 +340,8 @@ deg2rad(deg) {
             />
             <MapView style={{ backgroundColor: this.state.searchBarFocused ? 'rgba(0,0,0,0.3)' : 'red', position: 'absolute', top: 50, left: 0, bottom: 0, right: 0 }}
               showsUserLocation={true} initialRegion={{
-                longitude: -58.38224887847901,
-                latitude: -34.618269992307674,
+                longitude: this.state.miLongitude,
+                latitude: this.state.miLatitude,
                 // longitude: this.state.longitude,
                 // latitude: this.state.latitude,
                 latitudeDelta: 0.0922,

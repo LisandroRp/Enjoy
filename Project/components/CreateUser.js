@@ -35,11 +35,11 @@ class Login extends Component {
         return (
             // <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
             <KeyboardAvoidingView style={styles.loginContainer} behavior="padding" enabled>
-                <View style={[styles.loginContainer]}>
-                    <View style={[styles.imageContainer]}>
+                <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.loginContainer}>
+                    <View style={{alignContent:'center',alignItems:'center'}}>
                         <Image
-                            style={[styles.imageStyle]}
-                            source={require('./FACHA.png')}></Image>
+                            style={{ height: 300, width: 300, resizeMode: 'contain', }}
+                            source={require('./Licha-enjoy.png')}></Image>
                     </View>
                     <View style={[styles.inputContainer]}>
                         <View style={styles.outterInput}>
@@ -80,15 +80,15 @@ class Login extends Component {
                         <View style={{ flexDirection: 'row' }}>
                             <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
                                 onPress={() => this.checkCreate()}>
-                                <Text style={{ color: 'white' }}>Create Account </Text>
+                                <Text style={{ color: 'white', fontWeight: 'bold', }}>Create Account </Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
                                 onPress={() => this.props.onPress()}>
-                                <Text style={{ color: 'white' }}>Go back </Text>
+                                <Text style={{ color: 'white', fontWeight: 'bold', }}>Go back </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>
+                </LinearGradient>
             </KeyboardAvoidingView>
             //</LinearGradient>
         );
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         flex: 1,
-        justifyContent: 'flex-start',
         alignItems: 'center',
         width: '100%',
         height: '100%',
@@ -161,7 +160,6 @@ const styles = StyleSheet.create({
     loginButton: {
         backgroundColor: "#00b5ec",
         marginHorizontal: 5,
-        shadowColor: "#808080",
         shadowOffset: {
             width: 0,
             height: 9,

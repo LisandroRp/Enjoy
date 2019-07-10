@@ -29,7 +29,6 @@ import {
   DrawerItems,
 } from 'react-navigation';
 import { ScrollView } from 'react-native-gesture-handler';
-import UserDataManager from './components/UserDataManager';
 
 
 function handleSearch() {
@@ -57,9 +56,6 @@ class SignUpClass extends React.Component {
     )
   }
   checkLogin(IdUser) {
-    //this.props.navigation.navigate('PeliculasScreen', { idUser: id });
-    /*this.props.navigation.navigate('PeliculasScreen', { idUser: '123'}); Funciona */
-    UserDataManager.getInstance().setCurrentPositionFromReact()
     this.props.navigation.navigate('MockedViewScreen', { IdUser: IdUser });
   }
 
@@ -622,13 +618,12 @@ const DrawerConfig = {
 const customDrawerComponent = (props) => (
   <View style={{ flex: 1 }}>
     <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.profile}>
-      <View style={styles.imgView}>
-        <Image style={styles.img} source={require('./components/FACHA.png')} ></Image>
-      </View>
-      <View style={styles.profileText}>
-        <Text style={styles.name}>Lisandro Rodriguez Prados</Text>
-      </View>
-      </LinearGradient>
+    <View style={{alignContent:'center',alignItems:'center'}}>
+      <Image
+        style={{ height: 100, width:200, resizeMode: 'contain', alignSelf:'center' }}
+        source={require('./components/Licha-enjoy.png')}></Image>
+        </View>
+    </LinearGradient>
     <ScrollView style={{ borderTopWidth: 0, marginTop: 0, paddingTop: 0 }}>
       <DrawerItems {...props} style={{ borderTopWidth: 0, marginTop: 0, paddingTop: 0 }} />
     </ScrollView>
@@ -687,10 +682,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   profile: {
-    flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 40,
-    paddingBottom: 60,
+    paddingTop: 50,
+    paddingBottom: 50,
     borderBottomWidth: 0,
     borderBottomColor: '#3399ff',
     backgroundColor: '#3399ff',
