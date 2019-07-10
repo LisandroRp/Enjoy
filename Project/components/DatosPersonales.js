@@ -91,15 +91,14 @@ class DatosPersonales extends Component {
     }
     okChange() {
         alert("Your favorite genre was successfully added");
-        this.setState({ value: null, genrePosta:null })
+        this.setState({ value: null, genrePosta: null })
         this.getUserData(this.state.IdUser)
     }
     borrarGenero() {
-        if(this.state.generoEvento.length!=0)  
-        {
+        if (this.state.generoEvento.length != 0) {
             ApiController.saveGenre(this.state.IdUser, this.state.generoVacio, this.okChange.bind(this));
         }
-        else{
+        else {
             alert('There is no genres to erase')
         }
     }
@@ -127,10 +126,10 @@ class DatosPersonales extends Component {
                         containerStyle={{ backgroundColor: 'white', height: 50, paddingBottom: 22 }}
                         buttonStyle={{ paddingBottom: 22 }}
                     />
-                    <View style={{ alignSelf: 'center', alignItems: 'center', marginBottom: 20, paddingBottom: 30, backgroundColor: '#3399ff', width: 2000 }}>
+                    <LinearGradient colors={['#1D71B8', '#2D2E83']} style={{ alignSelf: 'center', alignItems: 'center', paddingBottom: 30, backgroundColor: '#3399ff', width: 2000 }}>
 
                         <View style={styles.CircleShapeView}>
-                            <Text style={{ fontSize: 50, color: 'white', paddingTop: 45,alignContent: 'center' }}>
+                            <Text style={{ fontSize: 50, color: 'white', paddingTop: 45, alignContent: 'center' }}>
                                 {this.state.nombre.slice(0, 1).toUpperCase()}
                             </Text>
                         </View>
@@ -144,31 +143,34 @@ class DatosPersonales extends Component {
                         <Text style={{ color: 'white', fontSize: 20 }}>{this.state.nombre}{this.state.apellido}</Text>
                         <Text style={{ color: 'white', fontSize: 15 }}>{this.state.IdUser}</Text>
                         <Text style={{ color: 'white', fontSize: 15 }}>{this.state.email}</Text>
-                    </View>
-                    <ScrollView style={{ alignSelf: 'center', flexDirection: 'row', marginTop:10 }}>
-                        <View style={[styles.underline]}>
-                            <Text style={[styles.TextUnderline]}>Favorite Genres:</Text>
-                        </View>
-                        <View>
-                            <FlatList
-                                style={styles.contentList}
-                                columnWrapperStyle={styles.listContainer}
-                                data={this.state.generoEvento}
-                                keyExtractor={(item) => {
-                                    return item;
-                                }}
-                                renderItem={({ item }) => {
-                                    return (<View>
-                                        <Text style={[styles.textInput]}>• {item}</Text>
-                                    </View>)
-                                }} />
-                        </View>
-
-                        <View>
-                            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
-                                onPress={() => this.borrarGenero()}>
-                                <Text style={styles.loginText}>Erase Genres</Text>
-                            </TouchableOpacity>
+                    </LinearGradient>
+                    <ScrollView style={{}}>
+                        <View style={{ alignItems: 'center', flexDirection: 'row', height: 100 }}>
+                            <View style={styles.contentList}>
+                                <View style={[styles.underline]}>
+                                    <Text style={[styles.TextUnderline]}>Favorite Genres:</Text>
+                                </View>
+                                <View>
+                                    <FlatList
+                                        style={styles.hola}
+                                        columnWrapperStyle={styles.listContainer}
+                                        data={this.state.generoEvento}
+                                        keyExtractor={(item) => {
+                                            return item;
+                                        }}
+                                        renderItem={({ item }) => {
+                                            return (<View style={styles.contentList2}>
+                                                <Text style={[styles.textInput]}>• {item}</Text>
+                                            </View>)
+                                        }} />
+                                </View>
+                            </View>
+                            <View style={{ width: 200, alignItems: 'center', marginTop:180 }}>
+                                <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
+                                    onPress={() => this.borrarGenero()}>
+                                    <Text style={styles.loginText}>Erase Genres</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </ScrollView>
                 </View>
@@ -199,10 +201,8 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         height: 45,
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
         marginBottom: 5,
         marginHorizontal: 5,
         width: 150,
@@ -213,7 +213,6 @@ const styles = StyleSheet.create({
     loginButton: {
         backgroundColor: "#3399ff",
 
-        shadowColor: "#808080",
         shadowOffset: {
             width: 0,
             height: 9,
@@ -225,6 +224,7 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: 'white',
+        fontWeight:'bold',
     },
     CircleShapeView: {
         height: 150,
@@ -235,6 +235,15 @@ const styles = StyleSheet.create({
         marginTop: 30,
         alignItems: 'center',
         alignContent: 'center'
-      },
+    },
+    contentList: {
+        flexDirection: 'column',
+        marginLeft: 30
+        // alignItems:'center', height:100 
+    },
+    contentList2: {
+        alignItems: 'flex-start' 
+        // alignItems:'center', height:100 
+    }
 })
 export default DatosPersonales;

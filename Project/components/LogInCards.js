@@ -11,6 +11,7 @@ import {
 } from 'react-native'; 
 import ApiController from '../controller/ApiController';
 import {KeyboardAvoidingView} from 'react-native';
+import { LinearGradient } from 'expo'
 
 class LogInCards extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class LogInCards extends Component {
   }
 
   checkUsuario(data) {
-    console.log(data)
     if (data.username == this.state.username && data.password == this.state.password && this.state.username != null) {
         this.props.onPressLogin(this.state.username);
     } else {
@@ -36,10 +36,10 @@ class LogInCards extends Component {
  
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-       <View style={styles.container}>
-       <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/>
-       <View style={{paddingTop:100}}>
+      <KeyboardAvoidingView  behavior="padding" enabled>
+       <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.container}>
+       {/* <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/> */}
+       <View style={{paddingTop:250}}>
         <View style={styles.inputContainer}>
           <TextInput style={styles.inputs}
               placeholder="Username"
@@ -59,9 +59,6 @@ class LogInCards extends Component {
           <Image style={styles.inputIcon} source={{uri: "https://img.icons8.com/office/40/000000/forgot-password.png"}}/>
         </View>
 
-        <TouchableOpacity style={styles.btnByRegister} onPress={() => this.onClickListener('restore_password')}>
-            <Text style={styles.textByRegister}>By registering on this App you confirm{'\n'}that you have read and accept our policy</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
          onPress={() => this.checkLogin()}>
@@ -77,8 +74,9 @@ class LogInCards extends Component {
             <Text style={styles.btnText}>Change password</Text>
         </TouchableOpacity>
       </View>
-      </View>
+      </LinearGradient>
       </KeyboardAvoidingView>
+      
     );
   }
 }
@@ -132,7 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop:50,
+    marginTop:20,
     marginBottom:5,
     width:300,
     borderRadius:30,
@@ -160,18 +158,19 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: "#00b5ec",
 
-    shadowColor: "#808080",
+    //shadowColor: "#808080",
     shadowOffset: {
       width: 0,
       height: 9,
     },
     shadowOpacity: 0.50,
-    shadowRadius: 12.35,
+    shadowRadius: 30,
 
     elevation: 19,
   },
   loginText: {
     color: 'white',
+    fontWeight: 'bold',
   },
   bgImage:{
     flex: 1,
@@ -201,8 +200,8 @@ const styles = StyleSheet.create({
     textAlign:'center',
 
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 100
   }
 })
 export default LogInCards;  

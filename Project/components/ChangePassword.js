@@ -35,8 +35,8 @@ class Login extends Component {
     render() {
         return (
             //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-            <KeyboardAvoidingView style={styles.loginContainer} behavior="padding" enabled>
-                <View style={[styles.loginContainer]}>
+            <KeyboardAvoidingView behavior="padding" enabled>
+                 <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.loginContainer}>
                     <View style={[styles.imageContainer]}>
                         <Image
                             style={[styles.imageStyle]}
@@ -69,15 +69,15 @@ class Login extends Component {
                         <View style={{ flexDirection: 'row' }}>
                             <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
                                 onPress={() => this.checkChange()}>
-                                <Text style={{ color: 'white' }}>Change Password</Text>
+                                <Text style={{ color: 'white',fontWeight:'bold', }}>Change Password</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
                                 onPress={() => this.props.onPress()}>
-                                <Text style={{ color: 'white' }}>Go back </Text>
+                                <Text style={{ color: 'white',fontWeight:'bold', }}>Go back </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>
+                    </LinearGradient>
             </KeyboardAvoidingView>
             //</LinearGradient>
         );
@@ -86,9 +86,12 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
     loginContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#9FA8DA'
+       //flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#9FA8DA',
     },
     textInput: {
         height: 45,
@@ -150,7 +153,6 @@ const styles = StyleSheet.create({
     loginButton: {
         backgroundColor: "#00b5ec",
         marginHorizontal: 5,
-        shadowColor: "#808080",
         shadowOffset: {
             width: 0,
             height: 9,

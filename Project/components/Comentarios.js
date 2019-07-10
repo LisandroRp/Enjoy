@@ -54,7 +54,6 @@ class Comentarios extends Component {
       for (i = 0; i < data.length; i++) {
         comentarios.push(createData(data[i], i));
       }
-      console.log(comentarios)
       this.setState({
         comentarios: comentarios,
         isLoading: false,

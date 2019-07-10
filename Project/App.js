@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { LinearGradient } from 'expo'
 import Icon from '@expo/vector-icons/Ionicons';
 import Detalle from './components/Detalle';
 import Prueba from './components/MapaConAnimaciones'
@@ -310,7 +311,6 @@ class SearchScreen extends React.Component {
     this.props.navigation.navigate('Detalle', { IdEvento: id });
   }
   pasarTipo() {
-    console.log(this.state.tipo)
     return this.state.tipo
   }
 }
@@ -619,14 +619,14 @@ const DrawerConfig = {
 }
 const customDrawerComponent = (props) => (
   <View style={{ flex: 1 }}>
-    <View style={styles.profile}>
+    <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.profile}>
       <View style={styles.imgView}>
         <Image style={styles.img} source={require('./components/FACHA.png')} ></Image>
       </View>
       <View style={styles.profileText}>
         <Text style={styles.name}>Lisandro Rodriguez Prados</Text>
       </View>
-    </View>
+      </LinearGradient>
     <ScrollView style={{ borderTopWidth: 0, marginTop: 0, paddingTop: 0 }}>
       <DrawerItems {...props} style={{ borderTopWidth: 0, marginTop: 0, paddingTop: 0 }} />
     </ScrollView>
@@ -688,7 +688,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: 40,
-    paddingBottom: 40,
+    paddingBottom: 60,
     borderBottomWidth: 0,
     borderBottomColor: '#3399ff',
     backgroundColor: '#3399ff',

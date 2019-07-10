@@ -54,7 +54,6 @@ okDetalle(data) {
       this.setState({
           evento: data[0],
       });
-      console.log(this.state.evento.latitude)
       this.createMarker();
   } else {
       alert("Intentar de nuevo")
@@ -69,7 +68,6 @@ okDetalle(data) {
             const value = await AsyncStorage.getItem('IdEvento');
             if (value !== null) {
                 this.setState({idEvento: value})
-                console.log(this.state.idEvento)
                 this.cargarDetalle();
             }
         } catch (error) {

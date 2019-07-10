@@ -70,11 +70,13 @@ class Mapa extends Component {
       regionPosta: null,
       eventoMarcado: {
       },
-      vacio: [],
+      cambiados: [],
+      cambiados2:[],
     };
     this.obtenerEventos()
     this.handlePress = this.handlePress.bind(this);
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
+    this.divididor=1500;
   }
   static navigationOptions = {
     title: '',
@@ -92,7 +94,6 @@ class Mapa extends Component {
   okEventos(data) {
     if (data != null) {
       var i, newArray = [];
-      console.log(data)
       for (i = 0; i < data.length; i++) {
         if (this.state.tipo == 'Recomendados') {
           if (data[i].rating >= 4) {
@@ -104,6 +105,7 @@ class Mapa extends Component {
           }
         }
       }
+      //console.log(newArray)
       this.setState({ eventos: newArray, isLoading: false });
     } else {
       alert("Intentar de nuevo")
@@ -115,7 +117,7 @@ class Mapa extends Component {
       //console.log(data)
       newArray = createCoord(data)
 
-      console.log(newArray)
+      //console.log(newArray)
       this.setState({ coordenadasNew: newArray, longitude: newArray.coordenadas.lng, latitude: newArray.coordenadas.lat });
       // console.log(this.state.longitude)
       // console.log(this.state.latitude)
@@ -126,21 +128,87 @@ class Mapa extends Component {
   handlePress(e) {
     console.log(e.nativeEvent.coordinate)
   }
-  createMarker(marker) {
-    console.log(this.state.coordenadasGuardadas)
-    for (i = 0; i < this.state.coordenadasGuardadas.length; i++) {
-      if (marker.latitude == this.state.coordenadasGuardadas[i].latitude && marker.longitude == this.state.coordenadasGuardadas[i].longitude) {
-        Pos = {
-          latitude: marker.latitude + (0.1 / 1500),
-          longitude: marker.longitude + (0.1 / 1500),
+  comprobar(marker){
+    for(i=0;i<this.state.cambiados.length;i++){
+      // console.log(marker.nombre)
+      // console.log(marker.latitude)
+      // console.log(marker.longitude)
+      // console.log(this.state.cambiados[i].nombre)
+      // console.log(this.state.cambiados[i].latitude)
+      // console.log(this.state.cambiados[i].longitude)
+      // console.log(this.state.cambiados[i].contador)
+      if(marker.latitude == this.state.cambiados[i].latitude && marker.longitude == this.state.cambiados[i].longitude){
+        if(this.state.cambiados[i].contador==0){
+
+          this.state.cambiados[i].contador=1
+
+        return(1)
         }
-        this.state.coordenadasGuardadas.push(Pos)
-        return Pos;
+        if(this.state.cambiados[i].contador==1){
+
+          this.state.cambiados[i].contador=2
+
+          return(2)
+        }
       }
     }
     Pos = {
       latitude: marker.latitude,
       longitude: marker.longitude,
+      nombre: marker.nombre,
+      contador: 0
+    }
+    this.state.cambiados.push(Pos)
+    //this.setState({cambiados: this.state.cambiados2})
+    //this.setState({cambiados2: []})
+    return(0)
+  }
+  createMarker(marker) {
+    cantidad=0;
+    for (i = 0; i < this.state.coordenadasGuardadas.length; i++) {
+      if (marker.latitude == this.state.coordenadasGuardadas[i].latitude && marker.longitude == this.state.coordenadasGuardadas[i].longitude) {
+        cantidad= this.comprobar(this.state.coordenadasGuardadas[i])
+        if(cantidad==0)
+        {
+          Pos = {
+            latitude: marker.latitude + (0.1 / 1500),
+            longitude: marker.longitude + (0.1 / 1500),
+            nombre: marker.nombre,
+            contador: 0
+          }
+          console.log(Pos.nombre)
+          this.state.coordenadasGuardadas.push(Pos)
+          return Pos;
+        }
+        if(cantidad==1){
+          Pos = {
+            latitude: marker.latitude + (0.1 / -1500),
+            longitude: marker.longitude + (0.1 / -1500),
+            nombre: marker.nombre,
+            contador: 0
+          }
+          console.log('1')
+          this.state.coordenadasGuardadas.push(Pos)
+          return Pos;
+        }
+        if(cantidad==2){
+          Pos = {
+            latitude: marker.latitude + (0.1 / 750),
+            longitude: marker.longitude + (0.1 / 750),
+            nombre: marker.nombre,
+            contador: 0
+          }
+          console.log('2')
+          this.state.coordenadasGuardadas.push(Pos)
+          return Pos;
+        }
+      }
+    }
+    Pos = {
+      latitude: marker.latitude,
+      longitude: marker.longitude,
+      nombre: marker.nombre,
+      contador: 0
     }
     this.state.coordenadasGuardadas.push(Pos)
     return Pos;
@@ -176,11 +244,11 @@ class Mapa extends Component {
     this.searchEvent2()
   }
   setModalVisible(visible, marker) {
-    console.log(marker)
-    this.setState({ modalVisible: visible, eventoMarcado: marker });
+    //console.log(marker)
+    this.setState({ modalVisible: visible, eventoMarcado: marker, coordenadasGuardadas: [], cambiados:[]});
   }
   setModalInvisible(visible, marker) {
-    this.setState({ modalVisible: visible, longitude: marker.longitude, latitude: marker.latitude, coordenadasGuardadas: this.state.vacio});
+    this.setState({ modalVisible: visible, longitude: marker.longitude, latitude: marker.latitude});
   }
   detalles(){
     this.setModalInvisible(false,this.state.eventoMarcado)

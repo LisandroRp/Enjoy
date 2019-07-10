@@ -47,7 +47,6 @@ class Shows extends Component {
   okEventos(data) {
     if (data != null) {
       var i, newArray = [];
-      console.log(data)
       for (i = 0; i < data.length; i++) {
         newArray.push(createData(data[i], i));
       }

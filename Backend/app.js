@@ -51,7 +51,7 @@ app.get('/', (req, res) => res.send('Backend Activo'));
 
 /************ Test ***********/
 var Evento = require('./model/Evento');
-/*
+
 var lollaEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Lolla Palooza',
@@ -373,8 +373,6 @@ JamEvento.save(function(err) {
     console.log('Evento '+JamEvento.nombre+' guardado con exito.');
 });
 
-*/
-/*
 var HHEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Hit Hop Festival',
@@ -452,7 +450,7 @@ TangoEvento.save(function(err) {
     if (err) throw err;
         
     console.log('Evento '+TangoEvento.nombre+' guardado con exito.');
-});*/
+});
 
 
 var DamasGratisEvento = new Evento({

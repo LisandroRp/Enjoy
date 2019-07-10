@@ -138,7 +138,6 @@ export default class Search extends React.Component {
         this.obtenerEventos()
     }
     filtrarPrecio() {
-        console.log(this.state.minPrice)
         if(this.state.maxPrice==null || this.state.minPrice==null || this.state.minPrice=='' || this.state.maxPrice=='')
         {
             alert('There is an empty price')
@@ -165,7 +164,6 @@ export default class Search extends React.Component {
             if (this.state.filtrarPrecio == false) {
                 return (
                     <View style={styles.container}>
-                        <Text>{this.state.tipo}</Text>
                         <View>
                             <SearchBar
                                 placeholder="Name/Place/Type/Genre"
