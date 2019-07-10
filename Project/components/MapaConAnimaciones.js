@@ -75,6 +75,8 @@ export default class MapaConAnimaciones extends Component {
   componentDidMount() {
     // We should detect when scrolling has stopped then animate
     // We should just debounce the event listener here
+
+    console.log("Entered in Mapa con animaciones.js")
     this.animation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
       if (index >= this.state.markers.length) {

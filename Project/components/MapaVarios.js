@@ -23,8 +23,10 @@ import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInput } from "react-native-gesture-handler";
+import UserDataManager from './UserDataManager';
 var { height, width } = Dimensions.get('window');
-function createData(item) {
+function createData(item,distance) {
+  console.log("This is the distance comming into the funciton create data: "+ distance)
   return {
     key: item._id,
     imagen: item.imagen,
@@ -40,6 +42,7 @@ function createData(item) {
     latitude: item.latitude,
     precioE: item.precioE,
     longitude: item.longitude,
+    distance: distance
 
   };
 }
@@ -49,6 +52,20 @@ function createCoord(item) {
     coordenadas: item.results[0].geometry.location
 
   };
+}
+
+function parseCoordenadasReact(item){
+    return {
+      longitude: item.coords.longitude,
+      latitude: item.coords.latitude
+    }
+}
+function createCoordForDistance(item){
+  /*console.log("Creating coord for distance: " +  JSON.stringify(item));
+  console.log("Creadting coord for: " + item.routes[0].legs[0].distance.text)*/
+  return {
+    distance: item.routes[0].legs[0].distance.text
+  }
 }
 
 class Mapa extends Component {
@@ -62,8 +79,8 @@ class Mapa extends Component {
       isLoading: true,
       eventos: [],
       coordenadasNew: [],
-      longitude: -58.38224887847901,
-      latitude: -34.618269992307674,
+      longitude: UserDataManager.getInstance().getLongitude(),
+      latitude: UserDataManager.getInstance().getLatitude(),
       markerOk: false,
       coordenadasGuardadas: [],
       searchBarFocused: false,
@@ -88,7 +105,39 @@ class Mapa extends Component {
     headerTintColor: '#3399ff',
   };
 
+
+
+  getCurrentDistanceToEvent(Event){
+    let lat1 = this.state.latitude
+    let lon1 = this.state.longitude
+    if (this.state.latitude == null || this.state.longitude == null) {
+      return;
+    }
+    let lat2 = Event.latitude
+    let lon2 = Event.longitude
+    return this.getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
+}
+
+getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  console.log("Distance in KM " + d)
+  return d;
+}
+
+deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
   obtenerEventos() {
+    //this.getCurrentPositionFromReact()
     ApiController.getEventos(this.okEventos.bind(this));
   }
   okEventos(data) {
@@ -97,16 +146,21 @@ class Mapa extends Component {
       for (i = 0; i < data.length; i++) {
         if (this.state.tipo == 'Recomendados') {
           if (data[i].rating >= 4) {
-            newArray.push(createData(data[i], i));
+            console.log(this.getCurrentDistanceToEvent(data[i]))
+            newArray.push(createData(data[i]));
           }
         } else {
           if (data[i].tipo == this.state.tipo) {
-            newArray.push(createData(data[i], i));
+            newArray.push(createData(data[i]));
           }
         }
       }
       //console.log(newArray)
       this.setState({ eventos: newArray, isLoading: false });
+      newArray.map( (element) => {
+        console.log("This is the element in the new array: " + JSON.stringify(element))
+        console.log("This is the element's distance" + element.distance)
+      })
     } else {
       alert("Intentar de nuevo")
     }
@@ -114,13 +168,8 @@ class Mapa extends Component {
   okCoordenadas(data) {
     if (data != null) {
       var i, newArray = [];
-      //console.log(data)
       newArray = createCoord(data)
-
-      //console.log(newArray)
       this.setState({ coordenadasNew: newArray, longitude: newArray.coordenadas.lng, latitude: newArray.coordenadas.lat });
-      // console.log(this.state.longitude)
-      // console.log(this.state.latitude)
     } else {
       alert("Intentar de nuevo")
     }
@@ -232,6 +281,8 @@ class Mapa extends Component {
     this.keyboardDidShow = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
     this.keyboardWillShow = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow)
     this.keyboardWillHide = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide)
+    
+    
   }
   keyboardDidShow = () => {
     this.setState({ searchBarFocused: true })
