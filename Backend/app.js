@@ -50,38 +50,330 @@ app.listen(port, function () {
 app.get('/', (req, res) => res.send('Backend Activo'));
 
 /************ Test ***********/
+/**** EVENTOS ****/
 var Evento = require('./model/Evento');
-/*
-var lollaEvento = new Evento({
+
+var bocaEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
-    nombre:'Lolla Palooza',
-    descripcion:'Terrible festival....',
-    fecha: '24/03/20',
-    tipo:'Festival',
-    idUsuarioPropietario:'Time4Fun',
-    duracion:'3 Dias',
-    genero:'Variado',
-    imagen:'https://www.radiocantilo.com/wp-content/uploads/2018/03/descarga.png',
-    rating:5,
+    nombre:'Boca vs Athletico Paranaense',
+    descripcion:'Copa Libertadores 2019',
+    fecha:'31/07/19 21.30hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Boca Juniors',
+    duracion:'2 Horas',
+    genero:'Futbol',
+    imagen:'http://e00-ar-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/05/09/15573533399660.jpg',
+    rating:4.8,
     personas:0,
-    precioE:2500,
-    precios: [{nombre:'Entrada general', precio:'2500'},{nombre:'VIP', precio:'3500'},{nombre:'Agua 500ml', precio:'120'},{nombre:'Gaseosa lata', precio:'100'},{nombre:'Hamburguesa', precio:'280-320'}],
-    ubicacion: 'Hipodromo de San Isidro, San Isidro',
-    latitude:-34.480023,
-    longitude:-58.507587
+    precioE:3599,
+    precios: [{nombre:'Graba Media', precio:'$3599'},
+    {nombre:'Palcos', precio:'$13000'},
+    {nombre:'Torre', precio:'$6769'},
+    {nombre:'Tribuna inferior', precio:'$3600'},
+    {nombre:'Upper tier', precio:'$4680'}],
+    ubicacion:'Estadio Boca Juniors, CABA',
+    latitude:-34.635417,
+    longitude:-58.364692
 });
 
-lollaEvento.save(function(err) {
+bocaEvento.save(function(err) {
     if (err) throw err;
         
-    console.log('Evento '+lollaEvento.nombre+' guardado con exito.');
+    console.log('Evento '+bocaEvento.nombre+' guardado con exito.');
+});
+
+var pumasEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Los Pumas vs Springboks',
+    descripcion:'Veni a alentar a los Pumas en su despedida antes del mundial',
+    fecha: '10/08/19 16.40hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Personal',
+    duracion:'2 horas',
+    genero:'Rugby',
+    imagen:'http://e00-ar-marca.uecdn.es/claro/assets/multimedia/imagenes/2018/08/16/15344434117810.jpg',
+    rating:3.7,
+    personas:0,
+    precioE:400,
+    precios: [{nombre:'PREFERENCIAL S/N', precio:'$700'},
+    {nombre:'GENERAL SUR', precio:'$400'},
+    {nombre:'GENERAL NORTE', precio:'$400'},
+    {nombre:'PLATEA LATERAL T', precio:'$500'},
+    {nombre:'PLATEA LATERAL D', precio:'$500'},
+    {nombre:'PLATEA LATERAL U', precio:'$1200'},
+    {nombre:'PLATEA LATERAL V', precio:'$1200'},
+    {nombre:'PLATEA LATERAL A', precio:'$1200'},
+    {nombre:'PLATEA LATERAL B', precio:'$1200'},
+    {nombre:'PLATEA LATERAL C', precio:'$1200'}],
+    ubicacion: 'Estadio Padre Martearena, Salta',
+    latitude:-24.819769,
+    longitude:-65.419671
+});
+
+pumasEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+pumasEvento.nombre+' guardado con exito.');
+});
+
+var basketEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Argentina vs Uruguay',
+    descripcion:'Nacion3s 2019',
+    fecha: '26/07/19 19hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Dove',
+    duracion:'2 horas',
+    genero:'Basket',
+    imagen:'http://e00-ar-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/06/20/15609848388305.jpg',
+    rating:3.4,
+    personas:0,
+    precioE:400,
+    precios: [{nombre:'PALCO LATERAL C', precio:'$1200'},
+    {nombre:'PALCO LATERAL G', precio:'$1200'},
+    {nombre:'PALCO CABECERA A', precio:'$900'},
+    {nombre:'PALCO CABECERA E', precio:'$900'},
+    {nombre:'PLATEA BAJA S/N', precio:'$700'},
+    {nombre:'PLATEA ALTA S/N', precio:'$400'}],
+    ubicacion: 'Parque Roca, Soldati',
+    latitude:-34.666441,
+    longitude:-58.440303
+});
+
+basketEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+basketEvento.nombre+' guardado con exito.');
+});
+
+var basket2Evento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Argentina vs Puerto Rico',
+    descripcion:'Nacion3s 2019',
+    fecha: '27/07/19 21hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Dove',
+    duracion:'2 horas',
+    genero:'Basket',
+    imagen:'http://e00-ar-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/06/20/15609848388305.jpg',
+    rating:3.4,
+    personas:0,
+    precioE:400,
+    precios: [{nombre:'PALCO LATERAL C', precio:'$1200'},
+    {nombre:'PALCO LATERAL G', precio:'$1200'},
+    {nombre:'PALCO CABECERA A', precio:'$900'},
+    {nombre:'PALCO CABECERA E', precio:'$900'},
+    {nombre:'PLATEA BAJA S/N', precio:'$700'},
+    {nombre:'PLATEA ALTA S/N', precio:'$400'}],
+    ubicacion: 'Parque Roca, Soldati',
+    latitude:-34.666441,
+    longitude:-58.440303
+});
+
+basket2Evento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+basket2Evento.nombre+' guardado con exito.');
+});
+
+var canchaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'A la cancha por una Sonrisa',
+    descripcion:'Futbol Mixto y Solidario',
+    fecha: '13/07/19 15hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Fundacion PUPI',
+    duracion:'2 horas',
+    genero:'Futbol',
+    imagen:'https://pbs.twimg.com/media/D_AGZAiWkAAeWXh.jpg',
+    rating:3.0,
+    personas:0,
+    precioE:100,
+    precios: [{nombre:'PLATEA PTA ZUFRATEFUI SECCION1', precio:'$200'},
+    {nombre:'PLATEA PTA ZUFRATEFUI SECCION2', precio:'$200'},
+    {nombre:'PLATEA PTA ZUFRATEFUI SECCION3', precio:'$200'},
+    {nombre:'POPULAR PUERTA LINIERS', precio:'$100'}],
+    ubicacion: 'Estadio Club Atletico Platense, Vicente Lopez',
+    latitude:-34.540071,
+    longitude:-58.481630
+});
+
+canchaEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+canchaEvento.nombre+' guardado con exito.');
+});
+
+var gustarEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'No Te Va A Gustar',
+    descripcion:'Este espectáculo forma parte de la presentación de su disco “Otras canciones” que han preparado con motivo de sus 25 años',
+    fecha: '02/08/19 21.30hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Ticketek',
+    duracion:'2 horas',
+    genero:'Musica',
+    imagen:'http://www.gamba.fm/wp/wp-content/uploads/2019/03/ntvg.jpg',
+    rating:3.0,
+    personas:0,
+    precioE:600,
+    precios: [{nombre:'S.ORQUESTA', precio:'$1450'},
+    {nombre:'PLATEA BAJA', precio:'$1300'},
+    {nombre:'PLATEA ALTA', precio:'$1150'},
+    {nombre:'TERTULIA BALCON', precio:'$1000'},
+    {nombre:'TERTULIA ALTA', precio:'$850'},
+    {nombre:'GRADAS CENTRALES', precio:'$700'},
+    {nombre:'GRADA IZQUIEDA', precio:'$700'},
+    {nombre:'GRADA DERECHA', precio:'$700'},
+    {nombre:'PARAISO S/N', precio:'$600'}],
+    ubicacion: 'Teatro El Círculo, Santa Fé Rosario',
+    latitude:-32.952278,
+    longitude:-60.635040
+});
+
+gustarEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+gustarEvento.nombre+' guardado con exito.');
+});
+
+var inviEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Los Amigos Invisibles',
+    descripcion:'Los Amigos Invisibles presentan "Tócamela Tour"',
+    fecha: '06/09/19 21hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Ticketek',
+    duracion:'2 horas',
+    genero:'Musica',
+    imagen:'https://www.ticketek.com.ar/sites/default/files/images/artist/amigosinvisibles-garfield-art.png',
+    rating:3.0,
+    personas:0,
+    precioE:860,
+    precios: [{nombre:'ULTRA VIP', precio:'$1380'},
+    {nombre:'PALCO VIP ORO', precio:'$1180'},
+    {nombre:'PALCO VIP PLATA', precio:'$980'},
+    {nombre:'GENERAL', precio:'$780'}],
+    ubicacion: 'Club Museum, CABA',
+    latitude:-34.613977,
+    longitude:-58.374886
+});
+
+inviEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+inviEvento.nombre+' guardado con exito.');
+});
+
+var richieEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Richie Ramone',
+    descripcion:'Richie Ramone vuelve a la Argentina celebrando el 45 Aniversario de Ramones',
+    fecha: '24/07/19 19hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Ticketek',
+    duracion:'2 horas',
+    genero:'Musica',
+    imagen:'http://headbangerslatinoamerica.com/wp-content/uploads/2019/05/ig-richie-300x300.jpg',
+    rating:3.9,
+    personas:0,
+    precioE:1250,
+    precios: [{nombre:'GENERAL', precio:'$1135'},
+    {nombre:'2X1 LA NACION GENERAL', precio:'$1135'},
+    {nombre:'2X1 CLARIN 365 GENERAL', precio:'$1135'}],
+    ubicacion: 'Uniclub, CABA',
+    latitude:-34.602505,
+    longitude:-58.412295
+});
+
+richieEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+richieEvento.nombre+' guardado con exito.');
+});
+
+var richieEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Richie Ramone',
+    descripcion:'Richie Ramone vuelve a la Argentina celebrando el 45 Aniversario de Ramones',
+    fecha: '24/07/19 19hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Ticketek',
+    duracion:'2 horas',
+    genero:'Musica',
+    imagen:'http://headbangerslatinoamerica.com/wp-content/uploads/2019/05/ig-richie-300x300.jpg',
+    rating:3.9,
+    personas:0,
+    precioE:1250,
+    precios: [{nombre:'GENERAL', precio:'$1135'},
+    {nombre:'2X1 LA NACION GENERAL', precio:'$1135'},
+    {nombre:'2X1 CLARIN 365 GENERAL', precio:'$1135'}],
+    ubicacion: 'Uniclub, CABA',
+    latitude:-34.602505,
+    longitude:-58.412295
+});
+
+richieEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+richieEvento.nombre+' guardado con exito.');
+});
+
+var glamEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Glamnation',
+    descripcion:'LETS FUCKIN ROCK!',
+    fecha:'12/07/19 23hs',
+    tipo:'Show',
+    idUsuarioPropietario:'The Roxy Live',
+    duracion:'2 Horas',
+    genero:'Rock',
+    imagen:'http://www.mtsproducciones.com/imagenes/locales/zag-glamnation-300x270.jpg',
+    rating:3.0,
+    personas:0,
+    precioE:150,
+    precios: [{nombre:'Entrada general', precio:'$150'}],
+    ubicacion:'Niceto Vega 5542, CABA',
+    latitude:-34.585187,
+    longitude:-58.438715
+});
+
+glamEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+glamEvento.nombre+' guardado con exito.');
+});
+
+var joseEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Josefita',
+    descripcion:'La ya conocida banda de las hormigas no para y continúa con sus noche de #RocanrolYCarnaval',
+    fecha:'13/07/19 21hs',
+    tipo:'Show',
+    idUsuarioPropietario:'The Roxy Live',
+    duracion:'2 Horas',
+    genero:'Rock',
+    imagen:'http://www.mtsproducciones.com/imagenes/locales/ROXY-LVB-WEB-300x270-JOSE-ROX-13-7-19.jpg',
+    rating:2.5,
+    personas:0,
+    precioE:300,
+    precios: [{nombre:'Entrada general', precio:'$300'}],
+    ubicacion:'Niceto Vega 5542, CABA',
+    latitude:-34.585187,
+    longitude:-58.438715
+});
+
+joseEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+joseEvento.nombre+' guardado con exito.');
 });
 
 var disneyEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Disney on Ice',
     descripcion:'Conquista tus Sueños',
-    fecha:'26/07/20',
+    fecha:'26/07/19 19hs',
     tipo:'Show',
     idUsuarioPropietario:'Disney',
     duracion:'2 Horas',
@@ -90,6 +382,16 @@ var disneyEvento = new Evento({
     rating:5,
     personas:0,
     precioE:850,
+    precios: [{nombre:'PALCO Para 4 personas', precio:'$14800'},
+    {nombre:'SUPER PULLMAN A', precio:'$2900'},
+    {nombre:'PLATEA PREFERIDA', precio:'$2500'},
+    {nombre:'SUPER PULLMAN', precio:'$1700'},
+    {nombre:'PLATEA MADERO BAJA', precio:'$1600'},
+    {nombre:'PLATEA CENTRAL', precio:'$1400'},
+    {nombre:'PULLMAN', precio:'$1300'},
+    {nombre:'PLATEA', precio:'$850'},
+    {nombre:'PLATEA MADERO ALTA', precio:'$850'},
+    {nombre:'CABECERA S/N', precio:'$450'}],
     ubicacion:'Luna Park, CABA',
     latitude:-34.602055,
     longitude:-58.368697
@@ -105,7 +407,7 @@ var wweEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'WWE Live Buenos Aires',
     descripcion:'Las estrellas de WWE regresan a Argentina!',
-    fecha:'06/09/20',
+    fecha:'06/09/19 20.30hs',
     tipo:'Show',
     idUsuarioPropietario:'WWE',
     duracion:'2 Horas',
@@ -113,6 +415,12 @@ var wweEvento = new Evento({
     imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXnF2ecEQydigrd4PYoJtQ7PO4SsPyCsKL_YpVVOXJJV1-Q4D50w',
     rating:3.5,
     precioE:1000,
+    precios: [{nombre:'RING SIDE', precio:'$3500'},
+    {nombre:'SUPER PULLMAN', precio:'$3000'},
+    {nombre:'MEET & GREET', precio:'$3000'},
+    {nombre:'RING SIDE ALTO', precio:'$2400'},
+    {nombre:'PLATEA MADERO ALTA', precio:'$1700'},
+    {nombre:'CABECERA S/N', precio:'$1000'}],
     personas:0,
     ubicacion:'Luna Park, CABA',
     latitude:-34.602055,
@@ -125,59 +433,11 @@ wweEvento.save(function(err) {
     console.log('Evento '+wweEvento.nombre+' guardado con exito.');
 });
 
-var tiniEvento = new Evento({
-    _id: new mongoose.Types.ObjectId(),
-    nombre:'Tini Quiero Volver Tour',
-    descripcion:'Tini llega al Luna Park para presentar su segunda gira "Quiero Volver Tour"',
-    fecha:'18/10/20',
-    tipo:'Concierto',
-    idUsuarioPropietario:'Time4Fun',
-    duracion:'2 Horas',
-    genero:'Pop',
-    imagen:'https://i.pinimg.com/originals/4a/6d/38/4a6d388d62d2797947eb1f5f396314b9.jpg',
-    rating:4.5,
-    personas:0,
-    precioE:700,
-    ubicacion:'Luna Park, CABA',
-    latitude:-34.602055,
-    longitude:-58.368697
-});
-
-tiniEvento.save(function(err) {
-    if (err) throw err;
-        
-    console.log('Evento '+tiniEvento.nombre+' guardado con exito.');
-});
-
-var saboresEvento = new Evento({
-    _id: new mongoose.Types.ObjectId(),
-    nombre:'Caminos y Sabores 15º Edicion',
-    descripcion:'El Mercado de los sabores, la Cultura y la Identidad Argentina',
-    fecha:'06/07/20',
-    tipo:'Exposicion',
-    idUsuarioPropietario:'Ciudad BA',
-    duracion:'2 Horas',
-    genero:'Gastronomia',
-    imagen:'http://novedadesaoca.site/wp-content/uploads/2019/02/Imagen2.png',
-    rating:3.7,
-    personas:0,
-    precioE:700,
-    ubicacion:'La Rural, Palermo',
-    latitude:-34.578170,
-    longitude:-58.420584
-});
-
-saboresEvento.save(function(err) {
-    if (err) throw err;
-        
-    console.log('Evento '+saboresEvento.nombre+' guardado con exito.');
-});
-
 var aladinEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Aladin Sera Genial',
     descripcion:'Despedida en vacaciones de invierno!',
-    fecha:'30/06/20',
+    fecha:'30/06/19',
     tipo:'Show',
     idUsuarioPropietario:'Mp Producciones',
     duracion:'2 Horas',
@@ -197,89 +457,101 @@ aladinEvento.save(function(err) {
     console.log('Evento '+aladinEvento.nombre+' guardado con exito.');
 });
 
-var glamEvento = new Evento({
+var tiniEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
-    nombre:'Glamnation',
-    descripcion:'LETS FUCKIN ROCK!',
-    fecha:'12/07/20',
-    tipo:'Show',
-    idUsuarioPropietario:'The Roxy Live',
-    duracion:'2 Horas',
-    genero:'Rock',
-    imagen:'http://www.mtsproducciones.com/imagenes/locales/zag-glamnation-300x270.jpg',
-    rating:3.0,
-    personas:0,
-    precioE:150,
-    precios: [{nombre:'Entrada general', precio:'150'}],
-    ubicacion:'Niceto Vega 5542, CABA',
-    latitude:-34.585187,
-    longitude:-58.438715
-});
-
-glamEvento.save(function(err) {
-    if (err) throw err;
-        
-    console.log('Evento '+glamEvento.nombre+' guardado con exito.');
-});
-
-var joseEvento = new Evento({
-    _id: new mongoose.Types.ObjectId(),
-    nombre:'Josefita',
-    descripcion:'La ya conocida banda de las hormigas no para y continúa con sus noche de #RocanrolYCarnaval',
-    fecha:'13/07/20',
+    nombre:'Tini Quiero Volver Tour',
+    descripcion:'Tini llega al Luna Park para presentar su segunda gira "Quiero Volver Tour"',
+    fecha:'18/10/19 19hs',
     tipo:'Concierto',
-    idUsuarioPropietario:'The Roxy Live',
+    idUsuarioPropietario:'Time4Fun',
     duracion:'2 Horas',
-    genero:'Rock',
-    imagen:'http://www.mtsproducciones.com/imagenes/locales/ROXY-LVB-WEB-300x270-JOSE-ROX-13-7-19.jpg',
-    rating:2.5,
+    genero:'Pop',
+    imagen:'https://i.pinimg.com/originals/4a/6d/38/4a6d388d62d2797947eb1f5f396314b9.jpg',
+    rating:4.5,
     personas:0,
-    precioE:300,
-    precios: [{nombre:'Entrada general', precio:'300'}],
-    ubicacion:'Niceto Vega 5542, CABA',
-    latitude:-34.585187,
-    longitude:-58.438715
+    precioE:700,
+    precios: [{nombre:'PLATEA VIP', precio:'$2500'},
+    {nombre:'SUPER PULLMAN CENTRAL', precio:'$2500'},
+    {nombre:'PLATEA ELEVADA', precio:'$2200'},
+    {nombre:'SUPER PULLMAN LATERAL', precio:'$2000'},
+    {nombre:'PLATEA LATERAL', precio:'$1500'},
+    {nombre:'PULLMAN LATERAL', precio:'$1100'},
+    {nombre:'CABECERA S/N', precio:'$700'}],
+    ubicacion:'Luna Park, CABA',
+    latitude:-34.602055,
+    longitude:-58.368697
 });
 
-joseEvento.save(function(err) {
+tiniEvento.save(function(err) {
     if (err) throw err;
         
-    console.log('Evento '+joseEvento.nombre+' guardado con exito.');
+    console.log('Evento '+tiniEvento.nombre+' guardado con exito.');
 });
 
-var bocaEvento = new Evento({
+var sealEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
-    nombre:'Boca vs Athletico Paranaense',
-    descripcion:'Copa Libertadores 2019',
-    fecha:'31/07/20',
-    tipo:'Show',
-    idUsuarioPropietario:'Boca Juniors',
+    nombre:'Seal',
+    descripcion:'SEAL regresa a la Argentina en el marco de su gira Standards, su más reciente producción discográfica',
+    fecha:'03/10/19 21hs',
+    tipo:'Concierto',
+    idUsuarioPropietario:'Time4Fun',
     duracion:'2 Horas',
-    genero:'Futbol',
-    imagen:'http://e00-ar-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/05/09/15573533399660.jpg',
-    rating:4.8,
+    genero:'Pop',
+    imagen:'https://entradas.quelapaseslindo.com.ar/wp-content/uploads/seal-argentina-2019.jpg',
+    rating:4.5,
     personas:0,
-    precioE:3599,
-    precios: [{nombre:'Graba Media', precio:'3599'},{nombre:'Palcos', precio:'13000'},{nombre:'Torre', precio:'6769'},{nombre:'Tribuna inferior', precio:'3600'},{nombre:'Upper tier', precio:'4680'}],
-    ubicacion:'Brandsen 805, CABA',
-    latitude:-34.635417,
-    longitude:-58.364692
+    precioE:1400,
+    precios: [{nombre:'PLATEA VIP', precio:'$4000'},
+    {nombre:'SUPER PULLMAN CENTRAL', precio:'$3500'},
+    {nombre:'PLATEA ELEVADA', precio:'$3100'},
+    {nombre:'SUPER PULLMAN LATERAL', precio:'$3100'},
+    {nombre:'PLATEA LATERAL', precio:'$2600'},
+    {nombre:'PULLMAN LATERAL', precio:'$1900'},
+    {nombre:'CABECERA S/N', precio:'$1400'}],
+    ubicacion:'Luna Park, CABA',
+    latitude:-34.602055,
+    longitude:-58.368697
 });
 
-bocaEvento.save(function(err) {
+sealEvento.save(function(err) {
     if (err) throw err;
         
-    console.log('Evento '+bocaEvento.nombre+' guardado con exito.');
+    console.log('Evento '+sealEvento.nombre+' guardado con exito.');
+});
+
+var saboresEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Caminos y Sabores 15º Edicion',
+    descripcion:'El Mercado de los sabores, la Cultura y la Identidad Argentina',
+    fecha:'06/07/19 - 09/07/19 12hs',
+    tipo:'Exposicion',
+    idUsuarioPropietario:'Ciudad BA',
+    duracion:'10 Horas',
+    genero:'Gastronomia',
+    imagen:'http://novedadesaoca.site/wp-content/uploads/2019/02/Imagen2.png',
+    rating:3.7,
+    personas:0,
+    precioE:200,
+    precios:[{nombre:'Gaseosa 500cc', precio:'$50'}, {nombre:'Agua 500cc', precio:'$40'}],
+    ubicacion:'La Rural, Palermo',
+    latitude:-34.578170,
+    longitude:-58.420584
+});
+
+saboresEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+saboresEvento.nombre+' guardado con exito.');
 });
 
 var barEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Musica en Bares Notables',
     descripcion:'Los Cafés y Bares Notables que se hallan diseminados en diversos barrios de la Ciudad de Buenos Aires',
-    fecha:'13/07/20',
-    tipo:'Show',
+    fecha:'05/07/19 - 31/08/19 18hs',
+    tipo:'Exposicion',
     idUsuarioPropietario:'DisfrutemosBA',
-    duracion:'2 Horas',
+    duracion:'',
     genero:'Espectaculo',
     imagen:'https://media-cdn.tripadvisor.com/media/photo-s/0f/f5/91/83/bar-iberia.jpg',
     rating:3.1,
@@ -301,10 +573,10 @@ var milongaEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Convocatoria BA Milonga',
     descripcion:'Abierta a quienes impulsen milongas',
-    fecha:'22/07/20',
-    tipo:'Show',
+    fecha:'21/06/19 - 22/07/19 10hs',
+    tipo:'Exposicion',
     idUsuarioPropietario:'DisfrutemosBA',
-    duracion:'2 Horas',
+    duracion:'',
     genero:'Espectaculo',
     imagen:'https://www.buenosaires.gob.ar/sites/gcaba/files/field/image/foto_37_0.jpg',
     rating:3.3,
@@ -326,16 +598,16 @@ var oktoberEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Oktoberfest 2019',
     descripcion:'Fiesta Nacional de la Cerveza',
-    fecha:'04/10/20',
+    fecha:'04/10/19 - 14/10/19',
     tipo:'Festival',
     idUsuarioPropietario:'Oktoberfest',
-    duracion:'6 Horas',
+    duracion:'',
     genero:'Variado',
     imagen:'https://i0.wp.com/www.lawebdelvalle.com/wp-content/uploads/2018/10/oktober-2019.jpg?fit=960%2C640&ssl=1',
     rating:3.9,
     personas:0,
     precioE:300,
-    precios: [{nombre:'Entrada general', precio:'300'},{nombre:'Cerveza', precio:'200'},{nombre:'Pancho Chucrut', precio:'200'}],
+    precios: [{nombre:'Entrada general', precio:'$300'},{nombre:'Cerveza', precio:'$200'},{nombre:'Pancho Chucrut', precio:'$200'}],
     ubicacion:'Villa General Belgrano, Cordoba',
     latitude:-34.982599,
     longitude:-64.566771
@@ -345,6 +617,31 @@ oktoberEvento.save(function(err) {
     if (err) throw err;
         
     console.log('Evento '+oktoberEvento.nombre+' guardado con exito.');
+});
+
+var lollaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Lolla Palooza',
+    descripcion:'Terrible festival....',
+    fecha: '24/03/20',
+    tipo:'Festival',
+    idUsuarioPropietario:'Time4Fun',
+    duracion:'3 Dias',
+    genero:'Variado',
+    imagen:'https://www.radiocantilo.com/wp-content/uploads/2018/03/descarga.png',
+    rating:5,
+    personas:0,
+    precioE:2500,
+    precios: [{nombre:'Entrada general', precio:'$2500'},{nombre:'VIP', precio:'$3500'},{nombre:'Agua 500ml', precio:'$120'},{nombre:'Gaseosa lata', precio:'$100'},{nombre:'Hamburguesa', precio:'$280-320'}],
+    ubicacion: 'Hipodromo de San Isidro, San Isidro',
+    latitude:-34.480023,
+    longitude:-58.507587
+});
+
+lollaEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+lollaEvento.nombre+' guardado con exito.');
 });
 
 // ACA ARRANCAN LOS EVENTOS CARGADOS POR MATI
@@ -361,7 +658,7 @@ var JamEvento = new Evento({
     rating:3.5,
     personas:0,
     precioE: 100,
-    precios: [{nombre:'Entrada general', precio:'100'},{nombre:'Cerveza', precio:'200'},{nombre:'Hamburguesa', precio:'160'}],
+    precios: [{nombre:'Entrada general', precio:'$100'},{nombre:'Cerveza', precio:'$200'},{nombre:'Hamburguesa', precio:'$160'}],
     ubicacion:'Saavedra 399, Ramos Mejia, Buenos Aires',
     latitude:-34.648198,
     longitude:-58.565609
@@ -373,8 +670,6 @@ JamEvento.save(function(err) {
     console.log('Evento '+JamEvento.nombre+' guardado con exito.');
 });
 
-*/
-/*
 var HHEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Hit Hop Festival',
@@ -388,8 +683,8 @@ var HHEvento = new Evento({
     rating:3.6,
     personas:0,
     precioE: 400,
-    precios: [{nombre:'Entrada general', precio:'400'},{nombre:'Cerveza', precio:'120'},{nombre:'Hamburguesa', precio:'130'},
-    {nombre:'Gaseosa Seven Up 600 ML', precio:'55'},{nombre:'Gaseosa Coca Cola 600 ML', precio:'55'} ],
+    precios: [{nombre:'Entrada general', precio:'$400'},{nombre:'Cerveza', precio:'$120'},{nombre:'Hamburguesa', precio:'$130'},
+    {nombre:'Gaseosa Seven Up 600 ML', precio:'$55'},{nombre:'Gaseosa Coca Cola 600 ML', precio:'$55'} ],
     ubicacion:'Hipolito Yrigoyen 1592, Lujan, Buenos Aires',
     latitude:-34.576258,
     longitude:-59.103468
@@ -414,8 +709,8 @@ var ChiEvento = new Evento({
     rating:3.6,
     personas:0,
     precioE: 0,
-    precios: [{nombre:'Entrada general', precio:'0'},{nombre:'Cerveza', precio:'135'},{nombre:'Hamburguesa', precio:'150'},
-    {nombre:'Gaseosa Seven Up 600 ML', precio:'55'},{nombre:'Gaseosa Coca Cola 600 ML', precio:'55'} ],
+    precios: [{nombre:'Entrada general', precio:'$0'},{nombre:'Cerveza', precio:'$135'},{nombre:'Hamburguesa', precio:'$150'},
+    {nombre:'Gaseosa Seven Up 600 ML', precio:'$55'},{nombre:'Gaseosa Coca Cola 600 ML', precio:'$55'} ],
     ubicacion:'25 de Mayo 384, Lujan, Buenos Aires',
     latitude:-34.562886,
     longitude:-59.115874
@@ -426,7 +721,6 @@ ChiEvento.save(function(err) {
         
     console.log('Evento '+ChiEvento.nombre+' guardado con exito.');
 });
-
 
 var TangoEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
@@ -441,8 +735,8 @@ var TangoEvento = new Evento({
     rating:4.6,
     personas:0,
     precioE: 0,
-    precios: [{nombre:'Entrada general', precio:'0'},{nombre:'Cerveza', precio:'135'},{nombre:'Hamburguesa', precio:'150'},
-    {nombre:'Gaseosa Seven Up 600 ML', precio:'55'},{nombre:'Gaseosa Coca Cola 600 ML', precio:'55'} ],
+    precios: [{nombre:'Entrada general', precio:'$0'},{nombre:'Cerveza', precio:'$135'},{nombre:'Hamburguesa', precio:'$150'},
+    {nombre:'Gaseosa Seven Up 600 ML', precio:'$55'},{nombre:'Gaseosa Coca Cola 600 ML', precio:'$55'} ],
     ubicacion:'25 de Mayo 1079, Lujan, Buenos Aires',
     latitude:-34.566105,
     longitude:-59.105811
@@ -452,8 +746,7 @@ TangoEvento.save(function(err) {
     if (err) throw err;
         
     console.log('Evento '+TangoEvento.nombre+' guardado con exito.');
-});*/
-
+});
 
 var DamasGratisEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
@@ -468,8 +761,8 @@ var DamasGratisEvento = new Evento({
     rating:2.6,
     personas:0,
     precioE: 150,
-    precios: [{nombre:'Entrada general', precio:'150'},{nombre:'Cerveza', precio:'135'},{nombre:'Hamburguesa', precio:'150'},
-    {nombre:'Gaseosa Seven Up 600 Ml', precio:'55'}, {nombre:'Whisky', precio:'700'}, {nombre:'Abtsolut', precio:'1200'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'55'} ,{nombre:'Botella de agua de 600 Ml', precio:'90'} ],
+    precios: [{nombre:'Entrada general', precio:'$150'},{nombre:'Cerveza', precio:'$135'},{nombre:'Hamburguesa', precio:'$150'},
+    {nombre:'Gaseosa Seven Up 600 Ml', precio:'$55'}, {nombre:'Whisky', precio:'$700'}, {nombre:'Abtsolut', precio:'$1200'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'$55'} ,{nombre:'Botella de agua de 600 Ml', precio:'$90'} ],
     ubicacion:'Lezica y Torrezuri, Lujan, Buenos Aires',
     latitude:-34.559298,
     longitude:-59.120188
@@ -494,8 +787,8 @@ var CreativityEvento = new Evento({
     rating:2.6,
     personas:0,
     precioE: 180,
-    precios: [{nombre:'Entrada general', precio:'180'},{nombre:'Cerveza', precio:'135'},
-    {nombre:'Gaseosa Seven Up 600 Ml', precio:'55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'55'} ,{nombre:'Botella de agua de 600 Ml', precio:'90'} ],
+    precios: [{nombre:'Entrada general', precio:'$180'},{nombre:'Cerveza', precio:'$135'},
+    {nombre:'Gaseosa Seven Up 600 Ml', precio:'$55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'$55'} ,{nombre:'Botella de agua de 600 Ml', precio:'$90'} ],
     ubicacion:'Sixto Fernández, Partido de Lomas de Zamora, Buenos Aires',
     latitude:-34.766688,
     longitude:-58.400498
@@ -520,8 +813,8 @@ var DescEvento = new Evento({
     rating:3.6,
     personas:0,
     precioE: 480,
-    precios: [{nombre:'Entrada general', precio:'480'},{nombre:'Pochoclos', precio:'135'},
-    {nombre:'Gaseosa Seven Up 600 Ml', precio:'55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'55'} ,{nombre:'Botella de agua de 600 Ml', precio:'90'} ],
+    precios: [{nombre:'Entrada general', precio:'$480'},{nombre:'Pochoclos', precio:'$135'},
+    {nombre:'Gaseosa Seven Up 600 Ml', precio:'$55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'$55'} ,{nombre:'Botella de agua de 600 Ml', precio:'$90'} ],
     ubicacion:'España 55, Partido de Lomas de Zamora,, Buenos Aires',
     latitude:-34.771141,
     longitude:-58.40024
@@ -532,7 +825,6 @@ DescEvento.save(function(err) {
         
     console.log('Evento '+ DescEvento.nombre+' guardado con exito.');
 });
-
 
 var HernanEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
@@ -547,8 +839,8 @@ var HernanEvento = new Evento({
     rating:2.6,
     personas:0,
     precioE: 380,
-    precios: [{nombre:'Entrada general', precio:'380'},{nombre:'Pochoclos', precio:'135'},
-    {nombre:'Gaseosa Seven Up 600 Ml', precio:'55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'55'} ,{nombre:'Botella de agua de 600 Ml', precio:'90'} ],
+    precios: [{nombre:'Entrada general', precio:'$380'},{nombre:'Pochoclos', precio:'$135'},
+    {nombre:'Gaseosa Seven Up 600 Ml', precio:'$55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'$55'} ,{nombre:'Botella de agua de 600 Ml', precio:'$90'} ],
     ubicacion:'España 55, Partido de Lomas de Zamora,, Buenos Aires',
     latitude:-34.771141,
     longitude:-58.40024
@@ -559,7 +851,6 @@ HernanEvento.save(function(err) {
         
     console.log('Evento '+ HernanEvento.nombre+' guardado con exito.');
 });
-
 
 var SinCodiEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
@@ -574,8 +865,8 @@ var SinCodiEvento = new Evento({
     rating:2.6,
     personas:0,
     precioE: 350,
-    precios: [{nombre:'Entrada general', precio:'380'},{nombre:'Pochoclos', precio:'135'},
-    {nombre:'Gaseosa Seven Up 600 Ml', precio:'55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'55'} ,{nombre:'Botella de agua de 600 Ml', precio:'90'} ],
+    precios: [{nombre:'Entrada general', precio:'$380'},{nombre:'Pochoclos', precio:'$135'},
+    {nombre:'Gaseosa Seven Up 600 Ml', precio:'$55'},{nombre:'Gaseosa Coca Cola 600 Ml', precio:'$55'} ,{nombre:'Botella de agua de 600 Ml', precio:'$90'} ],
     ubicacion:'España 55, Partido de Lomas de Zamora,, Buenos Aires',
     latitude:-34.771141,
     longitude:-58.40024
@@ -587,7 +878,64 @@ SinCodiEvento.save(function(err) {
     console.log('Evento '+ SinCodiEvento.nombre+' guardado con exito.');
 });
 
+var roblaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'La Robla',
+    descripcion:'Restaurante de Comida Española',
+    fecha: 'Lun a Dom 10 a 22hs',
+    tipo:'Restaurante',
+    idUsuarioPropietario:'La Robla',
+    duracion:'',
+    genero:'Gastronomia',
+    imagen:'http://laroblapalermo.com.ar/wp-content/uploads/sites/2/2017/01/cropped-cropped-La-Robla__02-1.jpg',
+    rating:5,
+    personas:0,
+    precioE:0,
+    precios: [{nombre:'Buñuelitos y Croquetitas', precio:'$100'},
+    {nombre:'Pimientos Morrones braseados al Ajillo de Oliva', precio:'$100'},
+    {nombre:'Muzarella a la Milanesa (C / Salsa Pizzera y Morrones Braseados)', precio:'$150'},
+    {nombre:'Calamar a la Criolla', precio:'$200'},
+    {nombre:'ESPAÑOLA (Papa y Cebolla)', precio:'$350'},
+    {nombre:'CASTELLANA (Juliana de Jamón, Chorizo ​​Colorado, papa y Cebolla)', precio:'$400'},
+    {nombre:'SEVILLANA (Panceta, Arvejas, Verdeo y muzarella)', precio:'$450'},
+    {nombre:'VERDE QUE TE QUIERO VERDE (Acelga, Puerro, Rúcula, Cebolla y Muzarella)', precio:'$350'},
+    {nombre:'CORUÑENSE (Gruyere, Arvejas y Cebolla)', precio:'$350'},
+    {nombre:'Cornalitos frescos Fritos', precio:'$300'},
+    {nombre:'Langostinos Empanados con Salsa Aioli', precio:'$400'},
+    {nombre:'Rabas de Putamadre', precio:'$600'},
+    {nombre:'Mixto de Fritura de Pescados y Papas', precio:'$430'},
+    {nombre:'Mejillones a la Provenzal', precio:'$600'},
+    {nombre:'Mejillones a la Gallega', precio:'$600'},
+    {nombre:'Arroz con Pollo a la Valenciana', precio:'$450'},
+    {nombre:'Arroz con Calamares', precio:'$380'},
+    {nombre:'Arroz con Mejillones', precio:'$450'},
+    {nombre:'Arroz con Camarones', precio:'$400'},
+    {nombre:'Arroz con Mariscos', precio:'$420'},
+    {nombre:'Callos a la Madrileña (Mondongo)', precio:'$380'},
+    {nombre:'Budín de Pan', precio:'$85'},
+    {nombre:'Zapallo en Almibar', precio:'$75'},
+    {nombre:'Durazno en Almibar', precio:'$75'},
+    {nombre:'Natilla Catalana', precio:'$120'},
+    {nombre:'Mousse de Chocolate', precio:'$120'},
+    {nombre:'Flan Casero', precio:'$100'},
+    {nombre:'Flan Completo', precio:'$130'},
+    {nombre:'Gaseosa', precio:'$55'},
+    {nombre:'Agua Mineral S/G', precio:'$50'},
+    {nombre:'Agua saborizada', precio:'$50'},
+    {nombre:'Cerveza', precio:'$110'},
+    {nombre:'Vino', precio:'$130'}],
+    ubicacion: 'Costa Rica 4001, CABA',
+    latitude:-34.591251,
+    longitude:-58.419206
+});
 
+roblaEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+ roblaEvento.nombre+' guardado con exito.');
+});
+
+/**** USUARIOS ****/
 /*var Usuario = require('./model/Usuario');
 
 var usuario1 = new Usuario({
@@ -634,7 +982,22 @@ usuario3.save(function(err) {
         
     console.log('Usuario guardado con exito.');
 });
-*/
+
+var usuario4 = new Usuario({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Pablo',
+    apellido:'Almi',
+    username:'pabloal',
+    email:'pablo_al@gmail.com',
+    password:'pablo'
+});
+
+usuario4.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Usuario guardado con exito.');
+});*/
+
 // var Comentario = require('./model/Comentario'); 
 
 // var comentario1 = new Comentario({
