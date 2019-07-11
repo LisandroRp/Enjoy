@@ -920,7 +920,7 @@ var antaresEvento = new Evento({
     imagen:'https://www.america-retail.com/static//2018/02/antaresarg.png',
     rating:3.8,
     personas:0,
-    precioE:60,
+    precioE:0,
     precios: [{nombre:'Kolsch 1/2 pinta', precio:'$60'},
     {nombre:'Porter 1/2 pinta', precio:'$60'},
     {nombre:'Scotch 1/2 pinta', precio:'$65'},
@@ -1168,6 +1168,126 @@ peterEvento.save(function(err) {
     if (err) throw err;
         
     console.log('Evento '+peterEvento.nombre+' guardado con exito.');
+});
+
+var jobsEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Jobs Bar',
+    descripcion:'Veni a divertirte con amigos',
+    fecha: 'Mar a Dom 19 a 3hs',
+    tipo:'Bar',
+    idUsuarioPropietario:'Jobs Bar',
+    duracion:'',
+    genero:'Gastronomia',
+    imagen:'https://presalida.com/wp-content/uploads/jobs-4.jpg',
+    rating:3.8,
+    personas:0,
+    precioE:0,
+    precios: [{nombre:'Ingreso + juegos de mesa + Chopp de ½ litro de cerveza Brahma o gaseosa o agua + Hamburguesa con queso', precio:'$350'},
+    {nombre:'Ingreso + juegos de mesa + 1 pizza de muzzarella grande al molde (8 porciones)', precio:'$350'},
+    {nombre:'Ingreso + juegos de mesa + Trago directo ½ litro o 2 gaseosas o 2 aguas', precio:'$350'},
+    {nombre:'Ingreso + juegos de mesa + 1 litro de cerveza Brahma', precio:'$350'}],
+    ubicacion: 'Arenales 2932, CABA',
+    latitude:-34.590648,
+    longitude:-58.406640
+});
+
+jobsEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+jobsEvento.nombre+' guardado con exito.');
+});
+
+var cavernEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'The Cavern Buenos Aires',
+    descripcion:'Shows en vivo',
+    fecha: 'Lun a Dom 10 a 3hs',
+    tipo:'Bar',
+    idUsuarioPropietario:'The Cavern',
+    duracion:'',
+    genero:'Gastronomia',
+    imagen:'https://media-cdn.tripadvisor.com/media/photo-s/06/e4/fd/77/the-cavern-cafe.jpg',
+    rating:3.8,
+    personas:0,
+    precioE:0,
+    precios: [{nombre:'Hamburguesa', precio:'$250'},
+    {nombre:'Tragos', precio:'$120'},
+    {nombre:'Agua', precio:'$70'},
+    {nombre:'Cerveza', precio:'$130'}],
+    ubicacion: 'Av. Corrientes 1660, CABA',
+    latitude:-34.604087,
+    longitude:-58.390160
+});
+
+cavernEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+cavernEvento.nombre+' guardado con exito.');
+});
+
+var templeEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'The Temple Bar Palermo',
+    descripcion:'Para quedarse a vivir. Más que un bar es una casa. Nuestra. Y de uds.',
+    fecha: 'Lun a Dom 18 a 2hs',
+    tipo:'Bar',
+    idUsuarioPropietario:'Temple',
+    duracion:'',
+    genero:'Gastronomia',
+    imagen:'http://barriodepalermo.com.ar/wp-content/uploads/2017/05/540-430-5.jpg',
+    rating:3.8,
+    personas:0,
+    precioE:0,
+    precios: [{nombre:'Belgian Blonde', precio:'$160'},
+    {nombre:'Temple Honey', precio:'$160'},
+    {nombre:'Temple Golden', precio:'$185'},
+    {nombre:'Temple Wolf Ipa', precio:'$200'}],
+    ubicacion: 'Costa Rica 4677, CABA',
+    latitude:-34.587888,
+    longitude:-58.426768
+});
+
+templeEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+templeEvento.nombre+' guardado con exito.');
+});
+
+var anasaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Anasagasti Bar',
+    descripcion:'Craft Coktails & Food.',
+    fecha: 'Mar a Dom 19 a 2hs',
+    tipo:'Bar',
+    idUsuarioPropietario:'Anasagasti',
+    duracion:'',
+    genero:'Gastronomia',
+    imagen:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZD4u4rfjqO5ESzGliPe2EGEY2-Ralh2zjAZWZt2wxYUV4lSzH',
+    rating:3.8,
+    personas:0,
+    precioE:0,
+    precios: [{nombre:'BLACK HEART Whisky grants - Amaro Montenegro - Tepache con Pimientos Asados - Bitter de Naranja', precio:'$180'},
+    {nombre:'PLEGARIA Vodka - Frangelico - Indian Chai Falernum - Pomelo - Mango - Moras', precio:'$200'},
+    {nombre:'RUMSPRINGA Bombay Sapphire - Cordial de Arándanos - Almibar de Zapallo y Queso Azul - Polen', precio:'$250'},
+    {nombre:'SAUDADE Vodka - Almíbar Floral - Naranja - Espumante - Caviar de Açai - Tuil', precio:'$170'},
+    {nombre:'MILKY WAY Monkey Shoulder - Kombucha de Rooibos - Leche Dulce de Cajú Tostado - Soda', precio:'$180'},
+    {nombre:'BOTTLED MIST Vodka - Cordial de Pomelo y Coriandro - Sauco - Almíbar de Amarenas - Pepino - Humo de lavanda', precio:'$230'},
+    {nombre:'PRÓJIMO Johnnie Walker Black Label - Punt e Mes - Chardonnay - Bitter de Hibiscus - Aceite de Sésamo', precio:'$300'},
+    {nombre:'CUENTA GOTAS Gin - Martini Dry de Apio - Aperol - Salmuera de Algas Nori - Bitter de Eucalipto', precio:'$240'},
+    {nombre:'FOREST BUBBLES Gin - Christallino - Chartreuse - Limón - Lemon Curd - Almíbar de Tomillo - Burbujas de Pino', precio:'$320'},
+    {nombre:'INFUSIÓN Jim Beam Infusionado con Banana - Hennesy Infusionado con Hongos - Martini Bitter Infusionado con Frutilla - Martini Rosso Infusionado con Pimienta Negra', precio:'$340'},
+    {nombre:'CHINGON Sauza Silver - Triple Sec - Maracuyá - Cilantro - Azúcar de Chile - Limón', precio:'$285'},
+    {nombre:'SIN FRONTERAS Ron - Limón - Ananá - Almíbar de Earl Grey - Absenta - Cerveza Lager', precio:'$290'}],
+    ubicacion: 'Psje. Anasagasti 2067, CABA',
+    latitude:-34.588589,
+    longitude:-58.411394
+});
+
+anasaEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+anasaEvento.nombre+' guardado con exito.');
 });
 
 /**** USUARIOS ****/
