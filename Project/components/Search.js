@@ -66,7 +66,7 @@ export default class Search extends React.Component {
                 if (this.state.filtrarPrecio == false) {
                     newArray.push(createData(data[i], i));
                 } else {
-                    if (data[i].precioE <= this.state.maxPrice && data[i].precioE >= this.state.minPrice) {
+                    if (data[i].precioE <= this.state.maxPrice && data[i].precioE >= this.state.minPrice && data[i].tipo == this.state.tipo) {
                         newArray.push(createData(data[i], i));
                     }
                 }
@@ -303,7 +303,6 @@ export default class Search extends React.Component {
             } else {
                 return (
                     <View style={styles.container}>
-                        <Text>{this.state.tipo}</Text>
                         <View>
                             <SearchBar
                                 placeholder="Name/Place/Type/Genre"
