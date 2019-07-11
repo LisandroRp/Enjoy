@@ -348,6 +348,7 @@ class Detalle extends Component {
                                             style={styles.contentList}
                                             columnWrapperStyle={styles.listContainer}
                                             data={this.state.detalle.precios}
+                                            initialNumToRender={50}
                                             keyExtractor={(item) => {
                                                 return item.nombre;
                                             }}

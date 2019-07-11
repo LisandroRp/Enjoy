@@ -14,7 +14,6 @@ import {
     ActivityIndicator,
     Dimensions
 } from 'react-native';
-import { AsyncStorage } from 'react-native';
 //import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
 import AntDesign from 'react-native-vector-icons/MaterialIcons'
 import { List, ListItem, SearchBar } from "react-native-elements";
@@ -54,82 +53,33 @@ export default class Search extends React.Component {
             filtrarPrecio: false,
             maxPrice: null,
             minPrice: null,
-            IdUser: null,
-            generoEvento: [],
         };
-        this._retrieveData();
         this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
-    }
-    _retrieveData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('IdUser');
-            if (value !== null) {
-                this.setState({
-                    IdUser: value,
-                })
-                this.getUserData(this.state.IdUser);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    getUserData() {
-        ApiController.getUsuario(this.okUserData.bind(this), this.state.IdUser);
-    }
-    okUserData(data) {
-        this.setState({
-            generoEvento: data.generoEvento,
-        })
         this.obtenerEventos()
     }
     obtenerEventos() {
         ApiController.getEventos(this.okEventos.bind(this));
     }
-    esGenero(genero) {
-        for (i = 0; i <= this.state.generoEvento.length; i++) {
-            if (this.state.generoEvento[i] == genero) {
-                return true
-            }
-        }
-        return false
-    }
     okEventos(data) {
         if (data != null) {
             var i, newArray = [];
-            if (this.state.tipo == 'Recomendados') {
-                for (i = 0; i < data.length; i++) {
-                    if (this.state.filtrarPrecio == false) {
-                        if(data[i].rating >= 4 || this.esGenero(data[i].genero))
-                        {
+            console.log(this.state.tipo)
+            for (i = 0; i < data.length; i++) {
+                //console.log(this.state.tipo+'=='+data[i].tipo)
+                if (this.state.filtrarPrecio == false ) {
+                    console.log(this.state.tipo+'======='+data[i].tipo)
+                    newArray.push(createData(data[i], i));
+                } else {
+                    if (data[i].precioE <= this.state.maxPrice && data[i].precioE >= this.state.minPrice ) {
+                        // && data[i].tipo == this.state.tipo
+                        console.log(this.state.tipo+'===='+data[i].tipo)
                         newArray.push(createData(data[i], i));
-                        }
-                    } else {
-                        if (data[i].precioE <= this.state.maxPrice && data[i].precioE >= this.state.minPrice) {
-                            if(data[i].rating >= 4 || this.esGenero(data[i].genero))
-                            {
-                            newArray.push(createData(data[i], i));
-                            }
-                        }
                     }
                 }
-                this.setState({ eventos: newArray });
-                this.setState({ memory: newArray })
-                this.setState({ isLoading: false })
             }
-            else {
-                for (i = 0; i < data.length; i++) {
-                    if (this.state.filtrarPrecio == false && data[i].tipo == this.state.tipo) {
-                        newArray.push(createData(data[i], i));
-                    } else {
-                        if (data[i].precioE <= this.state.maxPrice && data[i].precioE >= this.state.minPrice && data[i].tipo == this.state.tipo) {
-                            newArray.push(createData(data[i], i));
-                        }
-                    }
-                }
-                this.setState({ eventos: newArray });
-                this.setState({ memory: newArray })
-                this.setState({ isLoading: false })
-            }
+            this.setState({ eventos: newArray });
+            this.setState({ memory: newArray })
+            this.setState({ isLoading: false })
         } else {
             alert("Intentar de nuevo")
         }
@@ -168,7 +118,7 @@ export default class Search extends React.Component {
                 return a.precioE - b.precioE
             });
         }
-        this.setState({ eventos: resultt, minPrice: null, maxPrice: null });
+        this.setState({ eventos: resultt, minPrice:null, maxPrice:null });
     }
     searchEvent = value => {
         const filteredevents = this.state.memory.filter(event => {
@@ -190,19 +140,20 @@ export default class Search extends React.Component {
         this.setState({ value })
     };
     noFiltrar() {
-        this.setState({ filtrarPrecio: false, isLoading: true, minPrice: null, maxPrice: null })
+        this.setState({ filtrarPrecio: false, isLoading: true, minPrice:null, maxPrice:null })
         this.obtenerEventos()
     }
     filtrarPrecio() {
-        if (this.state.maxPrice == null || this.state.minPrice == null || this.state.minPrice == '' || this.state.maxPrice == '') {
+        if(this.state.maxPrice==null || this.state.minPrice==null || this.state.minPrice=='' || this.state.maxPrice=='')
+        {
             alert('There is an empty price')
-        } else {
-            this.setState({ filtrarPrecio: true, isLoading: true, modalVisible: false })
-            this.obtenerEventos()
+        }else{
+        this.setState({ filtrarPrecio: true, isLoading: true,modalVisible:false })
+        this.obtenerEventos()
         }
     }
     setModalVisible(visible) {
-        this.setState({ modalVisible: visible, minPrice: null, maxPrice: null });
+        this.setState({ modalVisible: visible, minPrice:null, maxPrice:null });
     }
     render() {
         if (this.state.isLoading) {
@@ -258,33 +209,61 @@ export default class Search extends React.Component {
                                     <Text style={styles.loginText}>Price: Low to High</Text>
                                 </TouchableOpacity>
                             </View>
-                                <FlatList
-                                    style={{ flex: 1 }}
-                                    columnWrapperStyle={styles.listContainer}
-                                    data={this.state.eventos}
-                                    initialNumToRender={50}
-                                    // keyExtractor={(item) => {
-                                    //     return item.id;
-                                    // }}
-                                    renderItem={({ item }) => {
-                                        return (
-                                            <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                                                <View style={{ flexDirection: "row" }} >
-                                                    <Image style={styles.image} source={{ uri: item.imagen }} />
-                                                    <View style={styles.cardContent}>
-                                                        <Text style={styles.name}>{item.nombre}</Text>
-                                                        <Text style={styles.count}>{item.ubicacion}</Text>
-                                                        <Text style={{ fontSize: 11 }}>Entrada General: {item.precioE}$</Text>
+                            <View style={styles.container}>
+                            <FlatList
+                                style={{ flex: 1 }}
+                                columnWrapperStyle={styles.listContainer}
+                                data={this.state.eventos}
+                                initialNumToRender={50}
+                                // keyExtractor={(item) => {
+                                //     return item.id;
+                                // }}
+                                renderItem={({ item }) => {
+                                    console.log(this.state.tipo);
+                                    if ('Recomendados' == this.state.tipo) {
+                                        console.log('entro');
+                                        if (item.rating > 4) {
+                                            return (
+                                                <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
+                                                    <View style={{ flexDirection: "row" }} >
+                                                        <Image style={styles.image} source={{ uri: item.imagen }} />
+                                                        <View style={styles.cardContent}>
+                                                            <Text style={styles.name}>{item.nombre}</Text>
+                                                            <Text style={styles.count}>{item.ubicacion}</Text>
+                                                            <Text style={{ fontSize: 11 }}>Entrada General: {item.precioE}$</Text>
+                                                        </View>
+                                                        <View style={{ flexDirection: "column", alignItems: 'center', paddingLeft: 300, paddingTop: 15, position: 'absolute' }} >
+                                                            <Image style={styles.StarImage} source={{ uri: this.Star }} />
+                                                            <Text style={styles.followButtonText}>{item.rating}/5</Text>
+                                                        </View>
                                                     </View>
-                                                    <View style={{ flexDirection: "column", alignItems: 'center', paddingLeft: 300, paddingTop: 15, position: 'absolute' }} >
-                                                        <Image style={styles.StarImage} source={{ uri: this.Star }} />
-                                                        <Text style={styles.followButtonText}>{item.rating}/5</Text>
+                                                </TouchableOpacity>
+                                            )
+                                        }
+                                    } else {
+                                        console.log(this.state.eventos.length);
+                                        if (item.tipo == this.state.tipo) {
+                                            return (
+                                                <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
+                                                    <View style={{ flexDirection: "row" }} >
+                                                        <Image style={styles.image} source={{ uri: item.imagen }} />
+                                                        <View style={styles.cardContent}>
+                                                            <Text style={styles.name}>{item.nombre}</Text>
+                                                            <Text style={styles.count}>{item.ubicacion}</Text>
+                                                            <Text style={{ fontSize: 11 }}>Entrada General: {item.precioE}$</Text>
+                                                        </View>
+                                                        <View style={{ flexDirection: "column", alignItems: 'center', paddingLeft: 300, paddingTop: 15, position: 'absolute' }} >
+                                                            <Image style={styles.StarImage} source={{ uri: this.Star }} />
+                                                            <Text style={styles.followButtonText}>{item.rating}/5</Text>
+                                                        </View>
                                                     </View>
-                                                </View>
-                                            </TouchableOpacity>
-                                        )
+                                                </TouchableOpacity>
+                                            )
+                                        }
                                     }
-                                    } />
+                                }
+                                } />
+                                </View>
                             <Modal
                                 //visible={this.state.isModalVisible}
                                 animationType="fade"
@@ -299,13 +278,13 @@ export default class Search extends React.Component {
                                     </View>
                                     <Text style={styles.modalText2}>select your price preference</Text>
                                     <View style={{ flex: 0.5, flexDirection: 'row', marginTop: 10, marginBottom: 18 }}>
-                                        <View style={{ backgroundColor: 'white', marginRight: 22, marginLeft: 10, width: 100, height: 40, borderRadius: 15, justifyContent: 'center' }}>
+                                        <View style={{ backgroundColor: 'white', marginRight:22, marginLeft:10 , width: 100, height: 40, borderRadius: 15,justifyContent:'center'}}>
                                             <TextInput placeholder='Min. Price' onChangeText={value => this.setState({ minPrice: value })}
-                                                style={{ textDecorationColor: 'grey', marginHorizontal: 5, fontSize: 18 }}></TextInput>
+                                                style={{ textDecorationColor: 'grey', marginHorizontal: 5, fontSize: 18}}></TextInput>
                                         </View>
-                                        <View style={{ backgroundColor: 'white', marginRight: 10, marginLeft: 22, width: 100, height: 40, borderRadius: 15, justifyContent: 'center' }}>
+                                        <View style={{ backgroundColor: 'white', marginRight:10, marginLeft:22, width: 100, height: 40, borderRadius: 15,justifyContent:'center'}}>
                                             <TextInput placeholder='Max. Price' onChangeText={value => this.setState({ maxPrice: value })}
-                                                style={{ textDecorationColor: 'grey', marginHorizontal: 5, fontSize: 18 }}></TextInput>
+                                                style={{ textDecorationColor: 'grey', marginHorizontal: 5, fontSize: 18}}></TextInput>
                                         </View>
                                     </View>
                                     <View style={{ flex: 0.5, flexDirection: 'row', marginTop: 13 }}>
@@ -369,22 +348,45 @@ export default class Search extends React.Component {
                                 columnWrapperStyle={styles.listContainer}
                                 data={this.state.eventos}
                                 renderItem={({ item }) => {
-                                    return (
-                                        <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
-                                            <View style={{ flexDirection: "row" }} >
-                                                <Image style={styles.image} source={{ uri: item.imagen }} />
-                                                <View style={styles.cardContent}>
-                                                    <Text style={styles.name}>{item.nombre}</Text>
-                                                    <Text style={styles.count}>{item.ubicacion}</Text>
-                                                    <Text style={{ fontSize: 11 }}>Entrada General: {item.precioE}$</Text>
-                                                </View>
-                                                <View style={{ flexDirection: "column", alignItems: 'center', paddingLeft: 300, paddingTop: 15, position: 'absolute' }} >
-                                                    <Image style={styles.StarImage} source={{ uri: this.Star }} />
-                                                    <Text style={styles.followButtonText}>{item.rating}/5</Text>
-                                                </View>
-                                            </View>
-                                        </TouchableOpacity>
-                                    )
+                                    if ('Recomendados' == this.state.tipo) {
+                                        if (item.rating > 4) {
+                                            return (
+                                                <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
+                                                    <View style={{ flexDirection: "row" }} >
+                                                        <Image style={styles.image} source={{ uri: item.imagen }} />
+                                                        <View style={styles.cardContent}>
+                                                            <Text style={styles.name}>{item.nombre}</Text>
+                                                            <Text style={styles.count}>{item.ubicacion}</Text>
+                                                            <Text style={{ fontSize: 11 }}>Entrada General: {item.precioE}$</Text>
+                                                        </View>
+                                                        <View style={{ flexDirection: "column", alignItems: 'center', paddingLeft: 300, paddingTop: 15, position: 'absolute' }} >
+                                                            <Image style={styles.StarImage} source={{ uri: this.Star }} />
+                                                            <Text style={styles.followButtonText}>{item.rating}/5</Text>
+                                                        </View>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            )
+                                        }
+                                    } else {
+                                        if (item.tipo == this.state.tipo) {
+                                            return (
+                                                <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
+                                                    <View style={{ flexDirection: "row" }} >
+                                                        <Image style={styles.image} source={{ uri: item.imagen }} />
+                                                        <View style={styles.cardContent}>
+                                                            <Text style={styles.name}>{item.nombre}</Text>
+                                                            <Text style={styles.count}>{item.ubicacion}</Text>
+                                                            <Text style={{ fontSize: 11 }}>Entrada General: {item.precioE}$</Text>
+                                                        </View>
+                                                        <View style={{ flexDirection: "column", alignItems: 'center', paddingLeft: 300, paddingTop: 15, position: 'absolute' }} >
+                                                            <Image style={styles.StarImage} source={{ uri: this.Star }} />
+                                                            <Text style={styles.followButtonText}>{item.rating}/5</Text>
+                                                        </View>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            )
+                                        }
+                                    }
                                 }
                                 } />
                         </ScrollView>
@@ -398,8 +400,8 @@ export default class Search extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor: "#ebf0f7"
+    justifyContent: 'center',
+    backgroundColor: "#ebf0f7"
     },
     contentList: {
         flex: 1,
@@ -528,7 +530,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#3399ff',
         borderRadius: 30,
-        marginHorizontal: 5
+        marginHorizontal:5
     },
     modal: {
         height: height * 0.30,

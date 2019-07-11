@@ -478,11 +478,11 @@ const ExposicionStackNavigator = createStackNavigator(
           headerRight: (
             <View style={{ flexDirection: 'row' }}>
               <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
-                onPress={() => navigation.navigate('Helado', { tipo: 'Recomendados' })}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Exposicion' })}
                 size={22}
               />
               <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
-                onPress={() => navigation.navigate('MapaVarios', { tipo: 'Recomendados' })}
+                onPress={() => navigation.navigate('MapaVarios', { tipo: 'Exposicion' })}
                 size={22}
               />
             </View>

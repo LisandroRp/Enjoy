@@ -145,7 +145,7 @@ class DatosPersonales extends Component {
                         <Text style={{ color: 'white', fontSize: 15 }}>{this.state.email}</Text>
                     </LinearGradient>
                     <ScrollView style={{}}>
-                        <View style={{alignItems: 'center', flexDirection: 'row', backgroundColor:'#D2E5FF', marginTop:18, paddingBottom:18, paddingHorizontal:9, marginHorizontal:18, borderRadius:10,}}>
+                        <View style={{ flexDirection: 'row', backgroundColor: '#D2E5FF', marginTop: 18, paddingBottom: 18, paddingHorizontal: 9, marginHorizontal: 18,height:300, borderRadius: 10, }}>
                             <View style={styles.contentList}>
                                 <View style={[styles.underline]}>
                                     <Text style={[styles.TextUnderline]}>Favorite Genres:</Text>
@@ -165,7 +165,7 @@ class DatosPersonales extends Component {
                                         }} />
                                 </View>
                             </View>
-                            <View style={{ width: 200, alignItems: 'center' }}>
+                            <View style={{alignItems: 'center', marginTop:133, marginLeft:10 }}>
                                 <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
                                     onPress={() => this.borrarGenero()}>
                                     <Text style={styles.loginText}>Erase</Text>
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
     underline: {
+        marginTop:5,
         flexDirection: 'row',
     },
     TextUnderline: {
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: 'white',
-        fontWeight:'bold',
+        fontWeight: 'bold',
     },
     CircleShapeView: {
         height: 150,
@@ -240,15 +241,15 @@ const styles = StyleSheet.create({
     contentList: {
         flexDirection: 'column',
         marginLeft: 18,
-        backgroundColor:'white' ,
-        borderRadius:10,
+        backgroundColor: 'white',
+        borderRadius: 10,
         //height:200,
         paddingHorizontal: 18,
-        marginTop:18,
+        marginTop: 18,
         // alignItems:'center', height:100 
     },
     contentList2: {
-        alignItems: 'flex-start' 
+        alignItems: 'flex-start'
         // alignItems:'center', height:100 
     }
 })

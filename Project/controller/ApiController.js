@@ -1,6 +1,7 @@
 import { Component } from 'react';
 
-var ip = '172.20.10.8';
+ var ip = '172.20.10.5';
+// var ip = '192.168.1.103';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -85,6 +86,20 @@ class ApiController extends Component {
             return res.json();
         }).catch((err) => console.log(err)).then((res) => {
             okChange();
+        }).catch((err) => console.log(err));
+    }
+
+    deleteComentario(id, okDelete) {
+        let uri = url+'/deleteComentarioById/Comentario'
+        fetch(uri, {
+            method: 'POST',
+            mode: "cors",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idComentario: id}),
+        }).then((res) => {
+            return res.json();
+        }).catch((err) => console.log(err)).then((res) => {
+            okDelete();
         }).catch((err) => console.log(err));
     }
 

@@ -118,8 +118,11 @@ class FlatListItems extends Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
 }
-borrarComentario(){
-  
+borrarComentario(id){
+  ApiController.deleteComentario(id,this.okDelete.bind(this))
+}
+okDelete(){
+  alert("The comment was successfully deleted");
 }
   render() {
     return (
@@ -162,7 +165,7 @@ borrarComentario(){
             </View>
           </View>
           <TouchableOpacity onPress={() => {
-                        this.setModalVisible(true);
+                        this.borrarComentario(this.props.item._id);
                     }} style={styles.fab}>
                         <AntDesign name="close" size={18} color="white" style={{marginTop:1}}/>
           </TouchableOpacity>

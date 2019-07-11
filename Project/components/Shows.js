@@ -75,6 +75,7 @@ class Shows extends Component {
           style={styles.contentList}
           columnWrapperStyle={styles.listContainer}
           data={this.state.eventos}
+          initialNumToRender={50}
           // keyExtractor= {(item) => {
           //   return item.id;
           // }}
