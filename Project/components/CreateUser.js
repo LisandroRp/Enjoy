@@ -34,14 +34,14 @@ class Login extends Component {
     render() {
         return (
             // <LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
-            <KeyboardAvoidingView style={styles.loginContainer} behavior="padding" enabled>
+            <KeyboardAvoidingView behavior="padding" enabled>
                 <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.loginContainer}>
-                    <View style={{alignContent:'center',alignItems:'center'}}>
+                    <View style={{ alignContent: 'center', alignItems: 'center' }}>
                         <Image
-                            style={{ height: 300, width: 300, resizeMode: 'contain', }}
+                            style={{ height: 250, width: 250, resizeMode: 'contain',paddingBottom:10 }}
                             source={require('./Licha-enjoy.png')}></Image>
                     </View>
-                    <View style={[styles.inputContainer]}>
+                    <View style={{ paddingTop: 0, alignItems:'center' }}>
                         <View style={styles.outterInput}>
                             <TextInput style={styles.textInput}
                                 placeholder="Name"
@@ -97,9 +97,12 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
     loginContainer: {
-        flex: 1,
+        //flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#9FA8DA'
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#9FA8DA',
     },
     textInput: {
         height: 45,
@@ -113,72 +116,80 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderBottomWidth: 1,
         width: 300,
-        height: 40,
+        height: 45,
         marginBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    inputContainer: {
-        flex: 1,
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        marginBottom: 120
-    },
-    imageStyle: {
-        width: '100%',
-        height: 200,
-        resizeMode: 'contain',
-        justifyContent: 'center'
-    },
-    imageContainer: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    outterButton: {
-        justifyContent: 'center',
-        alignSelf: 'center',
-        marginBottom: 20,
-    },
-    outterButtonCreate: {
-        justifyContent: 'center',
-        alignSelf: 'center',
-        marginBottom: 20,
-    },
-    SubmitButtonStyle: {
-        width: 150,
-        marginTop: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
-        marginLeft: 20,
-        marginRight: 20,
-        backgroundColor: '#373737',
-        borderRadius: 10,
-        borderWidth: 0.5,
-        borderColor: '#fff'
-    },
-    loginButton: {
-        backgroundColor: "#00b5ec",
-        marginHorizontal: 5,
+
+        shadowColor: "#808080",
         shadowOffset: {
             width: 0,
-            height: 9,
+            height: 2,
+        }},
+        inputContainer: {
+            borderBottomColor: '#F5FCFF',
+            backgroundColor: '#FFFFFF',
+            borderRadius: 30,
+            borderBottomWidth: 1,
+            width: 300,
+            height: 45,
+            marginBottom: 20,
+            alignItems: 'center',
         },
-        shadowOpacity: 0.50,
-        shadowRadius: 12.35,
+        imageStyle: {
+            width: '100%',
+            height: 200,
+            resizeMode: 'contain',
+            justifyContent: 'center'
+        },
+        imageContainer: {
+            flex: 1,
+            justifyContent: 'center'
+        },
+        outterButton: {
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginBottom: 20,
+        },
+        outterButtonCreate: {
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginBottom: 20,
+        },
+        SubmitButtonStyle: {
+            width: 150,
+            marginTop: 5,
+            paddingTop: 5,
+            paddingBottom: 5,
+            marginLeft: 20,
+            marginRight: 20,
+            backgroundColor: '#373737',
+            borderRadius: 10,
+            borderWidth: 0.5,
+            borderColor: '#fff'
+        },
+        loginButton: {
+            backgroundColor: "#00b5ec",
+            marginHorizontal: 5,
+            shadowOffset: {
+                width: 0,
+                height: 9,
+            },
+            shadowOpacity: 0.50,
+            shadowRadius: 12.35,
 
-        elevation: 19,
-    },
-    buttonContainer: {
-        height: 45,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 15,
-        width: 150,
-        borderRadius: 30,
-        backgroundColor: 'transparent'
-    },
-})
+            elevation: 19,
+        },
+        buttonContainer: {
+            height: 45,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 15,
+            width: 150,
+            borderRadius: 30,
+            backgroundColor: 'transparent'
+        },
+    })
 
 export default Login;
