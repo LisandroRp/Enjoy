@@ -9,6 +9,7 @@ import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
 var { height, width } = Dimensions.get('window');
 function createData(item) {
   return {
+    id:item._id,
     nombre: item.usuarioId,
     descripcion: item.descripcion,
     fechaComentario: item.fecha,
@@ -113,20 +114,25 @@ class FlatListItems extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      IdUser: null,
     }
   }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
 }
-borrarComentario(id){
+borrarComentario(id,IdUser){
+  console.log(id)
+  this.setState({IdUser:IdUser})
+  console.log(this.state.IdUser)
   ApiController.deleteComentario(id,this.okDelete.bind(this))
 }
 okDelete(){
   alert("The comment was successfully deleted");
+  console.log(this.state.IdUser)
+  this.props.getComments(this.state.IdUser)
 }
   render() {
     return (
-
       <View style={{
         flex: 1,
                 backgroundColor: '#D2E5FF',
@@ -165,7 +171,7 @@ okDelete(){
             </View>
           </View>
           <TouchableOpacity onPress={() => {
-                        this.borrarComentario(this.props.item._id);
+                        this.borrarComentario(this.props.item.id,this.props.item.nombre);
                     }} style={styles.fab}>
                         <AntDesign name="close" size={18} color="white" style={{marginTop:1}}/>
           </TouchableOpacity>

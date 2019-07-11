@@ -38,7 +38,7 @@ class LogInCards extends Component {
   render() {
     UserDataManager.getInstance().setCurrentPositionFromReact()
     return (
-      <KeyboardAvoidingView  behavior="padding" enabled>
+      <KeyboardAvoidingView style={{backgroundColor: '#9FA8DA' }} behavior="padding" enabled>
        <LinearGradient colors={['#1D71B8', '#2D2E83']} style={styles.container}>
        {/* <Image style={styles.bgImage} source={{ uri: "https://lorempixel.com/900/1400/nightlife/8/" }}/> */}
        <View style={[styles.imageContainer]}>

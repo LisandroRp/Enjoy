@@ -24,10 +24,11 @@ function createData(item) {
     tipo: item.tipo,
     ubicacion: item.ubicacion,
     precioE: item.precioE,
+    genero: item.genero,
   };
 }
 
-class Shows extends Component {
+class Deportes extends Component {
 
   constructor(props) {
     super(props);
@@ -80,7 +81,7 @@ class Shows extends Component {
           //   return item.id;
           // }}
           renderItem={({ item }) => {
-            if(item.tipo=='Show'){
+            if(item.tipo=='Deporte'){
             return (
               <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
                 <View  style={{flexDirection:"row"}} >
@@ -175,11 +176,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dcdcdc",
   },
- followButtonText: {
-  color: "black",
-  fontSize: 15,
-  marginTop: 4,
-  },
+  followButtonText: {
+    color: "black",
+    fontSize: 15,
+    marginTop: 4,
+    },
   StarImage: {
     width: 40,
     height: 40,
@@ -187,4 +188,4 @@ const styles = StyleSheet.create({
 },
 })
 
-export default Shows;
+export default Deportes;

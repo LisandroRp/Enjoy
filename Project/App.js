@@ -9,11 +9,14 @@ import Shows from './components/Shows'
 import Exposicion from './components/Exposicion'
 import ChangePassword from './components/ChangePassword'
 import CreateUser from './components/CreateUser'
+import Gastronomy from './components/Gastronomy'
 import Information from './components/DatosPersonales';
 import Comments from './components/Comentarios';
 import Craigslist from './components/Craigslist'
+import Deportes from './components/Deportes';
 import LogInCards from './components/LogInCards'
 import Festivales from './components/Festivales';
+import Bares from './components/Bar'
 import MapaVarios from './components/MapaVarios';
 import MapaUnEvento from './components/MapaUnEvento'
 import Search from './components/Search';
@@ -205,6 +208,54 @@ class ShowsScreen extends React.Component {
     this.props.navigation.navigate('Detalle', { IdEvento: id });
   }
 }
+class BaresScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Bars',
+    headerStyle: {
+      backgroundColor: 'white',
+      height: 45
+    },
+    headerTintColor: '#3399ff',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Bares
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
+  }
+}
+class DeportesScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Sports',
+    headerStyle: {
+      backgroundColor: 'white',
+      height: 45
+    },
+    headerTintColor: '#3399ff',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Deportes
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
+  }
+}
 class ExposicionScreen extends React.Component {
 
   static navigationOptions = {
@@ -221,6 +272,30 @@ class ExposicionScreen extends React.Component {
   render() {
     return (
       <Exposicion
+        onPressGo={this.pasarConcierto.bind(this)}
+      />
+    );
+  }
+  pasarConcierto(id) {
+    this.props.navigation.navigate('Detalle', { IdEvento: id });
+  }
+}
+class GastronomyScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Gastronomy',
+    headerStyle: {
+      backgroundColor: 'white',
+      height: 45
+    },
+    headerTintColor: '#3399ff',
+  };
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Gastronomy
         onPressGo={this.pasarConcierto.bind(this)}
       />
     );
@@ -499,6 +574,127 @@ const ExposicionStackNavigator = createStackNavigator(
     initialRouteName: 'ExposicionScreen',
   }
 );
+const BaresStackNavigator = createStackNavigator(
+  {
+    BaresScreen: {
+      screen: BaresScreen,
+
+
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10, color: '#3399ff' }}
+              onPress={() => navigation.openDrawer()}
+              name="md-menu"
+              size={30}
+            />
+          ),
+          headerRight: (
+            <View style={{ flexDirection: 'row' }}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Bar' })}
+                size={22}
+              />
+              <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('MapaVarios', { tipo: 'Bar' })}
+                size={22}
+              />
+            </View>
+          )
+        }
+      }
+    },
+    Helado: { screen: SearchScreen },
+    Detalle: { screen: DetalleScreen },
+    MapaVarios: { screen: MapaVariosScreen },
+    MapaUnEvento: { screen: MapaUnEvento },
+  },
+  {
+    initialRouteName: 'BaresScreen',
+  }
+);
+const DeportesStackNavigator = createStackNavigator(
+  {
+    DeportesScreen: {
+      screen: DeportesScreen,
+
+
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10, color: '#3399ff' }}
+              onPress={() => navigation.openDrawer()}
+              name="md-menu"
+              size={30}
+            />
+          ),
+          headerRight: (
+            <View style={{ flexDirection: 'row' }}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Deporte' })}
+                size={22}
+              />
+              <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('MapaVarios', { tipo: 'Deporte' })}
+                size={22}
+              />
+            </View>
+          )
+        }
+      }
+    },
+    Helado: { screen: SearchScreen },
+    Detalle: { screen: DetalleScreen },
+    MapaVarios: { screen: MapaVariosScreen },
+    MapaUnEvento: { screen: MapaUnEvento },
+  },
+  {
+    initialRouteName: 'DeportesScreen',
+  }
+);
+
+const GastronomyStackNavigator = createStackNavigator(
+  {
+    GastronomyScreen: {
+      screen: GastronomyScreen,
+
+
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10, color: '#3399ff' }}
+              onPress={() => navigation.openDrawer()}
+              name="md-menu"
+              size={30}
+            />
+          ),
+          headerRight: (
+            <View style={{ flexDirection: 'row' }}>
+              <FontAwesome name="search" style={{ marginRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('Helado', { tipo: 'Gastronomia' })}
+                size={22}
+              />
+              <FontAwesome name="map" style={{ paddingRight: 20, color: '#3399ff' }}
+                onPress={() => navigation.navigate('MapaVarios', { tipo: 'Gastronomia' })}
+                size={22}
+              />
+            </View>
+          )
+        }
+      }
+    },
+    Helado: { screen: SearchScreen },
+    Detalle: { screen: DetalleScreen },
+    MapaVarios: { screen: MapaVariosScreen },
+    MapaUnEvento: { screen: MapaUnEvento },
+  },
+  {
+    initialRouteName: 'GastronomyScreen',
+  }
+);
 const FestivalesStackNavigator = createStackNavigator(
   {
     FestivalesScreen: {
@@ -634,7 +830,10 @@ const AppDrawerNavigator = createDrawerNavigator({
   Concerts: ConciertosStackNavigator,
   Festivals: FestivalesStackNavigator,
   Exposure: ExposicionStackNavigator,
+  Gastronomy: GastronomyStackNavigator,
+  Sports: DeportesStackNavigator,
   Shows: ShowsStackNavigator,
+  Bars: BaresStackNavigator,
   Profile: PerfilStackNavigator,
 },
   // DrawerConfig,

@@ -27,7 +27,7 @@ function createData(item) {
   };
 }
 
-class Shows extends Component {
+class Bares extends Component {
 
   constructor(props) {
     super(props);
@@ -80,7 +80,7 @@ class Shows extends Component {
           //   return item.id;
           // }}
           renderItem={({ item }) => {
-            if(item.tipo=='Show'){
+            if(item.tipo=='Bar'){
             return (
               <TouchableOpacity style={styles.card} onPress={() => this.props.onPressGo(item.idEvento)}>
                 <View  style={{flexDirection:"row"}} >
@@ -176,9 +176,9 @@ const styles = StyleSheet.create({
     borderColor: "#dcdcdc",
   },
  followButtonText: {
-  color: "black",
-  fontSize: 15,
-  marginTop: 4,
+    color: "black",
+    fontSize: 20,
+    marginTop:4,
   },
   StarImage: {
     width: 40,
@@ -187,4 +187,4 @@ const styles = StyleSheet.create({
 },
 })
 
-export default Shows;
+export default Bares;

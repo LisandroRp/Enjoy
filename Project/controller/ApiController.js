@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
- var ip = '172.20.10.5';
-// var ip = '192.168.1.103';
+//  var ip = '172.20.10.5';
+ var ip = '192.168.1.103';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -90,17 +90,18 @@ class ApiController extends Component {
     }
 
     deleteComentario(id, okDelete) {
-        let uri = url+'/deleteComentarioById/Comentario'
-        fetch(uri, {
-            method: 'POST',
-            mode: "cors",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idComentario: id}),
-        }).then((res) => {
-            return res.json();
-        }).catch((err) => console.log(err)).then((res) => {
-            okDelete();
-        }).catch((err) => console.log(err));
+        let uri = url+'/deleteComentarioById?id=' + id
+        fetch(uri).then(res => {
+            return res.json()
+        }).catch((err) => {
+            console.log(err)
+        }).
+            then(data => {
+                okDelete(data);
+            }).catch((err => {
+                console.log(err);
+                alert("No existen Comentarios");
+            }));
     }
 
     saveGenre(user, generoEvento, okChange) {

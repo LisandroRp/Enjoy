@@ -512,10 +512,10 @@ const styles = StyleSheet.create({
   },
   modal: {
     height: height * 0.50,
-    width: width * 0.75,
+    width: width * 0.80,
     position: 'absolute',
     top: height * 0.22,
-    left: width * 0.13,
+    left: width * 0.11,
     backgroundColor: '#ebf0f7',
     //justifyContent: 'center',
     //alignItems: 'center',
