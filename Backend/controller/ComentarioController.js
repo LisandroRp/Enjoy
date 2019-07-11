@@ -64,4 +64,24 @@ let getComentariosByEvento = (req, res) =>
     )       
 };
 
-module.exports = {insertComentario,getComentariosByUsuario,getComentariosByEvento};
+let deleteComentarioById = (req, res) =>
+{      
+    console.log("borro comentario");
+    //Obtener id busqueda req.param.tagid
+    console.log(req.query.id);
+    let idBusqueda = {_id: req.query.id};
+    console.log(idBusqueda);
+    //Listar resultados
+    comentarios.remove(idBusqueda)
+    .then
+    (
+        (listaComentarios)=>
+        {
+            console.log(listaComentarios);    
+            res.send(listaComentarios); //devuelvo resultado query   
+        },
+        (err)=>{console.log(err);}
+    )       
+};
+
+module.exports = {insertComentario,getComentariosByUsuario,getComentariosByEvento,deleteComentarioById};

@@ -101,6 +101,15 @@ router.get('/getComentariosByEvento',(req, res) =>{
         comentarioController.getComentariosByEvento(req,res);
 });
 
+//EndPoint para borrar comentario de un evento
+router.get('/deleteComentarioById',(req, res) =>{   
+    console.log("Borrar comentario por id: ",req.query);
+    if(!req.query ||  req.query.id =='undefined' || req.query.id == '' || req.query.id == null) 
+        res.status(409).send({ msg: "El campo id es requerido del comentario." });
+    else
+        comentarioController.deleteComentarioById(req,res);
+});
+
 //************************** Recursos de Eventos *****************************/
 //EndPoint para leer todos los eventos
 router.get('/getEventos', (req, res) => {
