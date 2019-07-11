@@ -51,14 +51,14 @@ app.get('/', (req, res) => res.send('Backend Activo'));
 
 /************ Test ***********/
 /**** EVENTOS ****/
-/*var Evento = require('./model/Evento');
+var Evento = require('./model/Evento');
 
 var bocaEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
     nombre:'Boca vs Athletico Paranaense',
     descripcion:'Copa Libertadores 2019',
     fecha:'31/07/19 21.30hs',
-    tipo:'Show',
+    tipo:'Deporte',
     idUsuarioPropietario:'Boca Juniors',
     duracion:'2 Horas',
     genero:'Futbol',
@@ -87,7 +87,7 @@ var pumasEvento = new Evento({
     nombre:'Los Pumas vs Springboks',
     descripcion:'Veni a alentar a los Pumas en su despedida antes del mundial',
     fecha: '10/08/19 16.40hs',
-    tipo:'Show',
+    tipo:'Deporte',
     idUsuarioPropietario:'Personal',
     duracion:'2 horas',
     genero:'Rugby',
@@ -121,7 +121,7 @@ var basketEvento = new Evento({
     nombre:'Argentina vs Uruguay',
     descripcion:'Nacion3s 2019',
     fecha: '26/07/19 19hs',
-    tipo:'Show',
+    tipo:'Deporte',
     idUsuarioPropietario:'Dove',
     duracion:'2 horas',
     genero:'Basket',
@@ -151,7 +151,7 @@ var basket2Evento = new Evento({
     nombre:'Argentina vs Puerto Rico',
     descripcion:'Nacion3s 2019',
     fecha: '27/07/19 21hs',
-    tipo:'Show',
+    tipo:'Deporte',
     idUsuarioPropietario:'Dove',
     duracion:'2 horas',
     genero:'Basket',
@@ -181,7 +181,7 @@ var canchaEvento = new Evento({
     nombre:'A la cancha por una Sonrisa',
     descripcion:'Futbol Mixto y Solidario',
     fecha: '13/07/19 15hs',
-    tipo:'Show',
+    tipo:'Deporte',
     idUsuarioPropietario:'Fundacion PUPI',
     duracion:'2 horas',
     genero:'Futbol',
@@ -209,10 +209,10 @@ var gustarEvento = new Evento({
     nombre:'No Te Va A Gustar',
     descripcion:'Este espectáculo forma parte de la presentación de su disco “Otras canciones” que han preparado con motivo de sus 25 años',
     fecha: '02/08/19 21.30hs',
-    tipo:'Show',
+    tipo:'Concierto',
     idUsuarioPropietario:'Ticketek',
     duracion:'2 horas',
-    genero:'Musica',
+    genero:'Rock',
     imagen:'http://www.gamba.fm/wp/wp-content/uploads/2019/03/ntvg.jpg',
     rating:3.0,
     personas:0,
@@ -242,10 +242,10 @@ var inviEvento = new Evento({
     nombre:'Los Amigos Invisibles',
     descripcion:'Los Amigos Invisibles presentan "Tócamela Tour"',
     fecha: '06/09/19 21hs',
-    tipo:'Show',
+    tipo:'Concierto',
     idUsuarioPropietario:'Ticketek',
     duracion:'2 horas',
-    genero:'Musica',
+    genero:'Pop',
     imagen:'https://www.ticketek.com.ar/sites/default/files/images/artist/amigosinvisibles-garfield-art.png',
     rating:3.0,
     personas:0,
@@ -270,37 +270,10 @@ var richieEvento = new Evento({
     nombre:'Richie Ramone',
     descripcion:'Richie Ramone vuelve a la Argentina celebrando el 45 Aniversario de Ramones',
     fecha: '24/07/19 19hs',
-    tipo:'Show',
+    tipo:'Concierto',
     idUsuarioPropietario:'Ticketek',
     duracion:'2 horas',
-    genero:'Musica',
-    imagen:'http://headbangerslatinoamerica.com/wp-content/uploads/2019/05/ig-richie-300x300.jpg',
-    rating:3.9,
-    personas:0,
-    precioE:1250,
-    precios: [{nombre:'GENERAL', precio:'$1135'},
-    {nombre:'2X1 LA NACION GENERAL', precio:'$1135'},
-    {nombre:'2X1 CLARIN 365 GENERAL', precio:'$1135'}],
-    ubicacion: 'Uniclub, CABA',
-    latitude:-34.602505,
-    longitude:-58.412295
-});
-
-richieEvento.save(function(err) {
-    if (err) throw err;
-        
-    console.log('Evento '+richieEvento.nombre+' guardado con exito.');
-});
-
-var richieEvento = new Evento({
-    _id: new mongoose.Types.ObjectId(),
-    nombre:'Richie Ramone',
-    descripcion:'Richie Ramone vuelve a la Argentina celebrando el 45 Aniversario de Ramones',
-    fecha: '24/07/19 19hs',
-    tipo:'Show',
-    idUsuarioPropietario:'Ticketek',
-    duracion:'2 horas',
-    genero:'Musica',
+    genero:'Rock',
     imagen:'http://headbangerslatinoamerica.com/wp-content/uploads/2019/05/ig-richie-300x300.jpg',
     rating:3.9,
     personas:0,
@@ -349,7 +322,7 @@ var joseEvento = new Evento({
     nombre:'Josefita',
     descripcion:'La ya conocida banda de las hormigas no para y continúa con sus noche de #RocanrolYCarnaval',
     fecha:'13/07/19 21hs',
-    tipo:'Show',
+    tipo:'Concierto',
     idUsuarioPropietario:'The Roxy Live',
     duracion:'2 Horas',
     genero:'Rock',
@@ -552,7 +525,7 @@ var barEvento = new Evento({
     tipo:'Exposicion',
     idUsuarioPropietario:'DisfrutemosBA',
     duracion:'',
-    genero:'Espectaculo',
+    genero:'Cultural',
     imagen:'https://media-cdn.tripadvisor.com/media/photo-s/0f/f5/91/83/bar-iberia.jpg',
     rating:3.1,
     personas:0,
@@ -574,7 +547,7 @@ var milongaEvento = new Evento({
     nombre:'Convocatoria BA Milonga',
     descripcion:'Abierta a quienes impulsen milongas',
     fecha:'21/06/19 - 22/07/19 10hs',
-    tipo:'Exposicion',
+    tipo:'Cultural',
     idUsuarioPropietario:'DisfrutemosBA',
     duracion:'',
     genero:'Espectaculo',
@@ -883,10 +856,10 @@ var roblaEvento = new Evento({
     nombre:'La Robla',
     descripcion:'Restaurante de Comida Española',
     fecha: 'Lun a Dom 10 a 22hs',
-    tipo:'Restaurante',
+    tipo:'Gastronomia',
     idUsuarioPropietario:'La Robla',
     duracion:'',
-    genero:'Gastronomia',
+    genero:'Restaurante',
     imagen:'http://laroblapalermo.com.ar/wp-content/uploads/sites/2/2017/01/cropped-cropped-La-Robla__02-1.jpg',
     rating:5,
     personas:0,
@@ -933,6 +906,268 @@ roblaEvento.save(function(err) {
     if (err) throw err;
         
     console.log('Evento '+ roblaEvento.nombre+' guardado con exito.');
+});
+
+var antaresEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Antares',
+    descripcion:'Cerveceria Antares. Pasion por la cerveza',
+    fecha: 'Lun a Dom 18 a 22hs',
+    tipo:'Bar',
+    idUsuarioPropietario:'Antares',
+    duracion:'',
+    genero:'Restaurante',
+    imagen:'https://www.america-retail.com/static//2018/02/antaresarg.png',
+    rating:3.8,
+    personas:0,
+    precioE:60,
+    precios: [{nombre:'Kolsch 1/2 pinta', precio:'$60'},
+    {nombre:'Porter 1/2 pinta', precio:'$60'},
+    {nombre:'Scotch 1/2 pinta', precio:'$65'},
+    {nombre:'Honey Beer 1/2 pinta', precio:'$65'},
+    {nombre:'Barley wine 1/2 pinta', precio:'$70'},
+    {nombre:'India Pale Ale 1/2 pinta', precio:'$65'},
+    {nombre:'Playa Grande 1/2 pinta', precio:'$70'},
+    {nombre:'Imperial Stout 1/2 pinta', precio:'$70'},
+    {nombre:'Cream Stout 1/2 pinta', precio:'$75'}],
+    ubicacion: 'Costa Rica 4001, CABA',
+    latitude:-34.613373,
+    longitude:-58.373349
+});
+
+antaresEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+antaresEvento.nombre+' guardado con exito.');
+});
+
+var didoEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Dido Tour 2019',
+    descripcion:'¡DIDO Por primera vez en Argentina!',
+    fecha:'31/10/19 21hs',
+    tipo:'Concierto',
+    idUsuarioPropietario:'Time4Fun',
+    duracion:'2 Horas',
+    genero:'Pop',
+    imagen:'https://www.vuenosairez.com/images/eventos/dido-en-ar-681311.jpg',
+    rating:4.5,
+    personas:0,
+    precioE:2000,
+    precios: [{nombre:'PLATEA VIP', precio:'$4000'},
+    {nombre:'SUPER PULLMAN CENTRAL', precio:'$3500'},
+    {nombre:'PLATEA ELEVADA', precio:'$3100'},
+    {nombre:'SUPER PULLMAN LATERAL', precio:'$3100'},
+    {nombre:'PLATEA LATERAL', precio:'$2600'},
+    {nombre:'PULLMAN LATERAL', precio:'$2000'},
+    {nombre:'CABECERA S/N', precio:'$2000'}],
+    ubicacion:'Teatro Coliseo, CABA',
+    latitude:-34.596505,
+    longitude:-58.383222
+});
+
+didoEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+didoEvento.nombre+' guardado con exito.');
+});
+
+var superEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Fiesta Supernova',
+    descripcion:'Tercera Edición de FIESTA SUPERNOVA en Casa Colombo. Contaremos con los SHOWS EN VIVO de Romapagana y Rey Hindu',
+    fecha:'26/07/19 22.30hs',
+    tipo:'Festival',
+    idUsuarioPropietario:'Time4Fun',
+    duracion:'3 Horas',
+    genero:'Pop',
+    imagen:'https://www.ticketek.com.ar/sites/default/files/styles/artists_list_featured/public/images/show-header/fiestasupernova-show.png?itok=HMeFMoH0',
+    rating:3.5,
+    personas:0,
+    precioE:170,
+    precios: [{nombre:'General Anticipadas', precio:'$170'},
+    {nombre:'Gaseosas', precio:'$70'},
+    {nombre:'Tragos', precio:'$120'},
+    {nombre:'Cerveza', precio:'$100'}],
+    ubicacion:'Casa Colombo, CABA',
+    latitude:-34.602598,
+    longitude:-58.412732
+});
+
+superEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+superEvento.nombre+' guardado con exito.');
+});
+
+var chrisEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Christopher Lawrence',
+    descripcion:'Vuelve el experimentado dj productor Christopher Lawrence con un set especial de 5 horas  para festejar con el publico trancero el dia del amigo en Groove !!!!!',
+    fecha:'20/07/19 23.59hs',
+    tipo:'Festival',
+    idUsuarioPropietario:'Time4Fun',
+    duracion:'5 Horas',
+    genero:'Dance',
+    imagen:'https://www.electronicamx.net/images/2018/05/30/Christopher_Lawrence_62_med.jpg',
+    rating:3.5,
+    personas:0,
+    precioE:555,
+    precios: [{nombre:'General', precio:'$555'},
+    {nombre:'VIP', precio:'$775'},
+    {nombre:'Gaseosas', precio:'$70'},
+    {nombre:'Tragos', precio:'$120'},
+    {nombre:'Cerveza', precio:'$100'}],
+    ubicacion:'Groove, CABA',
+    latitude:-34.579321,
+    longitude:-58.423122
+});
+
+chrisEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+chrisEvento.nombre+' guardado con exito.');
+});
+
+var ulisesEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Ulises',
+    descripcion:'Ulises Bueno vuelve a las pistas a full. No podes perderte el Cuarteto del Bueno, con el artista de mayor crecimiento de los últimos tiempos, que arrasa en las boleterías de Córdoba y Buenos Aires. Vení a bailar, cantar y saltar con Ulises otra vez más.',
+    fecha:'08/08/19 21hs',
+    tipo:'Concierto',
+    idUsuarioPropietario:'Time4Fun',
+    duracion:'2 Horas',
+    genero:'Cuarteto',
+    imagen:'http://www.ticketportal.com.ar/img/eventos/08082019_UlisesBueno.jpg',
+    rating:3.5,
+    personas:0,
+    precioE:500,
+    precios: [{nombre:'CAMPO', precio:'$750'},
+    {nombre:'SUPER PULLMAN', precio:'$800'},
+    {nombre:'PULLMAN LATERAL', precio:'$700'},
+    {nombre:'CABECERA S/N', precio:'$500'}],
+    ubicacion:'Luna Park, CABA',
+    latitude:-34.602055,
+    longitude:-58.368697
+});
+
+ulisesEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+ulisesEvento.nombre+' guardado con exito.');
+});
+
+var erosEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Eros Ramazzotti',
+    descripcion:'Agradecido por el cariño de su público, Eros Ramazzotti anunció en sus redes sociales la reprogramación de su gira.',
+    fecha:'14/02/20 21hs',
+    tipo:'Concierto',
+    idUsuarioPropietario:'Time4Fun',
+    duracion:'2 Horas',
+    genero:'Pop',
+    imagen:'https://www.lunapark.com.ar/images/eventos/eventos/5834.jpg?1558555079',
+    rating:3.5,
+    personas:0,
+    precioE:1350,
+    precios: [{nombre:'PLATEA PREFERIDA', precio:'$4300'},
+    {nombre:'PLATEA ELEVADA', precio:'$4000'},
+    {nombre:'SUPER PULLMAN LATERAL', precio:'$3850'},
+    {nombre:'PLATEA LATERAL', precio:'$3200'},
+    {nombre:'PULLMAN LATERAL', precio:'$2100'},
+    {nombre:'CABECERA S/N', precio:'$1350'}],
+    ubicacion:'Luna Park, CABA',
+    latitude:-34.602055,
+    longitude:-58.368697
+});
+
+erosEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+erosEvento.nombre+' guardado con exito.');
+});
+
+var furiaEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Stand Up Furia',
+    descripcion:'Stand up e improvisación con Tato Broda y Natalia De Los Santos.',
+    fecha:'13/07/19 21.30hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Ticketek',
+    duracion:'2 Horas',
+    genero:'Stand Up',
+    imagen:'https://centroculturalmaipu.com.ar/wp-content/uploads/furia.jpg',
+    rating:2.8,
+    personas:0,
+    precioE:350,
+    precios: [{nombre:'General', precio:'$350'}],
+    ubicacion:'Sirhan, CABA',
+    latitude:-34.584994,
+    longitude:-58.436883
+});
+
+furiaEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+furiaEvento.nombre+' guardado con exito.');
+});
+
+var tipicoEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Tipico de George Harris',
+    descripcion:'Típico, es la celebración de quiénes somos, de dónde venimos y por qué nos portamos así… No somos mejores, ni peores simplemente diferentes con un pequeño añadido: tenemos la capacidad de reírnos de nosotros mismos, por eso seguimos siendo más felices que el restos.',
+    fecha:'21/08/19 20.30hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Ticketek',
+    duracion:'2 Horas',
+    genero:'Stand Up',
+    imagen:'https://s3.wasabisys.com/georgeharris/2016/11/tipico-2.jpg',
+    rating:2.8,
+    personas:0,
+    precioE:450,
+    precios: [{nombre:'PULLMAN', precio:'$450'},
+    {nombre:'SUPER PULLMAN', precio:'$600'},
+    {nombre:'PLATEA BRONCE LATERAL', precio:'$1100'},
+    {nombre:'PLATEA BRONCE', precio:'$1200'},
+    {nombre:'PLATEA PLATA', precio:'$1350'},
+    {nombre:'PLATEA ORO', precio:'$1350'},
+    {nombre:'PLATEA PLATINO', precio:'$1500'}],
+    ubicacion:'Teatro Gran Rex, CABA',
+    latitude:-34.603114,
+    longitude:-58.378877
+});
+
+tipicoEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+tipicoEvento.nombre+' guardado con exito.');
+});
+
+var peterEvento = new Evento({
+    _id: new mongoose.Types.ObjectId(),
+    nombre:'Peter Pan',
+    descripcion:'Peter Pan en vacaciones de Invierno!!!',
+    fecha:'15/07/19 15.30hs',
+    tipo:'Show',
+    idUsuarioPropietario:'Ticketek',
+    duracion:'2 Horas',
+    genero:'Infantil',
+    imagen:'https://www.ticketek.com.ar/sites/default/files/images/artist/peterpan-cir-art.png',
+    rating:3.8,
+    personas:0,
+    precioE:330,
+    precios: [{nombre:'SILLON ORQUESTA', precio:'$650'},
+    {nombre:'PLATEA ALTA', precio:'$500'},
+    {nombre:'PLATEA BAJA', precio:'$330'}],
+    ubicacion:'Teatro El Círculo, Rosario',
+    latitude:-32.952504,
+    longitude:-60.635381
+});
+
+peterEvento.save(function(err) {
+    if (err) throw err;
+        
+    console.log('Evento '+peterEvento.nombre+' guardado con exito.');
 });
 
 /**** USUARIOS ****/

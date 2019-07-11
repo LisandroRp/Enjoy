@@ -72,7 +72,7 @@ let deleteComentarioById = (req, res) =>
     let idBusqueda = {_id: req.query.id};
     console.log(idBusqueda);
     //Listar resultados
-    comentarios.remove(idBusqueda)
+    comentarios.deleteOne(idBusqueda)
     .then
     (
         (listaComentarios)=>
