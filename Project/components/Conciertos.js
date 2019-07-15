@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  RefreshControl,
   Dimensions,
   Alert,
   ScrollView,
@@ -36,6 +37,7 @@ class Conciertos extends Component {
       userSelected: [],
       eventos: [],
       isLoading: true,
+      refreshing: false,
     };
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
     this.obtenerEventos()
@@ -71,6 +73,12 @@ class Conciertos extends Component {
   } else {
     return (
       <View style={styles.container}>
+      <ScrollView refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.obtenerEventos.bind(this)}
+          />
+        }>
         <FlatList
           style={styles.contentList}
           columnWrapperStyle={styles.listContainer}
@@ -99,6 +107,7 @@ class Conciertos extends Component {
             )
             }
           }} />
+          </ScrollView>
       </View>
     );
   }

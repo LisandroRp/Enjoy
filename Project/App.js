@@ -32,7 +32,7 @@ import {
   DrawerItems,
 } from 'react-navigation';
 import { ScrollView } from 'react-native-gesture-handler';
-
+console.disableYellowBox=true
 
 function handleSearch() {
 

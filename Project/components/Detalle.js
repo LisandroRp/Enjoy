@@ -196,7 +196,7 @@ class Detalle extends Component {
             contadorUsers++;
         }
         newRating = contadorVotos / contadorUsers;
-        newRating=newRating.toFixed(1)
+        newRating=newRating.toFixed(1);
         ApiController.votar(this.state.idEvento, voto, newRating, personasNew, this.okVote.bind(this));
     }
     okVote() {

@@ -13,6 +13,7 @@ import {
   Dimensions,
   Alert,
   ActivityIndicator,
+  RefreshControl,
   ScrollView
 } from 'react-native';
 
@@ -45,6 +46,7 @@ class Craigslist extends Component {
       eventos: [],
       isLoading: true,
       generoEvento: [],
+      refreshing: false,
     };
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
     //this.Star = 'https://img.icons8.com/color/96/000000/christmas-star.png';
@@ -101,6 +103,13 @@ class Craigslist extends Component {
   clickEventListener = (item) => {
     Alert.alert('Message', 'Item clicked. ' + JSON.stringify(item));
   }
+  _onRefresh(getUserData){
+    this.setState({refreshing: true});
+    console.log(this.state.refreshing)
+    getUserData().then(() => {
+      this.setState({refreshing: false});
+    });
+  }
   render() {
     if (this.state.isLoading) {
       return (
@@ -115,6 +124,12 @@ class Craigslist extends Component {
     } else {
       return (
         <View style={styles.container}>
+        <ScrollView refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.getUserData.bind(this)}
+          />
+        }>
           <FlatList
             style={styles.contentList}
             columnWrapperStyle={styles.listContainer}
@@ -143,6 +158,7 @@ class Craigslist extends Component {
                 )
               }
             }} />
+        </ScrollView>
         </View>
       );
     }

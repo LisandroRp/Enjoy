@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet, Text, ActivityIndicator, TouchableOpacity, Modal, Dimensions, TextInput } from 'react-native';
+import { View, FlatList, StyleSheet, Text, ActivityIndicator, TouchableOpacity, Modal, Dimensions,ScrollView, RefreshControl, TextInput } from 'react-native';
 import { LinearGradient } from 'expo'
 import ApiController from '../controller/ApiController';
 import { AsyncStorage } from 'react-native';
@@ -26,6 +26,7 @@ class Comentarios extends Component {
       isLoading: true,
       comentarios: [],
       modalVisible: false,
+      refreshing: false,
     }
     this._retrieveData();
   }
@@ -85,6 +86,12 @@ class Comentarios extends Component {
       return (
         //<LinearGradient colors={['#584150', '#1e161b']} style={{ flex: 1 }}>
           <View style={[styles.detalleContainer]}>
+          <ScrollView refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.getComments(this.state.IdUser)}
+          />
+        }>
             <FlatList
               data={this.state.comentarios}
               keyExtractor={(item, index) => 'key' + index}
@@ -100,6 +107,7 @@ class Comentarios extends Component {
               }}
             >
             </FlatList>
+            </ScrollView>
           </View>
         //</LinearGradient>
       )
@@ -129,7 +137,6 @@ borrarComentario(id,IdUser){
 okDelete(){
   alert("The comment was successfully deleted");
   console.log(this.state.IdUser)
-  this.props.getComments(this.state.IdUser)
 }
   render() {
     return (

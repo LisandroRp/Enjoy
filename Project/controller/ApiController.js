@@ -1,7 +1,8 @@
 import { Component } from 'react';
 
 //  var ip = '172.20.10.5';
- var ip = '192.168.1.103';
+ //var ip = '192.168.1.103';
+ var ip = '172.20.10.8';
 var url = 'http://'+ip+':8080/apiAppEventos';
 
 class ApiController extends Component {
@@ -106,8 +107,6 @@ class ApiController extends Component {
 
     saveGenre(user, generoEvento, okChange) {
         let uri = url+'/updateUsuarioByGeneroEvento/Usuario'
-        console.log(user)
-        console.log(generoEvento)
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -122,8 +121,6 @@ class ApiController extends Component {
 
     saveTipo(user, tipo, okChange) {
         let uri = url+'/updateUsuarioByTipoEvento/Usuario'
-        console.log(user)
-        console.log(tipo)
         fetch(uri, {
             method: 'POST',
             mode: "cors",
@@ -140,7 +137,6 @@ class ApiController extends Component {
         let uri = url+'/getUsuarioByUsername?username=' + username
         
         fetch(uri).then(res => {
-            console.log(res.body)
             return res.json()
         }).catch((err) => {
             console.log(err)
@@ -173,7 +169,6 @@ class ApiController extends Component {
 
     createComment(idUsuario, idEvento, descripcion, nombre, okComentario) {
         let uri =url+'/insertComentario/Comentario'
-        console.log('judopppppppppppp')
         fetch(uri, {
             method: 'POST',
             mode: "cors",

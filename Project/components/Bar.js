@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  RefreshControl,
   Dimensions,
   Alert,
   ScrollView,
@@ -36,6 +37,7 @@ class Bares extends Component {
       userSelected: [],
       eventos: [],
       isLoading: true,
+      refreshing: false,
     };
     this.Star = 'http://aboutreact.com/wp-content/uploads/2018/08/star_filled.png';
     this.obtenerEventos()
@@ -71,6 +73,12 @@ class Bares extends Component {
   } else {
     return (
       <View style={styles.container}>
+      <ScrollView refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.obtenerEventos.bind(this)}
+          />
+        }>
         <FlatList
           style={styles.contentList}
           columnWrapperStyle={styles.listContainer}
@@ -99,6 +107,7 @@ class Bares extends Component {
             )
             }
           }} />
+          </ScrollView>
       </View>
     );
   }
@@ -177,7 +186,7 @@ const styles = StyleSheet.create({
   },
  followButtonText: {
     color: "black",
-    fontSize: 20,
+    fontSize: 15,
     marginTop:4,
   },
   StarImage: {

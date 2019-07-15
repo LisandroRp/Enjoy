@@ -51,7 +51,7 @@ app.get('/', (req, res) => res.send('Backend Activo'));
 
 /************ Test ***********/
 /**** EVENTOS ****/
-var Evento = require('./model/Evento');
+/*var Evento = require('./model/Evento');
 
 var bocaEvento = new Evento({
     _id: new mongoose.Types.ObjectId(),
